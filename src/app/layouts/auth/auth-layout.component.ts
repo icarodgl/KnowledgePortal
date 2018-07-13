@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../_services/auth/auth.service';
+import { User } from '../../_models/index.model';
 
 @Component({
   selector: 'app-layout',
@@ -11,10 +13,13 @@ export class AuthLayoutComponent implements OnInit {
   private sidebarVisible: boolean;
   mobile_menu_visible: any = 0;
   private _router: Subscription;
+  private user:User;
 
-  constructor(private router: Router, private element: ElementRef) {
+  constructor(private router: Router, private element: ElementRef, private authService:AuthService) {
+      this.user = JSON.parse(this.authService.getCurrentUser());
       this.sidebarVisible = false;
   }
+
   ngOnInit(){
     const navbar: HTMLElement = this.element.nativeElement;
 
@@ -65,5 +70,12 @@ export class AuthLayoutComponent implements OnInit {
         document.getElementsByClassName("close-layer")[0].remove();
           this.sidebarClose();
       }
+  }
+
+  isLocked() {
+      if(this.user && !this.user.token){
+          return true;
+      }
+      return false;
   }
 }

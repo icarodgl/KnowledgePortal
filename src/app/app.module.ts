@@ -49,6 +49,12 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
+import { AuthService } from './_services/auth/auth.service';
+import { AuthGuard } from './_services/auth/auth.guard';
+import { LockGuard } from './_services/auth/lock.guard';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserService } from './_services/user/user.service';
+import { JwtInterceptor } from './_services/auth/jwt.interceptor';
 
 @NgModule({
   exports: [
@@ -99,12 +105,24 @@ export class MaterialModule {}
         SidebarModule,
         NavbarModule,
         FooterModule,
-        FixedpluginModule
+        FixedpluginModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
         AuthLayoutComponent
+    ],
+    providers: [
+      AuthService, 
+      AuthGuard, 
+      UserService,
+      LockGuard,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: JwtInterceptor,
+        multi: true
+      }
     ],
     bootstrap:    [ AppComponent ]
 })

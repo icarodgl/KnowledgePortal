@@ -3,6 +3,7 @@ import { ROUTES } from '../.././sidebar/sidebar.component';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AuthService } from '../../_services/auth/auth.service';
 const misc: any = {
     navbar_menu_visible: 0,
     active_collapse: true,
@@ -26,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
     @ViewChild('app-navbar-cmp') button: any;
 
-    constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router,) {
+    constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router, private authService: AuthService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -200,9 +201,28 @@ export class NavbarComponent implements OnInit {
                 }
             }
         }
-        return 'Dashboard';
+        let t = String(titlee).split('/');
+        if(t.length == 4) {
+            return t[t.length - 1].charAt(0).toLocaleUpperCase() + t[t.length - 1].substr(1).toLowerCase() + " " + t[t.length - 2].charAt(0).toLocaleUpperCase() + t[t.length - 2].substr(1).toLowerCase();
+        }else {
+            return t[t.length - 1].charAt(0).toLocaleUpperCase() + t[t.length - 1].substr(1).toLowerCase();
+        }
+        
     }
     getPath() {
         return this.location.prepareExternalUrl(this.location.path());
     }
+
+    logout(event:any){
+        event.preventDefault();
+        this.authService.logout();
+        this.router.navigate(['pages/login']);
+    }
+
+    lock(event:any){
+        event.preventDefault();
+        this.authService.lock();
+        this.router.navigate(['pages/lock']);
+    }
+
 }

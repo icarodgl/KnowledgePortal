@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { AuthService } from '../_services/auth/auth.service';
+import { Router } from '@angular/router';
+import { User } from '../_models/user.model';
 
 declare const $: any;
 
@@ -26,6 +29,24 @@ export const ROUTES: RouteInfo[] = [{
         title: 'Dashboard',
         type: 'link',
         icontype: 'dashboard'
+    },{
+        path: '/administration',
+        title: 'Administration',
+        type: 'sub',
+        icontype: 'security',
+        collapse: 'administration',
+        children: [
+            {path: 'users', title: 'Users', ab:'U'}
+        ]
+    },{
+        path: '/edit',
+        title: 'Edit',
+        type: 'sub',
+        icontype: 'palette',
+        collapse: 'edit',
+        children: [
+            {path: 'cmap', title: 'Concept Map', ab:'CM'}
+        ]
     },{
         path: '/components',
         title: 'Components',
@@ -114,6 +135,12 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent implements OnInit {
+    public user:User;
+
+    constructor(private router:Router, private authService: AuthService){
+        this.user = JSON.parse(this.authService.getCurrentUser());
+    }
+
     public menuItems: any[];
 
     isMobileMenu() {
@@ -138,5 +165,17 @@ export class SidebarComponent implements OnInit {
             bool = true;
         }
         return bool;
+    }
+
+    logout(event:any){
+        event.preventDefault();
+        this.authService.logout();
+        this.router.navigate(['pages/login']);
+    }
+
+    lock(event:any){
+        event.preventDefault();
+        this.authService.lock();
+        this.router.navigate(['pages/lock']);
     }
 }
