@@ -14,5 +14,10 @@ export class User {
         id?: string;
         access_token?: string;
     };
+    google?:{
+        id?: string;
+        access_token?: string;
+        id_token?: string
+    }
     profile_picture?: string;
 }

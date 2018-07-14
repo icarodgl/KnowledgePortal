@@ -33,6 +33,15 @@ export class AuthService {
             });
     }
 
+    gLogin(user: User){
+        return this.http.post<any>(authApiUri+'/google', user)
+            .map(res => {
+                if(res.user && res.user.token) {
+                    localStorage.setItem('currentUser', JSON.stringify(res.user));
+                }
+            });
+    }
+
     logout(){
         localStorage.removeItem('currentUser');
     }
