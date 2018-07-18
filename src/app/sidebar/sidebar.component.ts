@@ -36,7 +36,8 @@ export const ROUTES: RouteInfo[] = [{
         icontype: 'security',
         collapse: 'administration',
         children: [
-            {path: 'users', title: 'Users', ab:'U'}
+            {path: 'users', title: 'Users', ab:'U'},
+            {path: 'maps', title: 'Maps', ab:'M'}
         ]
     },{
         path: '/edit',
@@ -151,7 +152,10 @@ export class SidebarComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        this.menuItems = ROUTES.filter(menuItem => {
+            if(menuItem.title !== "Administration") return menuItem;
+            else if(this.user.groups.filter(g=> (g.name === "Admin")).length > 0) return menuItem;
+        });
     }
     updatePS(): void  {
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

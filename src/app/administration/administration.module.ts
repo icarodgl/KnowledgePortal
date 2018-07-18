@@ -10,6 +10,7 @@ import { AddUserFormComponent } from './users/add/adduserform.component';
 import { FieldErrorDisplayComponent } from './users/add/field-error-display/field-error-display.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { TagInputModule } from 'ngx-chips';
+import { AdminMapsComponent } from './maps/adminmaps.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { TagInputModule } from 'ngx-chips';
   declarations: [
       AdminUsersComponent,
       AddUserFormComponent,
+      AdminMapsComponent,
       FieldErrorDisplayComponent
   ]
 })

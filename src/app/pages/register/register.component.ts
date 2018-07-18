@@ -5,6 +5,7 @@ import swal from 'sweetalert2';
 import { AuthService } from '../../_services/auth/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../_models/user.model';
+import { HttpClient } from '@angular/common/http';
 
 declare const $: any;
 declare const FB: any;
@@ -17,8 +18,15 @@ declare const gapi: any;
 export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     registerForm: FormGroup;
     test: Date = new Date();
+    private userLocInformation: any;
 
-    constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService, private router: Router){}
+    constructor(
+        private formBuilder: FormBuilder, 
+        private userService: UserService, 
+        private authService: AuthService, 
+        private router: Router,
+        private http:HttpClient
+    ){}
 
     ngOnInit() {
       const body = document.getElementsByTagName('body')[0];
@@ -46,6 +54,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
             xfbml      : true,
             version    : 'v3.0'
         });
+
+        this.http.get('http://ip-api.com/json')
+            .subscribe(data => {
+                this.userLocInformation = data;
+            }, error => console.log(error));
     }
 
     ngOnDestroy(){
@@ -179,6 +192,12 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     register(e){
         e.preventDefault();
         let user = this.registerForm.getRawValue();
+        user.locInfo = {};
+        user.locInfo.country = this.userLocInformation.country;
+        user.locInfo.countryCode = this.userLocInformation.countryCode;
+        user.locInfo.city = this.userLocInformation.city;
+        user.locInfo.region = this.userLocInformation.region;
+        user.locInfo.regionName = this.userLocInformation.regionName;
 
         this.userService.create(user)
             .subscribe(

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
-import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import { FormBuilder } from '@angular/forms';
 import { PasswordValidation } from './password-validator.component';
 import { UserService } from '../../../_services/user/user.service';
 import { Router } from '@angular/router';

@@ -3,6 +3,7 @@ import { TableData } from '../md/md-table/md-table.component';
 import { LegendItem, ChartType } from '../md/md-chart/md-chart.component';
 
 import * as Chartist from 'chartist';
+import { HttpClient } from '@angular/common/http';
 
 declare const $: any;
 
@@ -11,8 +12,11 @@ declare const $: any;
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  // constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService) { }
+  private globalInfo: Object[];
+  public loaded: boolean = false;
   public tableData: TableData;
+
+  constructor(private http: HttpClient){}
   startAnimationForLineChart(chart: any) {
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -69,18 +73,28 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       seq2 = 0;
   }
   // constructor(private navbarTitleService: NavbarTitleService) { }
+  public populate() {
+      let total:any = 0;
+      let arr:string[][] = new Array<string[]>();
+      this.globalInfo.forEach((el:any) => total+=el.count);
+
+      this.globalInfo.forEach(function(el:any) {
+          if(el._id) arr.push([el.countryCode, el._id, el.count, Math.round(((el.count/total)*100)*10)/10+'%']);
+          else arr.push(['unknow', 'Unknow', el.count, Math.round(((el.count/total)*100)*10)/10+'%']);
+      });
+      console.log(arr);
+    this.tableData = {
+        headerRow: ['ID', 'Name', 'Salary', 'Country', 'City'],
+        dataRows: arr
+     };
+     this.loaded = true;
+  }
   public ngOnInit() {
-      this.tableData = {
-          headerRow: ['ID', 'Name', 'Salary', 'Country', 'City'],
-          dataRows: [
-              ['US', 'USA', '2.920	', '53.23%'],
-              ['DE', 'Germany', '1.300', '20.43%'],
-              ['AU', 'Australia', '760', '10.35%'],
-              ['GB', 'United Kingdom	', '690', '7.87%'],
-              ['RO', 'Romania', '600', '5.94%'],
-              ['BR', 'Brasil', '550', '4.34%']
-          ]
-       };
+      this.http.get('http://localhost:3000/v1/users/globalInfo')
+        .subscribe(data => {
+            this.globalInfo = data as Object[];
+            this.populate();
+        }, error => console.log(error));
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
       const dataDailySalesChart = {

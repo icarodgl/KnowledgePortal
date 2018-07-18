@@ -1,3 +1,4 @@
+import { Group } from './index.model';
 export class User {
     _id: string;
     firstname: string;
@@ -9,6 +10,7 @@ export class User {
         rel?: string,
         href?: string
     };
+    created?: Date;
     token?:string;
     facebook?: {
         id?: string;
@@ -20,4 +22,12 @@ export class User {
         id_token?: string
     }
     profile_picture?: string;
+    locInfo?: {
+        country?: string,
+        countryCode?: string,
+        region?: string,
+        regionName?: string,
+        city?: string
+    };
+    groups?: Group[];
 }

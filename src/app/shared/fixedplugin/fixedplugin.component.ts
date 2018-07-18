@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare const $: any;
 const md: any = {
@@ -17,7 +18,7 @@ const md: any = {
 
 export class FixedpluginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
       // fixed plugin
@@ -37,6 +38,11 @@ export class FixedpluginComponent implements OnInit {
           }
 
       }
+
+      $('#bt-save').click((event) => {
+          event.preventDefault();
+          this.router.navigate(["edit","cmap","save"]);
+      });
 
       $('.fixed-plugin a').click(function(event) {
         // Alex: if we click on switch, stop propagation of the event,

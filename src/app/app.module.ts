@@ -52,8 +52,9 @@ import { AppRoutes } from './app.routing';
 import { AuthService } from './_services/auth/auth.service';
 import { AuthGuard } from './_services/auth/auth.guard';
 import { LockGuard } from './_services/auth/lock.guard';
+import { AdminGuard } from './_services/auth/admin.guard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserService } from './_services/user/user.service';
+import { UserService, MapService } from './_services/index.service';
 import { JwtInterceptor } from './_services/auth/jwt.interceptor';
 
 @NgModule({
@@ -117,7 +118,9 @@ export class MaterialModule {}
       AuthService, 
       AuthGuard, 
       UserService,
+      MapService,
       LockGuard,
+      AdminGuard,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: JwtInterceptor,

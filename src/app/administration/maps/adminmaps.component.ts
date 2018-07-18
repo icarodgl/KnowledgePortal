@@ -1,44 +1,44 @@
 // IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
 
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { UserService } from '../../_services/user/user.service';
-import { User } from '../../_models/index.model';
+import { MapService } from '../../_services/index.service';
+import { Map } from '../../_models/index.model';
 
 declare interface DataTable {
   headerRow: string[];
   footerRow: string[];
-  dataRows: User[];
+  dataRows: Map[];
 }
 
 declare const $: any;
 
 @Component({
-    selector: 'app-admin-users-cmp',
-    templateUrl: 'adminusers.component.html'
+    selector: 'app-admin-maps-cmp',
+    templateUrl: 'adminmaps.component.html'
 })
 
-export class AdminUsersComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class AdminMapsComponent implements OnInit, AfterViewInit, AfterViewChecked {
     public dataTable: DataTable;
-    private userList: User[];
+    private mapList: Map[];
     public loaded: boolean = false;
     public rendered: boolean = false; 
 
-    constructor(private userService: UserService){}
+    constructor(private mapService: MapService){}
 
     populate(){
       this.dataTable = {
-        headerRow: [ 'Username', 'Full Name', 'e-Mail', 'Actions' ],
-        footerRow: [ 'Username', 'Full Name', 'e-Mail', 'Actions' ],
+        headerRow: [ 'Title', 'Question', 'Author', 'Actions' ],
+        footerRow: [ 'Title', 'Question', 'Author', 'Actions' ],
 
-        dataRows: this.userList
+        dataRows: this.mapList
      };
      this.loaded = true;
     }
 
     ngOnInit() {
-      this.userService.getAll()
+      this.mapService.getAll()
         .subscribe(data => {
-            this.userList = data;
+            this.mapList = data;
             this.populate();
         });
     }

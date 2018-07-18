@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { AdminUsersComponent } from './users/adminusers.component';
 import { AddUserFormComponent } from './users/add/adduserform.component';
+import { AdminMapsComponent } from './maps/adminmaps.component';
 
 
 export const AdministrationRoutes: Routes = [
@@ -19,6 +20,14 @@ export const AdministrationRoutes: Routes = [
                     component: AddUserFormComponent
                 }
             ]
-        }
-       ]}
+        },{
+            path: 'maps',
+            children: [
+                {
+                    path: '',
+                    component: AdminMapsComponent
+                }
+            ]
+        }]
+    }
 ];

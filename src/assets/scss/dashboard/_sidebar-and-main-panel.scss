@@ -241,7 +241,7 @@
     }
 
     .logo{
-        padding: 15px 0px;
+        padding: 10px 0px;
         margin: 0;
         display: block;
         position: relative;
@@ -279,15 +279,15 @@
         }
 
         p{
-            float: left;
-            font-size: 20px;
-            margin: 10px 10px;
+            font-size: 10px;
             color: $white-color;
             line-height: 20px;
+            text-align: center;
+            font-weight: $font-weight-default;
+            overflow: hidden;
         }
 
         .simple-text{
-            text-transform: uppercase;
             padding: $padding-small-vertical $padding-zero;
             display: inline-block;
             font-size: 18px;
@@ -539,6 +539,10 @@
                     opacity: 0;
                     @include transform-translate-x(-25px);
                 }
+                p{
+                    opacity: 0;
+                    @include transform-translate-x(-25px);
+                }
             }
 
             .sidebar-wrapper{
@@ -557,6 +561,10 @@
 
             .logo{
                 a.logo-normal{
+                    opacity: 1;
+                    @include transform-translate-x(0px);
+                }
+                p{
                     opacity: 1;
                     @include transform-translate-x(0px);
                 }

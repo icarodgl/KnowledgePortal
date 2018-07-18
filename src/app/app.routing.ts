@@ -4,6 +4,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AuthGuard } from './_services/auth/auth.guard';
 import { LockGuard } from './_services/auth/lock.guard';
+import { AdminGuard } from './_services/auth/admin.guard';
 
 export const AppRoutes: Routes = [
     {
@@ -20,7 +21,8 @@ export const AppRoutes: Routes = [
                 loadChildren: './dashboard/dashboard.module#DashboardModule'
             }, {
                 path: 'administration',
-                loadChildren: './administration/administration.module#AdministrationModule'
+                loadChildren: './administration/administration.module#AdministrationModule',
+                canActivate: [AdminGuard]
             }, {
                 path: 'edit',
                 loadChildren: './edit/edit.module#EditModule'

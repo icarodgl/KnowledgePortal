@@ -1,5 +1,6 @@
-import { User } from "./index.model";
+import { User, Map } from "./index.model";
 export interface Result{
     userMessage: string,
-    user: User
+    user?: User,
+    map?: Map
 };
