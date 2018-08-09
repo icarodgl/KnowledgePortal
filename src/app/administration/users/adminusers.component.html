@@ -22,7 +22,8 @@
                                       <th>{{ dataTable.headerRow[0] }}</th>
                                       <th>{{ dataTable.headerRow[1] }}</th>
                                       <th>{{ dataTable.headerRow[2] }}</th>
-                                      <th class="disabled-sorting text-right">{{ dataTable.headerRow[3] }}</th>
+                                      <th>{{ dataTable.headerRow[3] }}</th>
+                                      <th class="disabled-sorting text-right">{{ dataTable.headerRow[4] }}</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -30,11 +31,13 @@
                                       <th>{{ dataTable.footerRow[0] }}</th>
                                       <th>{{ dataTable.footerRow[1] }}</th>
                                       <th>{{ dataTable.footerRow[2] }}</th>
-                                      <th class="text-right">{{ dataTable.footerRow[3] }}</th>
+                                      <th>{{ dataTable.footerRow[3] }}</th>
+                                      <th class="text-right">{{ dataTable.footerRow[4] }}</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <tr *ngFor="let row of dataTable.dataRows">
+                                        <td><img src="{{row.profile_picture}}"></td>
                                         <td>{{row.username}}</td>
                                         <td>{{row.firstname + ' ' + row.surname}}</td>
                                         <td>{{row.email}}</td>

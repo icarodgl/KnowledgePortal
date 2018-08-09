@@ -14,7 +14,8 @@ declare const $: any;
 
 @Component({
     selector: 'app-admin-users-cmp',
-    templateUrl: 'adminusers.component.html'
+    templateUrl: 'adminusers.component.html',
+    styleUrls: ['./adminusers.component.css']
 })
 
 export class AdminUsersComponent implements OnInit, AfterViewInit, AfterViewChecked {
@@ -27,8 +28,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit, AfterViewChec
 
     populate(){
       this.dataTable = {
-        headerRow: [ 'Username', 'Full Name', 'e-Mail', 'Actions' ],
-        footerRow: [ 'Username', 'Full Name', 'e-Mail', 'Actions' ],
+        headerRow: [ 'picture','Username', 'Full Name', 'e-Mail', 'Actions' ],
+        footerRow: [ 'picture','Username', 'Full Name', 'e-Mail', 'Actions' ],
 
         dataRows: this.userList
      };

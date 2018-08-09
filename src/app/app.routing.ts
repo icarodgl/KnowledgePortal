@@ -27,6 +27,9 @@ export const AppRoutes: Routes = [
                 path: 'edit',
                 loadChildren: './edit/edit.module#EditModule'
             }, {
+                path: 'view',
+                loadChildren: './view/view.module#ViewModule'
+            }, {
                 path: 'components',
                 loadChildren: './components/components.module#ComponentsModule'
             }, {
@@ -53,6 +56,9 @@ export const AppRoutes: Routes = [
             }, {
                 path: '',
                 loadChildren: './timeline/timeline.module#TimelineModule'
+            }, {
+                path: '',
+                loadChildren: './findpage/find.module#FindModule'
             }
         ]
     },{

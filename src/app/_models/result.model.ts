@@ -1,6 +1,7 @@
-import { User, Map } from "./index.model";
+import { User, ConceptMap, Version } from "./index.model";
 export interface Result{
     userMessage: string,
     user?: User,
-    map?: Map
+    map?: ConceptMap,
+    version?: Version
 };

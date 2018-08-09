@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer, ViewChild, ElementRef, Directive } from '@angular/core';
-import { ROUTES } from '../.././sidebar/sidebar.component';
+import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -17,6 +17,7 @@ declare var $: any;
 })
 
 export class NavbarComponent implements OnInit {
+    public search:string = "";
     private listTitles: any[];
     location: Location;
     mobile_menu_visible: any = 0;
@@ -202,7 +203,7 @@ export class NavbarComponent implements OnInit {
             }
         }
         let t = String(titlee).split('/');
-        if(t.length == 4) {
+        if(t.length >= 3) {
             return t[t.length - 1].charAt(0).toLocaleUpperCase() + t[t.length - 1].substr(1).toLowerCase() + " " + t[t.length - 2].charAt(0).toLocaleUpperCase() + t[t.length - 2].substr(1).toLowerCase();
         }else {
             return t[t.length - 1].charAt(0).toLocaleUpperCase() + t[t.length - 1].substr(1).toLowerCase();
@@ -223,6 +224,12 @@ export class NavbarComponent implements OnInit {
         event.preventDefault();
         this.authService.lock();
         this.router.navigate(['pages/lock']);
+    }
+
+    redirectToSearch(e){
+        e.preventDefault();
+        //this.router.navigate(['pages','find', this.search]);
+        window.location.href = '/pages/find/'+this.search;
     }
 
 }

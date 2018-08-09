@@ -54,8 +54,9 @@ import { AuthGuard } from './_services/auth/auth.guard';
 import { LockGuard } from './_services/auth/lock.guard';
 import { AdminGuard } from './_services/auth/admin.guard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserService, MapService } from './_services/index.service';
+import { UserService, MapService, VersionService, MeService } from './_services/index.service';
 import { JwtInterceptor } from './_services/auth/jwt.interceptor';
+import { FollowService } from './_services/follow/follow.service';
 
 @NgModule({
   exports: [
@@ -119,6 +120,9 @@ export class MaterialModule {}
       AuthGuard, 
       UserService,
       MapService,
+      VersionService,
+      FollowService,
+      MeService,
       LockGuard,
       AdminGuard,
       {

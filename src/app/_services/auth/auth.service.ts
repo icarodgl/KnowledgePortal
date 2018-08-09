@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { authApiUri } from '../../global.vars';
+import { authApiUri, meApiUri } from '../../global.vars';
 import { User } from '../../_models/user.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
@@ -11,6 +11,15 @@ export class AuthService {
 
     getCurrentUser(){
         return localStorage.getItem('currentUser');
+    }
+
+    updateUser() {
+        return this.http.get<User>(meApiUri)
+            .map(user => {
+                user.token = JSON.parse(this.getCurrentUser()).token;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                return user;
+            });
     }
 
     login(user:User){
@@ -43,7 +52,7 @@ export class AuthService {
     }
 
     logout(){
-        localStorage.removeItem('currentUser');
+        localStorage.clear();
     }
 
     lock(){

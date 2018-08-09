@@ -11,6 +11,8 @@ import { FieldErrorDisplayComponent } from './users/add/field-error-display/fiel
 import { NouisliderModule } from 'ng2-nouislider';
 import { TagInputModule } from 'ngx-chips';
 import { AdminMapsComponent } from './maps/adminmaps.component';
+import { AdminDashboardComponent } from './dashboard/admindashboard.component';
+import { MdModule } from '../md/md.module';
 
 @NgModule({
   imports: [
@@ -20,12 +22,14 @@ import { AdminMapsComponent } from './maps/adminmaps.component';
     ReactiveFormsModule,
     NouisliderModule,
     TagInputModule,
+    MdModule,
     MaterialModule
   ],
   declarations: [
       AdminUsersComponent,
       AddUserFormComponent,
       AdminMapsComponent,
+      AdminDashboardComponent,
       FieldErrorDisplayComponent
   ]
 })

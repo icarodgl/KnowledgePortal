@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MapService, AuthService } from '../../_services/index.service';
+import { myDiagram, resetModel } from '../../edit/conceptmap/conceptmap.component';
+import { MyErrorStateMatcher } from '../../forms/validationforms/validationforms.component';
+import swal from 'sweetalert2';
 
 declare const $: any;
 const md: any = {
@@ -18,7 +22,7 @@ const md: any = {
 
 export class FixedpluginComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, public mapService: MapService, private authService: AuthService) { }
 
   ngOnInit() {
       // fixed plugin
@@ -38,10 +42,52 @@ export class FixedpluginComponent implements OnInit {
           }
 
       }
-
+      $('#bt-new-map').click((event) => {
+        event.preventDefault();
+        swal({
+            title: 'Are you sure?',
+            text: 'All your current map modifications will be lost...',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, proceed...',
+            cancelButtonText: 'No, keep it',
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger",
+            buttonsStyling: false
+        }).then((result) => {
+          if (result.value) {
+            this.mapService.removeCurrentMap();
+            resetModel();
+          }
+        });
+        
+      });
       $('#bt-save').click((event) => {
           event.preventDefault();
           this.router.navigate(["edit","cmap","save"]);
+      });
+
+      $('#bt-version').click(event => {
+          event.preventDefault();
+          this.mapService.createVersion(myDiagram.model.toJson())
+            .subscribe(_ => {
+                this.authService.updateUser();
+
+                $.notify({
+                    icon: 'notifications',
+                    message: 'New version created successful!'
+                }, {
+                    type: 'success',
+                    timer: 250,
+                    placement: {
+                        from: 'top',
+                        align: 'right'
+                    }
+                });
+
+            }, error => {
+               console.log(error);
+            });
       });
 
       $('.fixed-plugin a').click(function(event) {

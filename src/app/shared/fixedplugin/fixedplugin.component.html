@@ -32,10 +32,13 @@
             </li>
             <li class="header-title">Operations</li>
             <li class="adjustments-line">
-                    <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save" id="bt-save">
+                    <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Create a new map" id="bt-new-map">
+                        <i class="material-icons">add</i>
+                    </button>
+                    <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save as new map" id="bt-save">
                         <i class="material-icons">save</i>
                     </button>
-                    <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Make a new Version">
+                    <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Save as new version" id="bt-version" [disabled]="!mapService.getCurrentMap()">
                         <i class="material-icons">call_split</i>
                     </button>
             </li>

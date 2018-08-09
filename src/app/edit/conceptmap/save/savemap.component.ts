@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {myDiagram} from '../conceptmap.component';
 import * as go from 'gojs';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { MapService } from '../../../_services/index.service';
+import { MapService, AuthService } from '../../../_services/index.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Map } from '../../../_models/index.model';
+import swal from 'sweetalert2';
+import { ConceptMap } from '../../../_models/index.model';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -15,12 +17,17 @@ declare var $: any;
 })
 export class SaveMapComponent implements OnInit{
     private image:SafeHtml;
-    public map:Map;
+    public map:ConceptMap;
     regularItems;
     teste:boolean = false;
 
-    constructor(private _sanitizer: DomSanitizer, private mapService: MapService){
-        this.map = new Map();
+    constructor(
+        private _sanitizer: DomSanitizer, 
+        private mapService: MapService, 
+        private router: Router,
+        private authService: AuthService
+    ){
+        this.map = new ConceptMap();
         this.map.isPublic = true;
         this.map.keywords = [];
     }
@@ -31,7 +38,7 @@ export class SaveMapComponent implements OnInit{
             let serializer = new XMLSerializer();
             let svg = myDiagram.makeSvg({
                 scale:0.4,
-                maxSize: new go.Size(330, 220)
+                maxSize: new go.Size(NaN, 220)
             });
             this.image = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
         }
@@ -39,9 +46,33 @@ export class SaveMapComponent implements OnInit{
     }
 
     save() {
+        let that = this;
         this.map.keywords = this.map.keywords.map((el:any) => el.value);
         this.mapService.create(this.map)
-            .subscribe(data => console.log(data), error => console.log(error));
+            .subscribe(
+                data => {
+                    this.mapService.setCurrentMap(data.map);
+                    this.mapService.createVersion(myDiagram.model.toJson())
+                        .subscribe(_ => {
+                            swal({
+                                type: 'success',
+                                html: 'Greate! <strong>' +
+                                        'Your map was saved' +
+                                    '</strong>. <br /> You will be redirect to your dashboard!',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false
+                            }).then(() => {
+                                that.authService.updateUser()
+                                    .subscribe(_ => {
+                                        that.router.navigate(['dashboard']);
+                                    }, error=> console.log(error));
+                            });
+                        }, error=> console.log(error));
+                }, 
+                error => console.log(error));
+    }
+    back(){
+        this.router.navigate(['edit/cmap']);
     }
     
 }

@@ -1,0 +1,16 @@
+.mapimg{
+    background-image: url('../../../assets/img/image_placeholder2.jpeg');
+    background-size: cover;
+    width: 100%;
+    border-radius: 6px;
+    pointer-events: none;
+    box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    vertical-align: middle;
+    border-style: none;
+    height: 220px;
+    overflow: hidden;
+    filter: brightness(97%)
+}
+#map{
+    display: none;
+}

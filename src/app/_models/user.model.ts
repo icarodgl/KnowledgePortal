@@ -1,4 +1,4 @@
-import { Group } from './index.model';
+import { Group, ConceptMap } from './index.model';
 export class User {
     _id: string;
     firstname: string;
@@ -29,5 +29,8 @@ export class User {
         regionName?: string,
         city?: string
     };
+    maps?: ConceptMap[];
     groups?: Group[];
+    following?: User[];
+    followers?: User[];
 }

@@ -17,4 +17,8 @@ export class UserService {
     create(user: User){
         return this.http.post<Result>(userApiUri, user);
     }
+
+    getUserData(userId:string){
+        return this.http.get<User>(userApiUri+'/'+userId);
+    }
 }
