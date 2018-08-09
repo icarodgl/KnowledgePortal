@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import * as go from 'gojs';
 import { HttpClient } from '@angular/common/http';
-import { AuthService, MapService, MeService } from '../_services/index.service';
+import { AuthService, MapService, MeService, ModelService } from '../_services/index.service';
 import { User, ConceptMap, Version } from '../_models/index.model';
 import { Router } from '@angular/router';
 
@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       private authServicve: AuthService,
       private mapService: MapService,
       private meService: MeService,
-      private router:Router
+      private router:Router,
+      private modelService:ModelService
   ){
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
@@ -43,7 +44,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             this.meService.updateDashboardMapsVersions(this.maps)
                 .subscribe(versions => {
                     versions.forEach(v => {
-                        this.versions.findIndex(item => item.map._id == v.map._id) === -1 ? this.versions.push(v) : {} ;
+                        //this.versions.findIndex(item => item.map._id == v.map._id) === -1 ? this.versions.push(v) : {} ;
+                        this.maps.forEach((m, i) => {
+                            if(m._id == v.map._id) {
+                                this.versions[i] = v;
+                            }
+                        });
                     });
                     let serializer = new XMLSerializer();
                     let svg;
@@ -249,10 +255,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         myDiagram.groupTemplateMap.add("map", mapTemplate);
    }
    ngAfterViewInit() {
-       
    }
    click(n){
         this.mapService.setCurrentMap(this.maps[n]);
         this.router.navigate(['view','map']);
+   }
+   newMap(e){
+       e.preventDefault();
+       this.modelService.removeCurrentModel();
+       this.mapService.removeCurrentMap();
+       this.router.navigate(['edit','cmap']);
    }
 }

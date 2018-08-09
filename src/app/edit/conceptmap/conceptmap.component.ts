@@ -1,6 +1,6 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import * as go from "gojs";
-import { VersionService } from '../../_services/index.service';
+import { VersionService, ModelService } from '../../_services/index.service';
 import swal from 'sweetalert2';
 
 declare var $ : any;
@@ -18,7 +18,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
   @ViewChild('myDiagramDiv')
   element: ElementRef;
 
-  constructor(private versionService:VersionService){}
+  constructor(private versionService:VersionService, modelService:ModelService){}
 
   ngAfterViewInit() {
     let conceptNodeTemplate, relationNodeTemplate, normalLinkTemplate, orLinkTemplate, mapTemplate, selectionAdornmentTemplate;
