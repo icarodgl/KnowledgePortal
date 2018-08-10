@@ -144,7 +144,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
 
 
 
-      this.http.get('http://localhost:3000/v1/users/globalInfo')
+      this.http.get('http://cmpaas.org/v1/users/globalInfo')
         .subscribe(data => {
             this.globalInfo = data as Object[];
             this.populate();
