@@ -42,4 +42,8 @@ export class MapService {
         let map:ConceptMap = JSON.parse(this.getCurrentMap());
         return this.http.post<Result>(mapApiUri+'/'+map._id.toString()+'/versions', JSON.parse(content));
     }
+
+    getMapData(mapId:string){
+        return this.http.get<ConceptMap>(mapApiUri+'/'+mapId);
+    }
 }

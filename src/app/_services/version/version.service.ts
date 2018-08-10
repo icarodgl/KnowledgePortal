@@ -35,4 +35,8 @@ export class VersionService {
                 return versions;
             });
     }
+
+    getVersionData(versionId:string){
+        return this.http.get<Version>(versionApiUri+'/'+versionId);
+    }
 }

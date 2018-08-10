@@ -1,4 +1,4 @@
-import { User } from './index.model';
+import { User, Version } from './index.model';
 export class ConceptMap {
     _id: string;
     title: string;
@@ -9,4 +9,5 @@ export class ConceptMap {
     last_update?: Date;
     author?: User;
     isPublic?: Boolean;
+    versions?: Version[];
 }
