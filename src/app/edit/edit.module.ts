@@ -22,7 +22,8 @@ import { SaveMapComponent } from './conceptmap/save/savemap.component';
   declarations: [
     ConceptMapComponent,
     SaveMapComponent
-  ]
+  ],
+  exports:[ConceptMapComponent]
 })
 
 export class EditModule {}

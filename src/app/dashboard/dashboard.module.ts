@@ -7,6 +7,7 @@ import { MaterialModule } from '../app.module';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutes } from './dashboard.routing';
+import { EditModule } from '../edit/edit.module';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { DashboardRoutes } from './dashboard.routing';
         RouterModule.forChild(DashboardRoutes),
         FormsModule,
         MdModule,
-        MaterialModule
+        MaterialModule,
+        EditModule
     ],
     declarations: [DashboardComponent]
 })
