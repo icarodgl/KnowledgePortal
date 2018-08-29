@@ -27,6 +27,9 @@ export const AppRoutes: Routes = [
                 path: 'edit',
                 loadChildren: './edit/edit.module#EditModule'
             }, {
+                path: 'tools',
+                loadChildren: './tools/tools.module#ToolsModule'
+            }, {
                 path: 'view',
                 loadChildren: './view/view.module#ViewModule'
             }, {

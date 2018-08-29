@@ -192,12 +192,14 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     register(e){
         e.preventDefault();
         let user = this.registerForm.getRawValue();
-        user.locInfo = {};
-        user.locInfo.country = this.userLocInformation.country;
-        user.locInfo.countryCode = this.userLocInformation.countryCode;
-        user.locInfo.city = this.userLocInformation.city;
-        user.locInfo.region = this.userLocInformation.region;
-        user.locInfo.regionName = this.userLocInformation.regionName;
+        if(this.userLocInformation)
+            user.locInfo = {
+                country : this.userLocInformation.country,
+                countryCode : this.userLocInformation.countryCode,
+                city : this.userLocInformation.city,
+                region : this.userLocInformation.region,
+                regionName : this.userLocInformation.regionName
+            };
 
         this.userService.create(user)
             .subscribe(

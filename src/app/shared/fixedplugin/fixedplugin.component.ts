@@ -4,6 +4,7 @@ import { MapService, AuthService } from '../../_services/index.service';
 import { myDiagram, resetModel } from '../../edit/conceptmap/conceptmap.component';
 import { MyErrorStateMatcher } from '../../forms/validationforms/validationforms.component';
 import swal from 'sweetalert2';
+import * as go from "gojs";
 
 declare const $: any;
 const md: any = {
@@ -103,23 +104,19 @@ export class FixedpluginComponent implements OnInit {
       });
 
       $('.fixed-plugin .active-color span').click(function() {
-          const $full_page_background = $('.full-page-background');
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-          const new_color = $(this).data('color');
-
-          if ($sidebar.length !== 0) {
-              $sidebar.attr('data-color', new_color);
-          }
-
-          if ($full_page.length !== 0) {
-              $full_page.attr('filter-color', new_color);
-          }
-
-          if ($sidebar_responsive.length !== 0) {
-              $sidebar_responsive.attr('data-color', new_color);
-          }
+        const color = $(this).data('color');
+        // Always make changes in a transaction, except when initializing the diagram.
+        myDiagram.startTransaction("change color");
+        myDiagram.selection.each(function(node) {
+        if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
+            // Examine and modify the data, not the Node directly.
+            var data = node.data;
+            // Call setDataProperty to support undo/redo as well as
+            // automatically evaluating any relevant bindings.
+            myDiagram.model.setDataProperty(data, "color", color);
+        }
+        });
+        myDiagram.commitTransaction("change color");
       });
 
       $('.fixed-plugin .background-color span').click(function() {
