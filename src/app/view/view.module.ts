@@ -8,6 +8,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { TagInputModule } from 'ngx-chips';
 import { ViewMapComponent } from './map/viewmap.component';
 import { ViewMapVersionsComponent } from './map/versions/viewmapversions.component';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ViewMapVersionsComponent } from './map/versions/viewmapversions.compone
     ReactiveFormsModule,
     NouisliderModule,
     TagInputModule,
-    MaterialModule
+    MaterialModule,
+    ComponentsModule
   ],
   declarations: [
     ViewMapComponent,
