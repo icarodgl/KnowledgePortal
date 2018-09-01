@@ -5,6 +5,7 @@ import { myDiagram, resetModel } from '../../edit/conceptmap/conceptmap.componen
 import { MyErrorStateMatcher } from '../../forms/validationforms/validationforms.component';
 import swal from 'sweetalert2';
 import * as go from "gojs";
+import axios from 'axios';
 
 declare const $: any;
 const md: any = {
@@ -89,6 +90,81 @@ export class FixedpluginComponent implements OnInit {
             }, error => {
                console.log(error);
             });
+      });
+
+      $('#bt-check-map').click((event) => {
+          event.preventDefault();
+        if (event.stopPropagation) {
+            event.stopPropagation();
+        } else if (window.event) {
+           window.event.cancelBubble = true;
+        }
+
+          const mapa = myDiagram.model.nodeDataArray;
+          const conceitos = mapa.filter(item => 'concept' === (item as any).category);
+          const frasesDeLigacao = mapa.filter(item => 'relation' === (item as any).category);
+          const proposicoes = [];
+
+          const frasesDeLigacaoComConexoes = [];
+
+          const conexoes = myDiagram.model.linkDataArray;
+          
+          conceitos.forEach(item => {
+              const conceitoOrigem = item;
+
+              conexoes.forEach(item => {
+                  if (item.from === (conceitoOrigem as any).key) {
+                      const ligacao = frasesDeLigacao.find(element => (element as any).key === item.to);
+
+                      conexoes.forEach(item => {
+                          if ((ligacao as any).key === item.from) {
+                              const conceitoDestino = conceitos.find(element => (element as any).key === item.to);
+
+                              const temp = {...ligacao, from: (conceitoOrigem as any).key, to: (conceitoDestino as any).key}
+
+                              frasesDeLigacaoComConexoes.push(temp);                             
+
+                              proposicoes.push(`${(conceitoOrigem as any).text} ${(ligacao as any).text} ${(conceitoDestino as any).text}`);
+                          }
+                      })
+                  }
+              })
+          })
+
+		const mapaConceitual = {
+			conceitos: conceitos,
+			frasesDeLigacao: frasesDeLigacaoComConexoes,
+			proposicoes: proposicoes,
+			erros: {
+				conceitoNaoDefinido: [],
+				fraseDeLigacaoNaoDefinida: [],
+				fraseDeLigacaoSemVerbo: [],
+				proposicoesComErroDeConcordancia: [],
+				conceitoRepetido: [],
+				conceitoInvalido: []
+			}
+        };
+        
+        console.log({mapaConceitual});
+        
+		
+		const params = new URLSearchParams();
+        params.append('mapa', JSON.stringify(mapaConceitual));
+
+        const API = 'http://0.0.0.0:5002/';
+        
+        $('#bt-check-map i').html('autorenew');
+        axios.post(`${API}mapa/erros`, params)
+        .then(result => {
+            console.log({result});
+        })
+        .catch(error => console.log({error})
+        )
+        .then(() => {
+            $('#bt-check-map i').html('spellcheck');
+        })
+          
+          
       });
 
       $('.fixed-plugin a').click(function(event) {
