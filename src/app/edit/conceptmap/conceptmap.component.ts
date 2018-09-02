@@ -21,6 +21,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
   constructor(private versionService:VersionService, modelService:ModelService){}
 
   ngAfterViewInit() {
+      
     let conceptNodeTemplate, relationNodeTemplate, normalLinkTemplate, orLinkTemplate, mapTemplate, selectionAdornmentTemplate;
     const $ = go.GraphObject.make;  // for conciseness in defining templates
 
@@ -248,7 +249,8 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 stroke: "black"
             },
                 // Shape.fill is bound to Node.data.color
-                new go.Binding("fill", "color")
+                new go.Binding("fill", "color").makeTwoWay(),
+                new go.Binding("stroke", "stroke").makeTwoWay()
             ),
             $(go.TextBlock,
                 {
@@ -515,7 +517,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     
     let nodeDataArray =
         [
-            { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4 },
+            { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, color: "red", stroke: "blue" },
             { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
             { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
             { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
@@ -579,12 +581,11 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     });
     myDiagram.commitTransaction("change color");
   }
-}
 
-export function resetModel() {
+  reset(){
     let nodeDataArray =
     [
-        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4 },
+        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "red" },
         { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
         { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
         { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
@@ -595,8 +596,31 @@ export function resetModel() {
     let linkDataArray =
     [
         { from: 0, to: 3, category: "normal", color: "red", group: 4 },
-        { from: 3, to: 1, category: "normal", group: 4 },
-        { from: 3, to: 2, category: "normal", group: 4 },
+        { from: 3, to: 1, category: "or", group: 4 },
+        { from: 3, to: 2, category: "or", group: 4 },
+        { from: 1, to: 5, category :"normal"},
+        { from: 5, to: 6, category :"normal"}
+    ];
+    myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
+  }
+}
+
+export function resetModel() {
+    let nodeDataArray =
+    [
+        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "red" },
+        { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
+        { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
+        { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
+        { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true },
+        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", },
+        { key: 6, text: "Concept 4", loc:"400 -30", category:"concept" }
+    ];
+    let linkDataArray =
+    [
+        { from: 0, to: 3, category: "normal", color: "red", group: 4 },
+        { from: 3, to: 1, category: "or", group: 4 },
+        { from: 3, to: 2, category: "or", group: 4 },
         { from: 1, to: 5, category :"normal"},
         { from: 5, to: 6, category :"normal"}
     ];

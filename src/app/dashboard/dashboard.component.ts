@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import * as go from 'gojs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, MapService, MeService, ModelService } from '../_services/index.service';
 import { User, ConceptMap, Version } from '../_models/index.model';
 import { Router } from '@angular/router';
-import {myDiagram} from '../edit/conceptmap/conceptmap.component';
+import { myDiagram, ConceptMapComponent } from '../edit/conceptmap/conceptmap.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +13,9 @@ import {myDiagram} from '../edit/conceptmap/conceptmap.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild("map1") map1: ConceptMapComponent;
 
-  @ViewChild('myDiagramDiv')
-  element: ElementRef;
+  @ViewChild('myDiagramDiv') element: ElementRef;
 
   private images:SafeHtml[] = new Array<SafeHtml>();
   private idMap:String[] = new Array<String>();
@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
        e.preventDefault();
        this.modelService.removeCurrentModel();
        this.mapService.removeCurrentMap();
+       this.map1.reset();
        this.router.navigate(['edit','cmap']);
    }
 }

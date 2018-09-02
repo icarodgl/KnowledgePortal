@@ -50,8 +50,8 @@ export class ViewMapComponent implements OnInit {
                     this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
 
                     svg = myDiagram.makeSvg({
-                        scale:0.8,
-                        maxSize: new go.Size(NaN, 400)
+                        scale:1,
+                        maxSize: new go.Size(NaN, 440)
                     });
                     this.images2[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
                 }
