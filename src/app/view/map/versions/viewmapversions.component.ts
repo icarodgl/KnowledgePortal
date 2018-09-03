@@ -35,7 +35,7 @@ export class ViewMapVersionsComponent implements OnInit {
     ngOnInit() {
         let map:ConceptMap[] = new Array<ConceptMap>();
         map.push(JSON.parse(this.mapService.getCurrentMap()));
-        this.meService.updateDashboardMapsVersions(map)
+        this.meService.getMapsVersions(map)
             .subscribe(versions => {
                 this.versionList = versions;
                 let serializer = new XMLSerializer();

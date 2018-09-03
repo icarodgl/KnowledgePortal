@@ -35,10 +35,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
   public ngOnInit() {
-      this.meService.updateDashboardMaps()
+      this.meService.getMaps()
         .subscribe(maps => {
             this.maps = maps;
-            this.meService.updateDashboardMapsVersions(this.maps)
+            this.meService.getMapsVersions(this.maps)
                 .subscribe(versions => {
                     versions.forEach(v => {
                         //this.versions.findIndex(item => item.map._id == v.map._id) === -1 ? this.versions.push(v) : {} ;

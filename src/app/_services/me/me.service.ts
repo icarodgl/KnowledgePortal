@@ -10,7 +10,7 @@ export class MeService {
 
     constructor(private http: HttpClient){}
 
-    updateDashboardMaps(): Observable<ConceptMap[]> {
+    getMaps(): Observable<ConceptMap[]> {
         return this.http.get<ConceptMap[]>(meApiUri+'/maps?orderBy=last_update&limit=3')
             .map(maps => {
                 localStorage.setItem('currentDashboardMaps', JSON.stringify(maps));
@@ -18,7 +18,7 @@ export class MeService {
             });
     }
 
-    updateDashboardMapsVersions(maps:ConceptMap[]): Observable<Version[]> {
+    getMapsVersions(maps:ConceptMap[]): Observable<Version[]> {
         let uri = meApiUri+'/versions?';
         maps.forEach(map => {
             uri+='mapId='+map._id+'&';
