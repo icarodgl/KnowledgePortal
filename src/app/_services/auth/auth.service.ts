@@ -13,6 +13,10 @@ export class AuthService {
         return localStorage.getItem('currentUser');
     }
 
+    setCurrentUser(user:User) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+
     updateUser() {
         return this.http.get<User>(meApiUri)
             .map(user => {

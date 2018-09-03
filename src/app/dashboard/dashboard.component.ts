@@ -35,32 +35,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
   public ngOnInit() {
-      this.meService.getMaps()
-        .subscribe(maps => {
-            this.maps = maps;
-            this.meService.getMapsVersions(this.maps)
-                .subscribe(versions => {
-                    versions.forEach(v => {
-                        //this.versions.findIndex(item => item.map._id == v.map._id) === -1 ? this.versions.push(v) : {} ;
-                        this.maps.forEach((m, i) => {
-                            if(m._id == v.map._id) {
-                                this.versions[i] = v;
-                            }
-                        });
+        this.meService.getDashboardInfo()
+            .subscribe(maps => {
+                this.maps = maps;
+                let serializer = new XMLSerializer();
+                let svg;
+                this.maps.forEach((m, i)=> {
+                    myDiagram.model = go.Model.fromJson(m.versions[0].content);
+                    svg = myDiagram.makeSvg({
+                        scale: 0.5,
+                        maxSize: new go.Size(NaN, 220)
                     });
-                    let serializer = new XMLSerializer();
-                    let svg;
-                    for(let i = 0; i < (this.versions.length > 3 ? 3 : this.versions.length); i++){
-                        myDiagram.model = go.Model.fromJson(this.versions[i].content);
-                        this.idMap[i] = this.versions[i].map._id;
-                        svg = myDiagram.makeSvg({
-                            scale:0.5,
-                            maxSize: new go.Size(NaN, 220)
-                        });
-                        this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
-                    }
-                });
-        }, error => console.log(error));
+                    this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
+                });                
+            }, error => console.log(error));
    }
    ngAfterViewInit() {
    }

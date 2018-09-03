@@ -29,7 +29,14 @@ export class User {
         regionName?: string,
         city?: string
     };
+    stats?: {
+        maps?:number,
+        groups?:number,
+        following?: number,
+        followers?: number
+    };
     maps?: ConceptMap[];
+    last_maps?: ConceptMap[];
     groups?: Group[];
     following?: User[];
     followers?: User[];
