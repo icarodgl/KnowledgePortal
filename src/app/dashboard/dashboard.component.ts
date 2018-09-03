@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService, MapService, MeService, ModelService } from '../_services/index.service';
 import { User, ConceptMap, Version } from '../_models/index.model';
 import { Router } from '@angular/router';
-import { myDiagram, ConceptMapComponent } from '../edit/conceptmap/conceptmap.component';
+import { myDiagram, ConceptMapComponent, resetModel } from '../edit/conceptmap/conceptmap.component';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,13 +19,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('myDiagramDiv') element: ElementRef;
 
   private images:SafeHtml[] = new Array<SafeHtml>();
-  private idMap:String[] = new Array<String>();
   public user:User;
   public maps: ConceptMap[];
-  public versions: Version[] = new Array<Version>();
 
-  constructor(
-      private http: HttpClient, 
+  constructor( 
       private _sanitizer: DomSanitizer, 
       private authServicve: AuthService,
       private mapService: MapService,
@@ -58,9 +56,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    }
    newMap(e){
        e.preventDefault();
-       this.modelService.removeCurrentModel();
-       this.mapService.removeCurrentMap();
-       this.map1.reset();
-       this.router.navigate(['edit','cmap']);
+       swal({
+            title: 'Are you sure?',
+            text: "If you have a map not yet saved, this will delete all unsaved information. Do you wish to continue?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            confirmButtonText: 'Yes, create a new...',
+            buttonsStyling: false
+        }).then((result) => {
+            if (result.value) {
+                resetModel();
+                this.router.navigate(['edit','cmap']);
+            }
+        });
    }
 }

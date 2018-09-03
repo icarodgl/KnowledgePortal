@@ -2,8 +2,6 @@ import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@ang
 import * as go from "gojs";
 import { VersionService, ModelService } from '../../_services/index.service';
 import swal from 'sweetalert2';
-
-declare var $ : any;
 export var myDiagram: go.Diagram;
 
 @Component({
@@ -12,13 +10,9 @@ export var myDiagram: go.Diagram;
 })
 
 export class ConceptMapComponent implements AfterViewInit, OnDestroy {
-  
-  name = 'GoJS';
+  @ViewChild('myDiagramDiv') element: ElementRef;
 
-  @ViewChild('myDiagramDiv')
-  element: ElementRef;
-
-  constructor(private versionService:VersionService, modelService:ModelService){}
+  constructor(private versionService:VersionService, private modelService:ModelService){}
 
   ngAfterViewInit() {
       
@@ -135,7 +129,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     // Upon a drop onto the background, or onto a top-level Node, make selection top-level.
     // If this is OK, we're done; otherwise we cancel the operation to rollback everything.
     function finishDrop(e, grp) {
-    var ok = (grp !== null
+        var ok = (grp !== null
                 ? grp.addMembers(grp.diagram.selection, true)
                 : e.diagram.commandHandler.addTopLevelParts(e.diagram.selection, true));
         if (!ok) e.diagram.currentTool.doCancel();
@@ -158,9 +152,39 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                         var contextmenu = obj.part;  // the Button is in the context menu Adornment
                         var part = contextmenu.adornedPart;  // the adornedPart is the Part that the context menu adorns
                         // now can do something with PART, or with its data, or with the Adornment (the context menu)
-                        if (part instanceof go.Link) alert(linkInfo(part.data));
-                        else if (part instanceof go.Group) alert(groupInfo(contextmenu));
-                        else alert(nodeInfo(part.data));
+                        if (part instanceof go.Link) {
+                            swal({
+                                title: 'Link Informations',
+                                text: linkInfo(part.data),
+                                type: 'info',
+                                showCancelButton: false,
+                                confirmButtonText: 'Ok',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }
+                        else if (part instanceof go.Group) {
+                            swal({
+                                title: 'Group Informations',
+                                text: groupInfo(contextmenu),
+                                type: 'info',
+                                showCancelButton: false,
+                                confirmButtonText: 'Ok',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }
+                        else {
+                            swal({
+                                title: 'Node/Relation Informations',
+                                text: nodeInfo(part.data),
+                                type: 'info',
+                                showCancelButton: false,
+                                confirmButtonText: 'Ok',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }
                     }, undefined ),
             makeButton("Cut",
                     function(e, obj) { e.diagram.commandHandler.cutSelection(); },
@@ -234,7 +258,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     conceptNodeTemplate = 
         $(go.Node, "Auto",  // the Shape will go around the TextBlock
             new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-            $(go.Shape, "Rectangle", 
+            $(go.Shape, "RoundedRectangle", 
             {
                 portId: "", 
                 strokeWidth: 1,
@@ -512,55 +536,11 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
 
     myDiagram.toolManager.linkingTool.linkValidation = validateLink;
     myDiagram.toolManager.relinkingTool.linkValidation = validateLink;
-
-
     
-    let nodeDataArray =
-        [
-            { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, color: "red", stroke: "blue" },
-            { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
-            { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
-            { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
-            { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true },
-            { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", },
-            { key: 6, text: "Concept 4", loc:"400 -30", category:"concept" }
-        ];
-    let linkDataArray =
-        [
-            { from: 0, to: 3, category: "normal", color: "red", group: 4 },
-            { from: 3, to: 1, category: "normal", group: 4 },
-            { from: 3, to: 2, category: "normal", group: 4 },
-            { from: 1, to: 5, category :"normal"},
-            { from: 5, to: 6, category :"normal"}
-        ];
-    if(!!this.versionService.getCurrentLoadVersion()){
-        swal({
-            title: 'Are you sure?',
-            text: 'You are loading a new content and you will lost all unseved data of the previous map.',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, load it!',
-            cancelButtonText: 'Don\'t load it',
-            confirmButtonClass: "btn btn-success",
-            cancelButtonClass: "btn btn-danger",
-            buttonsStyling: false
-        }).then((result) => {
-          if (result.value) {
-            myDiagram.model = go.Model.fromJson(this.versionService.getCurrentLoadVersion().content);
-            this.versionService.removeCurrentLoadVersion();
-          }else{
-            this.versionService.removeCurrentLoadVersion();
-            (!!localStorage.getItem('currentModel')) ? 
-                myDiagram.model = go.Model.fromJson(localStorage.getItem('currentModel')) :
-                myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
-            }
-        })
-    }else{
-        (!!localStorage.getItem('currentModel')) ? 
-            myDiagram.model = go.Model.fromJson(localStorage.getItem('currentModel')) :
-            myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
-    }
-    
+    let currentModel = this.modelService.getCurrentModel();
+    if(!!currentModel)  myDiagram.model = go.Model.fromJson(currentModel);
+    else resetModel();
+
  }
   
   ngOnDestroy() {
@@ -580,28 +560,6 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
       }
     });
     myDiagram.commitTransaction("change color");
-  }
-
-  reset(){
-    let nodeDataArray =
-    [
-        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "red" },
-        { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
-        { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
-        { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
-        { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true },
-        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", },
-        { key: 6, text: "Concept 4", loc:"400 -30", category:"concept" }
-    ];
-    let linkDataArray =
-    [
-        { from: 0, to: 3, category: "normal", color: "red", group: 4 },
-        { from: 3, to: 1, category: "or", group: 4 },
-        { from: 3, to: 2, category: "or", group: 4 },
-        { from: 1, to: 5, category :"normal"},
-        { from: 5, to: 6, category :"normal"}
-    ];
-    myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
   }
 }
 
