@@ -5,6 +5,7 @@ import { myDiagram, resetModel } from '../../edit/conceptmap/conceptmap.componen
 import { MyErrorStateMatcher } from '../../forms/validationforms/validationforms.component';
 import swal from 'sweetalert2';
 import * as go from "gojs";
+import { TestBed } from '@angular/core/testing';
 
 declare const $: any;
 const md: any = {
@@ -43,6 +44,88 @@ export class FixedpluginComponent implements OnInit {
           }
 
       }
+
+      $('#bt-font').click(function() {
+          if($(this).hasClass('active')) {
+            $(this).removeClass('active'); 
+            $('#a-color-picker').removeClass('text-color');
+          }else {
+            $(this).addClass('active');
+            $('#a-color-picker').addClass('text-color');
+          } 
+      });
+      $('#bt-stroke').click(function() {
+          if($(this).hasClass('active')) {
+            $(this).removeClass('active'); 
+            $('#a-color-picker').removeClass('stroke-color');
+          }else {
+            $(this).addClass('active');
+            $('#a-color-picker').addClass('stroke-color');
+          } 
+        });
+        $('#bt-background').click(function() {
+            if($(this).hasClass('active')) {
+              $(this).removeClass('active'); 
+              $('#a-color-picker').removeClass('background-color');
+            }else {
+              $(this).addClass('active');
+              $('#a-color-picker').addClass('background-color');
+            } 
+        });
+
+      $('#a-color-picker span').click(function() {
+          const color = $(this).data('color');
+          if($('#a-color-picker').hasClass('text-color')){  
+            myDiagram.startTransaction("change text color");
+            myDiagram.selection.each(function(node) {
+                if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
+                    // Examine and modify the data, not the Node directly.
+                    var data = node.data;
+                    // Call setDataProperty to support undo/redo as well as
+                    // automatically evaluating any relevant bindings.
+                    myDiagram.model.setDataProperty(data, "textColor", color);
+                }else if(node instanceof go.Link) {
+                    var data = node.data;
+                    // Call setDataProperty to support undo/redo as well as
+                    // automatically evaluating any relevant bindings.
+                    myDiagram.model.setDataProperty(data, "color", color);
+                }
+            });
+            myDiagram.commitTransaction("change color");
+          }
+          if($('#a-color-picker').hasClass('background-color')){
+            myDiagram.startTransaction("change color");
+            myDiagram.selection.each(function(node) {
+                if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
+                    // Examine and modify the data, not the Node directly.
+                    var data = node.data;
+                    // Call setDataProperty to support undo/redo as well as
+                    // automatically evaluating any relevant bindings.
+                    myDiagram.model.setDataProperty(data, "color", color);
+                }
+            });
+            myDiagram.commitTransaction("change color");
+          }
+          if($('#a-color-picker').hasClass('stroke-color')){
+            myDiagram.startTransaction("change stroke color");
+            myDiagram.selection.each(function(node) {
+                if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
+                    // Examine and modify the data, not the Node directly.
+                    var data = node.data;
+                    // Call setDataProperty to support undo/redo as well as
+                    // automatically evaluating any relevant bindings.
+                    myDiagram.model.setDataProperty(data, "stroke", color);
+                }else if(node instanceof go.Link) {
+                    var data = node.data;
+                    // Call setDataProperty to support undo/redo as well as
+                    // automatically evaluating any relevant bindings.
+                    myDiagram.model.setDataProperty(data, "color", color);
+                }
+            });
+            myDiagram.commitTransaction("change color");
+          }
+      });
+
       $('#bt-new-map').click((event) => {
         event.preventDefault();
         swal({
@@ -103,31 +186,56 @@ export class FixedpluginComponent implements OnInit {
           }
       });
 
-      $('.fixed-plugin .active-color span').click(function() {
-        const color = $(this).data('color');
-        // Always make changes in a transaction, except when initializing the diagram.
-        myDiagram.startTransaction("change color");
-        myDiagram.selection.each(function(node) {
-        if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
-            // Examine and modify the data, not the Node directly.
-            var data = node.data;
-            // Call setDataProperty to support undo/redo as well as
-            // automatically evaluating any relevant bindings.
-            myDiagram.model.setDataProperty(data, "color", color);
-        }
-        });
-        myDiagram.commitTransaction("change color");
-      });
-
-      $('.fixed-plugin .background-color span').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-          const new_color = $(this).data('color');
-
-          if ($sidebar.length !== 0) {
-              $sidebar.attr('data-background-color', new_color);
+      $('.fixed-plugin button').click(function(event) {
+        // Alex: if we click on switch, stop propagation of the event,
+        // so the dropdown will not be hide, otherwise we set the  section active
+          if ($(this).hasClass('color-change')) {
+              if (event.stopPropagation) {
+                  event.stopPropagation();
+              } else if (window.event) {
+                 window.event.cancelBubble = true;
+              }
           }
       });
+
+      $('.fixed-plugin .stroke-color span').click(function() {
+        const color = $(this).data('color');
+        //   $(this).siblings().removeClass('active');
+        //   $(this).addClass('active');
+        //   const new_color = $(this).data('color');
+
+        //   if ($sidebar.length !== 0) {
+        //       $sidebar.attr('data-background-color', new_color);
+        //   }
+        
+      });
+
+    //   $('.fixed-plugin .text-color span').click(function() {
+    //     const color = $(this).data('color');
+    //     //   $(this).siblings().removeClass('active');
+    //     //   $(this).addClass('active');
+    //     //   const new_color = $(this).data('color');
+
+    //     //   if ($sidebar.length !== 0) {
+    //     //       $sidebar.attr('data-background-color', new_color);
+    //     //   }
+    //     myDiagram.startTransaction("change text color");
+    //     myDiagram.selection.each(function(node) {
+    //         if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
+    //             // Examine and modify the data, not the Node directly.
+    //             var data = node.data;
+    //             // Call setDataProperty to support undo/redo as well as
+    //             // automatically evaluating any relevant bindings.
+    //             myDiagram.model.setDataProperty(data, "textColor", color);
+    //         }else if(node instanceof go.Link) {
+    //             var data = node.data;
+    //             // Call setDataProperty to support undo/redo as well as
+    //             // automatically evaluating any relevant bindings.
+    //             myDiagram.model.setDataProperty(data, "color", color);
+    //         }
+    //     });
+    //     myDiagram.commitTransaction("change color");
+    //   });
 
       $('.fixed-plugin .img-holder').click(function() {
           const $full_page_background = $('.full-page-background');

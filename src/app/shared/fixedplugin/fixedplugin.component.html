@@ -6,8 +6,19 @@
         </a>
         <ul class="dropdown-menu">
             <li class="header-title"> Background-color</li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger active-color">
+            <li class="adjustments-line no-line">
+                <button type="button" onClick="event.preventDefault();" mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm color-change" title="Font color" id="bt-font">
+                    <i class="material-icons">format_color_text</i>
+                </button>
+                <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm color-change" title="Border/Line color" id="bt-stroke">
+                    <i class="material-icons">border_color</i>
+                </button>
+                <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm color-change" title="Background-Color" id="bt-background">
+                    <i class="material-icons">format_color_fill</i>
+                </button>
+            </li>
+            <li class="adjustments-line color-picker">
+                <a href="javascript:void(0)" class="switch-trigger" id="a-color-picker">
                   <div class="ml-auto mr-auto">
                     <span class="badge filter badge-purple" data-color="#9c27b0"></span>
                     <span class="badge filter badge-azure" data-color="#00bcd4"></span> <!--add active class to set active badger-->
@@ -18,24 +29,16 @@
                     <span class="badge filter badge-white" data-color="white"></span>
                     <span class="badge filter badge-grey" data-color="#bcbcbc"></span>
                     <span class="badge filter badge-black" data-color="black"></span>
+                    <span class="badge filter badge-purple" data-color="#9c27b0"></span>
+                    <span class="badge filter badge-azure" data-color="#00bcd4"></span> <!--add active class to set active badger-->
+                    <span class="badge filter badge-green" data-color="#4caf50"></span>
+                    <span class="badge filter badge-orange" data-color="#ff9800"></span>
+                    <span class="badge filter badge-danger" data-color="#f44336"></span>
+                    <span class="badge filter badge-rose" data-color="#e91e63"></span>
+                    <span class="badge filter badge-white" data-color="white"></span>
+                    <span class="badge filter badge-grey" data-color="#bcbcbc"></span>
+                    <span class="badge filter badge-black" data-color="black"></span>
                   </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="header-title">Border/Line Color</li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger background-color">
-                    <div class="ml-auto mr-auto">
-                        <span class="badge filter badge-purple" data-color="#9c27b0"></span>
-                        <span class="badge filter badge-azure" data-color="#00bcd4"></span>
-                        <span class="badge filter badge-green" data-color="#4caf50"></span>
-                        <span class="badge filter badge-orange" data-color="#ff9800"></span>
-                        <span class="badge filter badge-danger" data-color="#f44336"></span>
-                        <span class="badge filter badge-rose" data-color="#e91e63"></span>
-                        <span class="badge filter badge-white" data-color="white"></span>
-                        <span class="badge filter badge-grey" data-color="#bcbcbc"></span>
-                        <span class="badge filter badge-black" data-color="black"></span>
-                    </div>
                     <div class="clearfix"></div>
                 </a>
             </li>

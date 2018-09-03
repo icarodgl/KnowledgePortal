@@ -285,7 +285,8 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     editable: true  // allow in-place editing by user
                 },  // some room around the text
                 // TextBlock.text is bound to Node.data.key
-                new go.Binding("text", "text").makeTwoWay()
+                new go.Binding("text", "text").makeTwoWay(),
+                new go.Binding("stroke", "textColor").makeTwoWay()
             ),
             { // this tooltip Adornment is shared by all nodes
                 toolTip:
@@ -326,7 +327,8 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     editable: true
                 },  // some room around the text
                 // TextBlock.text is bound to Node.data.key
-                new go.Binding("text", "text").makeTwoWay()
+                new go.Binding("text", "text").makeTwoWay(),
+                new go.Binding("stroke", "textColor").makeTwoWay()
             ),
             { // this tooltip Adornment is shared by all nodes
                 toolTip:
@@ -451,9 +453,11 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     fromLinkableDuplicates: true,
                     toLinkable: true, 
                     toLinkableSelfNode: true, 
-                    toLinkableDuplicates: true 
+                    toLinkableDuplicates: true,
+                    fill:  $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)"})
                 },
-                new go.Binding("fill", "isHighlighted", function(h) { return h ? "rgba(255,0,0,0.2)" : $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)" }); }).ofObject(),
+                //new go.Binding("fill", "isHighlighted", function(h) { return h ? "rgba(255,0,0,0.2)" : $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)" }); }).ofObject(),
+                new go.Binding('fill', 'color').makeTwoWay()
             ),
             $(go.Panel, "Vertical",
                 { 
@@ -474,7 +478,9 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                             editable: true, 
                             alignment: go.Spot.Center
                         },
-                        new go.Binding("text", "text").makeTwoWay())
+                        new go.Binding("text", "text").makeTwoWay(),
+                        new go.Binding("stroke", "textColor").makeTwoWay(),
+                    )
                 ),
                 $(go.Placeholder, // create a placeholder to represent the area where the contents of the group are
                     { 
@@ -566,7 +572,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
 export function resetModel() {
     let nodeDataArray =
     [
-        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "red" },
+        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "red", textColor:"orange" },
         { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
         { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
         { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
