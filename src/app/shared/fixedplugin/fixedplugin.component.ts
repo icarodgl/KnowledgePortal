@@ -8,6 +8,7 @@ import * as go from "gojs";
 import { TestBed } from '@angular/core/testing';
 
 declare const $: any;
+const $$ = go.GraphObject.make;  // for conciseness in defining templates
 const md: any = {
     misc: {
         navbar_menu_visible: 0,
@@ -75,6 +76,7 @@ export class FixedpluginComponent implements OnInit {
 
       $('#a-color-picker span').click(function() {
           const color = $(this).data('color');
+          const color2 = $(this).data('color2');
           if($('#a-color-picker').hasClass('text-color')){  
             myDiagram.startTransaction("change text color");
             myDiagram.selection.each(function(node) {
@@ -83,12 +85,22 @@ export class FixedpluginComponent implements OnInit {
                     var data = node.data;
                     // Call setDataProperty to support undo/redo as well as
                     // automatically evaluating any relevant bindings.
-                    myDiagram.model.setDataProperty(data, "textColor", color);
+                    if(color2){
+                        var gradient = $$(go.Brush, "Linear", { 0.0: color, 1.0: color2 });
+                        myDiagram.model.setDataProperty(data, "textColor", gradient);
+                    }else{
+                        myDiagram.model.setDataProperty(data, "textColor", color);
+                    }
                 }else if(node instanceof go.Link) {
                     var data = node.data;
                     // Call setDataProperty to support undo/redo as well as
                     // automatically evaluating any relevant bindings.
-                    myDiagram.model.setDataProperty(data, "color", color);
+                    if(color2){
+                        var gradient = $$(go.Brush, "Linear", { 0.0: color, 1.0: color2 });
+                        myDiagram.model.setDataProperty(data, "color", gradient);
+                    }else{
+                        myDiagram.model.setDataProperty(data, "color", color);
+                    }
                 }
             });
             myDiagram.commitTransaction("change color");
@@ -101,7 +113,12 @@ export class FixedpluginComponent implements OnInit {
                     var data = node.data;
                     // Call setDataProperty to support undo/redo as well as
                     // automatically evaluating any relevant bindings.
-                    myDiagram.model.setDataProperty(data, "color", color);
+                    if(color2){
+                        var gradient = $$(go.Brush, "Linear", { 0.0: color, 1.0: color2 });
+                        myDiagram.model.setDataProperty(data, "color", gradient);
+                    }else{
+                        myDiagram.model.setDataProperty(data, "color", color);
+                    }
                 }
             });
             myDiagram.commitTransaction("change color");
@@ -114,12 +131,22 @@ export class FixedpluginComponent implements OnInit {
                     var data = node.data;
                     // Call setDataProperty to support undo/redo as well as
                     // automatically evaluating any relevant bindings.
-                    myDiagram.model.setDataProperty(data, "stroke", color);
+                    if(color2){
+                        var gradient = $$(go.Brush, "Linear", { 0.0: color, 1.0: color2 });
+                        myDiagram.model.setDataProperty(data, "stroke", gradient);
+                    }else{
+                        myDiagram.model.setDataProperty(data, "stroke", color);
+                    }
                 }else if(node instanceof go.Link) {
                     var data = node.data;
                     // Call setDataProperty to support undo/redo as well as
                     // automatically evaluating any relevant bindings.
-                    myDiagram.model.setDataProperty(data, "color", color);
+                    if(color2){
+                        var gradient = $$(go.Brush, "Linear", { 0.0: color, 1.0: color2 });
+                        myDiagram.model.setDataProperty(data, "color", gradient);
+                    }else{
+                        myDiagram.model.setDataProperty(data, "color", color);
+                    }
                 }
             });
             myDiagram.commitTransaction("change color");
