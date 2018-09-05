@@ -319,9 +319,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 cursor: "pointer",
                 fill: "rgba(255,255,255,0)",
                 stroke: "rgba(255,255,255,0)"
-            }, 
-            new go.Binding("fill", "color")
-                ),
+            }),
             $(go.TextBlock,
                 {
                     font: "bold 12px sans-serif",
