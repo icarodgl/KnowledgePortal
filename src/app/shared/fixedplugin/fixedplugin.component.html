@@ -1,19 +1,19 @@
 <!-- Fixed Plugin configurator, used just for Demo Purpose -->
 <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
-        <a href="#" data-toggle="dropdown" aria-expanded="true">
+        <a href="#" data-toggle="dropdown" aria-expanded="true" id="bt-fixed-plugin">
             <i class="fa fa-cog fa-2x"> </i>
         </a>
         <ul class="dropdown-menu">
-            <li class="header-title"> Background-color</li>
+            <li class="header-title">Colors</li>
             <li class="adjustments-line no-line">
-                <button type="button" onClick="event.preventDefault();" mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm color-change" title="Font color" id="bt-font">
+                <button type="button" mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Font color" id="bt-font">
                     <i class="material-icons">format_color_text</i>
                 </button>
-                <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm color-change" title="Border/Line color" id="bt-stroke">
+                <button mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Border/Line color" id="bt-stroke">
                     <i class="material-icons">border_color</i>
                 </button>
-                <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm color-change" title="Background-Color" id="bt-background">
+                <button mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Background-Color" id="bt-background">
                     <i class="material-icons">format_color_fill</i>
                 </button>
             </li>
@@ -42,6 +42,29 @@
                     <div class="clearfix"></div>
                 </a>
             </li>
+            <li class="header-title">More Info...</li>
+            <li class="adjustments-line more-info">
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea class="form-control" placeholder="Attach information about this element..." rows="4" id="info-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-">
+                        <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save this info..." id="bt-save-info">
+                            <i class="material-icons">done</i>
+                        </button>
+                        <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Discard this info..." id="bt-discard-info">
+                            <i class="material-icons">delete_forever</i>
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                
+                
+            </li>
             <li class="header-title">Operations</li>
             <li class="adjustments-line">
                     <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Create a new map" id="bt-new-map">
@@ -54,6 +77,7 @@
                         <i class="material-icons">call_split</i>
                     </button>
             </li>
+            
             <li class="header-title">Advanced Operations</li>
             <li class="adjustments-line">
                     <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Verificar as inconsistências do mapa" id="bt-check-map">

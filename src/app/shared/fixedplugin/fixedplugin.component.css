@@ -9,7 +9,8 @@
 
 .active {
     border: 2px solid;
-    border-color: #00bbff !important;
+    border-color: #f44336 !important;
+    color: #f44336 !important;
 }
 
 .active .material-icons {
@@ -22,4 +23,7 @@
 
 .color-picker {
     height: 75px !important;
+}
+.more-info {
+    height: 138px !important;
 }

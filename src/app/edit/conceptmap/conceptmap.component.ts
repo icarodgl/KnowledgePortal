@@ -222,7 +222,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             "undoManager.isEnabled": true,  // enable undo (CTRL+Z) & redo (CTRL+Y)
             "clickCreatingTool.archetypeNodeData": { text: "New Concept", category: "concept" }, // allow double-click in background to create a new node
             "linkingTool.archetypeLinkData": {category: "normal"},
-            "commandHandler.archetypeGroupData": { text: "New Map", isGroup: true, color: "blue", category: "map" },//ctrl+G to group
+            "commandHandler.archetypeGroupData": { text: "New Map", isGroup: true, category: "map" },//ctrl+G to group
             
         }
     );
@@ -547,84 +547,6 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
 
     myDiagram.toolManager.linkingTool.linkValidation = validateLink;
     myDiagram.toolManager.relinkingTool.linkValidation = validateLink;
-
-    let nodeDataArray =
-        [
-           
-
-            {key:1, text:"Mapas Conceituais", category:"concept", loc:"-61 -442"},
-            {key:2, text:"Conceitos", category:"concept", loc:"-300 -257"},
-            {key:3, text:"Frases de ligação", category:"concept", loc:"-49 -239"},
-            {key:4, text:"Conhecimento", category:"concept", loc:"338 -273"},
-            {key:5, text:"Proposições", category:"concept", loc:"-156 -12"},
-            {key:6, text:"substantivo", category:"concept", loc:"-311 -77"},
-            {key:7, text:"Aprendiz", category:"concept", loc:"435 -129"},
-            {key:8, text:"", category:"concept", loc:"386 24"},
-            {key:9, text:"Aprendiz", category:"concept", loc:"204 -241"},
-            {key:10, text:"Organizado", category:"concept", loc:"65 -9"},
-            {key:11, text:"possui", category:"relation", loc:"-68 -333"},
-            {key:12, text:"representa", loc:"263 -373", category:"relation"},
-            {key:13, text:"interliga", loc:"-154 -244", category:"relation"},
-            {key:14, text:"exemplo", loc:"-300 -152", category:"relation"},
-            {key:15, text:"formam", loc:"-110 -102", category:"relation"},
-            {key:16, text:"", loc:"490 -206", category:"relation"},
-            {key:17, text:"é", loc:"440 -40", category:"relation"},
-            {key:18, text:"faz", loc:"123 -323", category:"relation"},
-            {text:"é", loc:"184 -112", category:"relation", key:-19}
-        ];
-
-    let linkDataArray =
-        [
-            {from:1, to:11, category:"normal", points:[-0.35988627660051264,-416.005078125,-0.8960890287082837,-382.5823619834524,-11.56051427842047,-354.91400260845245,-30.77042894363784,-333]},
-        {from:11, to:2, category:"normal", points:[-65.19545806135211,-307.005078125,-116.54987295947663,-278.0238989416334,-170.21393545947663,-259.92122311543034,-228.9921875,-250.62047961023825]},
-        {from:11, to:3, category:"normal", points:[-26.878776726359277,-307.005078125,-9.05980059702523,-291.85315688407314,3.0032538854550808,-269.1847975090731,6.397044772100678,-239.00000000000003]},
-        {from:1, to:12, category:"normal", points:[60.697265625,-422.7657237688307,128.86407151614395,-415.7788161284813,197.72332323507976,-399.9588003600558,266.85340600547494,-373]},
-        {from:12, to:4, category:"normal", points:[321.63508585619775,-347.005078125,345.0186377461315,-332.83762695827755,366.4767377751232,-308.1692675832776,381.5852951988809,-273]},
-        {from:3, to:13, category:"normal", points:[-49.000000000000014,-215.61133412471298,-64.71360525931887,-212.73958083851102,-79.82167817598554,-213.31176743160165,-94.32421875000006,-219.09793428711097]},
-        {from:13, to:2, category:"normal", points:[-154.00000000000006,-225.47611654654264,-180.58570373743808,-220.55204756379598,-205.5830995707714,-223.0458379540944,-229.62203244292354,-232.00507812499995]},
-        {from:2, to:14, category:"normal", points:[-259.91115298590626,-232.00507812499995,-250.25576349156825,-204.63383076411665,-251.42844995325083,-177.96547138911666,-263.24316754053655,-152.00000000000003]},
-        {from:14, to:6, category:"normal", points:[-262.4406433915086,-126.00507812500003,-253.81507045101202,-109.3134740007689,-254.17920540652418,-92.97844795910224,-263.36060848872097,-77]},
-        {from:2, to:15, category:"normal", points:[-242.1001225369219,-232.00507812499995,-188.36187653162585,-200.8181853281501,-137.80407487172388,-157.48315928648344,-92.99262749980832,-102]},
-        {from:3, to:15, category:"normal", points:[3.5224319597794036,-213.005078125,-11.760049312763527,-167.19442566986996,-36.16321004468938,-130.19273296153662,-67.87520171138847,-102]},
-        {from:15, to:5, category:"normal", points:[-81.41250053209596,-76.005078125,-79.22489015761661,-49.741506207056844,-86.53847339019624,-28.739813498723514,-101.29926604926123,-12.999999999999993]},
-        {from:4, to:16, category:"normal", points:[435.33789062499994,-247.21180984478107,444.2453584557492,-244.84653054917877,471.1939390913515,-228.914843443963,490.0000000000001,-205.86947458074567]},
-        {from:16, to:7, category:"normal", points:[501.2739753271114,-180.005078125,502.6552715365882,-156.80880442361493,495.5161044825068,-139.8071117152816,483.09979622958866,-129]},
-        {from:7, to:17, category:"normal", points:[471.4598191517228,-103.005078125,477.52659611721356,-79.05826965852535,473.59361804649376,-58.056576950192024,460.74713683179857,-40]},
-        {from:17, to:8, category:"normal", points:[448.04036761720454,-14.005078124999997,441.8808472325725,9.135567103989064,430.5475138992392,22.52950649792843,407.0000000000001,33.227258857660885]},
-        {from:9, to:18, category:"normal", points:[204.26820112988904,-241.00000000000006,188.0740194479598,-247.59847087764268,165.71755403541667,-266.4332793192731,146.8545016813197,-297.005078125]},
-        {from:18, to:1, category:"normal", points:[123.99999999999977,-317.62866382611685,77.27029947422275,-341.65073762040646,40.94664870486356,-372.7510228057681,9.344729837365932,-416.005078125]},
-        {from:9, to:-19, category:"normal", points:[236.15134087898625,-215.00507812500007,236.10407330062318,-175.7522256977263,225.01386196856325,-141.41719965605964,203.85060480122974,-112.00000000000009]},
-        {category:"normal", from:-19, to:10, points:[188.78743656538927,-86.00507812500008,173.3212113948171,-50.81568201481244,150.64484614645494,-25.114964788112992,125.8361210175619,-9.99999999999995]}
-            
-        ];
-
-    if(!!this.versionService.getCurrentLoadVersion()){
-        swal({
-            title: 'Are you sure?',
-            text: 'You are loading a new content and you will lost all unseved data of the previous map.',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, load it!',
-            cancelButtonText: 'Don\'t load it',
-            confirmButtonClass: "btn btn-success",
-            cancelButtonClass: "btn btn-danger",
-            buttonsStyling: false
-        }).then((result) => {
-          if (result.value) {
-            myDiagram.model = go.Model.fromJson(this.versionService.getCurrentLoadVersion().content);
-            this.versionService.removeCurrentLoadVersion();
-          }else{
-            this.versionService.removeCurrentLoadVersion();
-            (!!localStorage.getItem('currentModel')) ? 
-                myDiagram.model = go.Model.fromJson(localStorage.getItem('currentModel')) :
-                myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
-            }
-        })
-    }else{
-        (!!localStorage.getItem('currentModel')) ? 
-            myDiagram.model = go.Model.fromJson(localStorage.getItem('currentModel')) :
-            myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
-    }
     
     let currentModel = this.modelService.getCurrentModel();
     if(!!currentModel)  myDiagram.model = go.Model.fromJson(currentModel);
@@ -654,53 +576,22 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
 
 export function resetModel() {
     let nodeDataArray =
-        [
-           
-
-            {key:1, text:"Mapas Conceituais", category:"concept", loc:"-61 -442"},
-            {key:2, text:"Conceitos", category:"concept", loc:"-300 -257"},
-            {key:3, text:"Frases de ligação", category:"concept", loc:"-49 -239"},
-            {key:4, text:"Conhecimento", category:"concept", loc:"338 -273"},
-            {key:5, text:"Proposições", category:"concept", loc:"-156 -12"},
-            {key:6, text:"substantivo", category:"concept", loc:"-311 -77"},
-            {key:7, text:"Aprendiz", category:"concept", loc:"435 -129"},
-            {key:8, text:"", category:"concept", loc:"386 24"},
-            {key:9, text:"Aprendiz", category:"concept", loc:"204 -241"},
-            {key:10, text:"Organizado", category:"concept", loc:"65 -9"},
-            {key:11, text:"possui", category:"relation", loc:"-68 -333"},
-            {key:12, text:"representa", loc:"263 -373", category:"relation"},
-            {key:13, text:"interliga", loc:"-154 -244", category:"relation"},
-            {key:14, text:"exemplo", loc:"-300 -152", category:"relation"},
-            {key:15, text:"formam", loc:"-110 -102", category:"relation"},
-            {key:16, text:"", loc:"490 -206", category:"relation"},
-            {key:17, text:"é", loc:"440 -40", category:"relation"},
-            {key:18, text:"faz", loc:"123 -323", category:"relation"},
-            {text:"é", loc:"184 -112", category:"relation", key:-19}
-        ];
-
+    [
+        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "black", textColor: "white" },
+        { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
+        { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
+        { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
+        { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true },
+        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", },
+        { key: 6, text: "Concept 4", loc:"400 -30", category:"concept" }
+    ];
     let linkDataArray =
-        [
-            {from:1, to:11, category:"normal", points:[-0.35988627660051264,-416.005078125,-0.8960890287082837,-382.5823619834524,-11.56051427842047,-354.91400260845245,-30.77042894363784,-333]},
-        {from:11, to:2, category:"normal", points:[-65.19545806135211,-307.005078125,-116.54987295947663,-278.0238989416334,-170.21393545947663,-259.92122311543034,-228.9921875,-250.62047961023825]},
-        {from:11, to:3, category:"normal", points:[-26.878776726359277,-307.005078125,-9.05980059702523,-291.85315688407314,3.0032538854550808,-269.1847975090731,6.397044772100678,-239.00000000000003]},
-        {from:1, to:12, category:"normal", points:[60.697265625,-422.7657237688307,128.86407151614395,-415.7788161284813,197.72332323507976,-399.9588003600558,266.85340600547494,-373]},
-        {from:12, to:4, category:"normal", points:[321.63508585619775,-347.005078125,345.0186377461315,-332.83762695827755,366.4767377751232,-308.1692675832776,381.5852951988809,-273]},
-        {from:3, to:13, category:"normal", points:[-49.000000000000014,-215.61133412471298,-64.71360525931887,-212.73958083851102,-79.82167817598554,-213.31176743160165,-94.32421875000006,-219.09793428711097]},
-        {from:13, to:2, category:"normal", points:[-154.00000000000006,-225.47611654654264,-180.58570373743808,-220.55204756379598,-205.5830995707714,-223.0458379540944,-229.62203244292354,-232.00507812499995]},
-        {from:2, to:14, category:"normal", points:[-259.91115298590626,-232.00507812499995,-250.25576349156825,-204.63383076411665,-251.42844995325083,-177.96547138911666,-263.24316754053655,-152.00000000000003]},
-        {from:14, to:6, category:"normal", points:[-262.4406433915086,-126.00507812500003,-253.81507045101202,-109.3134740007689,-254.17920540652418,-92.97844795910224,-263.36060848872097,-77]},
-        {from:2, to:15, category:"normal", points:[-242.1001225369219,-232.00507812499995,-188.36187653162585,-200.8181853281501,-137.80407487172388,-157.48315928648344,-92.99262749980832,-102]},
-        {from:3, to:15, category:"normal", points:[3.5224319597794036,-213.005078125,-11.760049312763527,-167.19442566986996,-36.16321004468938,-130.19273296153662,-67.87520171138847,-102]},
-        {from:15, to:5, category:"normal", points:[-81.41250053209596,-76.005078125,-79.22489015761661,-49.741506207056844,-86.53847339019624,-28.739813498723514,-101.29926604926123,-12.999999999999993]},
-        {from:4, to:16, category:"normal", points:[435.33789062499994,-247.21180984478107,444.2453584557492,-244.84653054917877,471.1939390913515,-228.914843443963,490.0000000000001,-205.86947458074567]},
-        {from:16, to:7, category:"normal", points:[501.2739753271114,-180.005078125,502.6552715365882,-156.80880442361493,495.5161044825068,-139.8071117152816,483.09979622958866,-129]},
-        {from:7, to:17, category:"normal", points:[471.4598191517228,-103.005078125,477.52659611721356,-79.05826965852535,473.59361804649376,-58.056576950192024,460.74713683179857,-40]},
-        {from:17, to:8, category:"normal", points:[448.04036761720454,-14.005078124999997,441.8808472325725,9.135567103989064,430.5475138992392,22.52950649792843,407.0000000000001,33.227258857660885]},
-        {from:9, to:18, category:"normal", points:[204.26820112988904,-241.00000000000006,188.0740194479598,-247.59847087764268,165.71755403541667,-266.4332793192731,146.8545016813197,-297.005078125]},
-        {from:18, to:1, category:"normal", points:[123.99999999999977,-317.62866382611685,77.27029947422275,-341.65073762040646,40.94664870486356,-372.7510228057681,9.344729837365932,-416.005078125]},
-        {from:9, to:-19, category:"normal", points:[236.15134087898625,-215.00507812500007,236.10407330062318,-175.7522256977263,225.01386196856325,-141.41719965605964,203.85060480122974,-112.00000000000009]},
-        {category:"normal", from:-19, to:10, points:[188.78743656538927,-86.00507812500008,173.3212113948171,-50.81568201481244,150.64484614645494,-25.114964788112992,125.8361210175619,-9.99999999999995]}
-            
-        ];
+    [
+        { from: 0, to: 3, category: "normal", color: "red", group: 4 },
+        { from: 3, to: 1, category: "or", group: 4 },
+        { from: 3, to: 2, category: "or", group: 4 },
+        { from: 1, to: 5, category :"normal"},
+        { from: 5, to: 6, category :"normal"}
+    ];
     myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
 }

@@ -44,9 +44,17 @@ export class FixedpluginComponent implements OnInit {
           if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
               $('.fixed-plugin .dropdown').addClass('open');
           }
-
       }
-
+      
+      $('#bt-fixed-plugin').click(function(){
+        if(!$('.fixed-plugin .show-dropdown').hasClass('show')){
+            myDiagram.selection.each(function(node) {
+                let moreInfo = node.data.moreInfo;
+                if(moreInfo) $("#info-textarea").val(moreInfo);
+                else $("#info-textarea").val('');
+            });
+        }
+      });
       $('#bt-font').click(function() {
           if($(this).hasClass('active')) {
             $(this).removeClass('active'); 
@@ -104,7 +112,7 @@ export class FixedpluginComponent implements OnInit {
                     }
                 }
             });
-            myDiagram.commitTransaction("change color");
+            myDiagram.commitTransaction("change text color");
           }
           if($('#a-color-picker').hasClass('background-color')){
             myDiagram.startTransaction("change color");
@@ -122,7 +130,7 @@ export class FixedpluginComponent implements OnInit {
                     }
                 }
             });
-            myDiagram.commitTransaction("change color");
+            myDiagram.commitTransaction("change text color");
           }
           if($('#a-color-picker').hasClass('stroke-color')){
             myDiagram.startTransaction("change stroke color");
@@ -150,7 +158,7 @@ export class FixedpluginComponent implements OnInit {
                     }
                 }
             });
-            myDiagram.commitTransaction("change color");
+            myDiagram.commitTransaction("change stroke color");
           }
       });
 
@@ -178,6 +186,32 @@ export class FixedpluginComponent implements OnInit {
           event.preventDefault();
           this.router.navigate(["edit","cmap","save"]);
       });
+
+      $('#bt-save-info').click((event) => {
+        event.preventDefault();
+        let moreInfo = $('#info-textarea').val();
+
+        if(moreInfo){
+            myDiagram.startTransaction("adding moreInfo to element");
+            myDiagram.selection.each(function(node) {
+                var data = node.data;
+                myDiagram.model.setDataProperty(data, "moreInfo", moreInfo);
+            });
+            myDiagram.commitTransaction("adding moreInfo to element");
+        }
+      });
+
+      $('#bt-discard-info').click((event) => {
+        event.preventDefault();
+        myDiagram.startTransaction("remove moreInfo to element");
+        myDiagram.selection.each(function(node) {
+            var data = node.data;
+            myDiagram.model.setDataProperty(data, "moreInfo", "");
+        });
+        myDiagram.commitTransaction("remove moreInfo to element");
+        
+      });
+
 
       $('#bt-version').click(event => {
           event.preventDefault();
