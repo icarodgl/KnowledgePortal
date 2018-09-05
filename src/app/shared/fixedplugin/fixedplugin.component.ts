@@ -235,7 +235,7 @@ export class FixedpluginComponent implements OnInit {
 		const params = new URLSearchParams();
         params.append('mapa', JSON.stringify(mapaConceitual));
 
-        const API = 'http://0.0.0.0:5002/';
+        const API = 'http://cmpaas.inf.ufes.br:5002/';
         
         $('#bt-check-map i').html('autorenew');
         axios.post(`${API}mapa/erros`, params)
