@@ -80,12 +80,15 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             str += "Member of " + d.group;
         else
             str += "Top-level";
+        
+        str += "\nMore Informations: " + (d.moreInfo?d.moreInfo:"");
+
         return str;
     }
 
     // Define the appearance and behavior for Links:
     function linkInfo(d) {  // Tooltip info for a link data object
-        return "Link:\nfrom " + d.from + " to " + d.to;
+        return "Link:\nfrom " + d.from + " to " + d.to +  + "\nMore Informations: " + (d.data.moreInfo?d.data.moreInfo:"");
     }
 
     // Define the appearance and behavior for Groups:
@@ -100,7 +103,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
         g.memberParts.each(function(part) {
             if (part instanceof go.Node && part.category == "relation") relations++;
         });
-        return "Group " + g.data.key + ": " + g.data.text + "\n" + mems + " members including: \nLinks: " + links + "\nRelations: " + relations + "\nConcepts: " + (mems-links-relations);
+        return "Group " + g.data.key + ": " + g.data.text + "\n" + mems + " members including: \nLinks: " + links + "\nRelations: " + relations + "\nConcepts: " + (mems-links-relations) + "\nMore Informations: " + (g.data.moreInfo?g.data.moreInfo:"");
     }
 
     // Define the behavior for the Diagram background:
@@ -143,6 +146,23 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             else return false;
         }else return tonode.data.category == "relation";
         
+    }
+
+    function checkInconsistence(){
+        let message = "";
+        myDiagram.selection.each(node => {
+            console.log(node.data.error);
+            message + node.data.error + "<br />";
+        });
+        swal({
+            title: 'Errors',
+            text: "This node contains the following errors> " + message,
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Verified',
+            confirmButtonClass: "btn btn-success",
+            buttonsStyling: false
+        });
     }
 
     // a context menu is an Adornment with a bunch of buttons in them
@@ -527,7 +547,12 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                         fill: "gray" 
                     }
                 )
-            ) // end button
+            ),
+            $("Button",
+                new go.Binding("opacity", "error", function(t) { return t ? 1 : 0; }),
+                { alignment: go.Spot.BottomRight, opacity: 0 },
+                $(go.Shape, "AsteriskLine", { width: 8, height: 8 }),
+                {click: checkInconsistence})
         ); // end Adornment
     
 
@@ -549,7 +574,6 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     let currentModel = this.modelService.getCurrentModel();
     if(!!currentModel)  myDiagram.model = go.Model.fromJson(currentModel);
     else resetModel();
-
  }
   
   ngOnDestroy() {
@@ -580,8 +604,8 @@ export function resetModel() {
         { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
         { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
         { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true },
-        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", },
-        { key: 6, text: "Concept 4", loc:"400 -30", category:"concept" }
+        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation" },
+        { key: 6, text: "Concept 4", loc:"400 -30", category:"concept", error: "error message" }
     ];
     let linkDataArray =
     [
