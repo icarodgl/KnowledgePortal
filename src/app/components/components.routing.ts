@@ -7,6 +7,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { PanelsComponent } from './panels/panels.component';
 import { SweetAlertComponent } from './sweetalert/sweetalert.component';
 import { TypographyComponent } from './typography/typography.component';
+import { CommentsAreasComponent } from './comments-areas/comments-areas.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -28,6 +29,12 @@ export const ComponentsRoutes: Routes = [
         component: IconsComponent
         }]
     }, {
+        path: '',
+        children: [ {
+          path: 'comments',
+          component: CommentsAreasComponent
+          }]
+      }, {
         path: '',
         children: [ {
             path: 'notifications',

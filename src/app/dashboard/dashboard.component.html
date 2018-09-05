@@ -9,7 +9,7 @@
                 <i class="material-icons">device_hub</i>
               </div>
               <p class="card-category">Concept Maps</p>
-              <h3 class="card-title">{{this.user.maps.length}}</h3>
+              <h3 class="card-title">{{this.user.stats.maps}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -17,7 +17,7 @@
                 <a (click)="newMap($event)" class="text-primary" href="">Create a new...</a>
               </div>
             </div>
-          </div>
+          </div> 
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
@@ -26,7 +26,7 @@
                 <i class="material-icons">group</i>
               </div>
               <p class="card-category">Groups</p>
-              <h3 class="card-title">{{this.user.groups.length}}</h3>
+              <h3 class="card-title">{{this.user.stats.groups}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -43,7 +43,7 @@
                   <i class="fas fa-user-tag"></i>
               </div>
               <p class="card-category">Following</p>
-              <h3 class="card-title">{{this.user.following.length}}</h3>
+              <h3 class="card-title">{{this.user.stats.following}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -60,7 +60,7 @@
                 <i class="fa fa-twitter"></i>
               </div>
               <p class="card-category">Followers</p>
-              <h3 class="card-title">+{{this.user.followers.length}}</h3>
+              <h3 class="card-title">+{{this.user.stats.followers}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -193,4 +193,4 @@
       </div>
     </div>
 </div>
-<conceptmap></conceptmap>
+<conceptmap id="map" #map1></conceptmap>

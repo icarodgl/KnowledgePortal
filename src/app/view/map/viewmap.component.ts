@@ -36,7 +36,7 @@ export class ViewMapComponent implements OnInit {
         let map:ConceptMap[] = new Array<ConceptMap>();
         map.push(this.currentMap = JSON.parse(this.mapService.getCurrentMap()));
         console.log(this.currentMap);
-        this.meService.updateDashboardMapsVersions(map)
+        this.meService.getMapsVersions(map)
             .subscribe(versions => {
                 this.versionList = versions;
                 let serializer = new XMLSerializer();
@@ -50,8 +50,8 @@ export class ViewMapComponent implements OnInit {
                     this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
 
                     svg = myDiagram.makeSvg({
-                        scale:0.8,
-                        maxSize: new go.Size(NaN, 400)
+                        scale:1,
+                        maxSize: new go.Size(NaN, 440)
                     });
                     this.images2[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
                 }

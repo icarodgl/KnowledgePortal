@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+        <div class="card">
+            <div class="card-header ">
+                <h3 class="card-title text-center">Comments</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10 ml-auto mr-auto">
+                        <div class="media-area">
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    <div class="avatar">
+                                        <img class="media-object img-raised" src={{comments[0].author.img}}>
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{comments[0].author.name}}
+                                        <small class="text-muted">&middot; {{comments[0].author.date}}</small>
+                                    </h5>
+                                    <!-- <p>Chance too good. God level bars. I'm so proud of @LifeOfDesiigner #1 song in the country. Panda! Don't be scared of the truth because we need to restart the human foundation in truth I stand with the most humility. We are so blessed!</p>
+                                    <p>All praises and blessings to the families of people who never gave up on dreams. Don't forget, You're Awesome!</p> -->
+                                    <p>{{comments[0].content}}</p>
+                                    <div class="media-footer">
+                                        <a (click) = "reply(0)" class="btn btn-primary btn-link pull-right" placement="top" ngbTooltip="Reply to Comment">
+                                            <i class="material-icons">reply</i> Reply
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-link pull-right">
+                                            <i class="material-icons">favorite_border</i> 243
+                                        </a>
+                                    </div>
+                                    <div class="media">
+                                        <a class="pull-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object img-raised" alt="64x64" src={{comments[0].responses[0].author.img}}>
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <h5 class="media-heading">{{comments[0].responses[0].author.name}}
+                                                <small class="text-muted">&middot; {{comments[0].responses[0].author.date}}</small>
+                                            </h5>
+                                            <p>{{comments[0].responses[0].content}}</p>
+                                            <div class="media-footer">
+                                                <a (click)="reply(0, comments[0].responses[0].author.name)" class="btn btn-primary btn-link pull-right" placement="top" ngbTooltip="Reply to Comment">
+                                                    <i class="material-icons">reply</i> Reply
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-link pull-right">
+                                                    <i class="material-icons">favorite_border</i> 243
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="media media-post" *ngIf="displayRespondeOf == 0">
+                                        <a class="pull-left author" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object img-raised" alt="64x64" src="./assets/img/faces/wagner.jpg">
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <textarea class="form-control" placeholder="Write a nice reply or go home..." rows="4">{{responseTo}}</textarea>
+                                            <div class="media-footer">
+                                                <a href="#pablo" class="btn btn-primary pull-right">
+                                                    <i class="material-icons">reply</i> Reply
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pagination pagination-primary justify-content-center">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                        <a mat-button class="page-link" aria-label="Previous">
+                                            <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+                                        </a>
+                                        </li>
+                                        <li class="page-item">
+                                        <a mat-button class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item active">
+                                        <a mat-button class="page-link">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                        <a mat-button class="page-link">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                        <a mat-button class="page-link" aria-label="Next">
+                                            <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                                        </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="media media-post">
+                                <a class="pull-left author" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object img-raised" alt="64x64" src="./assets/img/faces/wagner.jpg">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <textarea class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
+                                    <div class="media-footer">
+                                        <a href="#pablo" class="btn btn-primary btn-wd pull-right">Post Comment</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

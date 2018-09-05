@@ -6,3 +6,20 @@
     font-size: 44px;
     color: #000
 }
+
+.active {
+    border: 2px solid;
+    border-color: #00bbff !important;
+}
+
+.active .material-icons {
+    line-height: 25px;
+}
+
+.no-line {
+    border-bottom: 0px !important;
+}
+
+.color-picker {
+    height: 75px !important;
+}

@@ -2,8 +2,6 @@ import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@ang
 import * as go from "gojs";
 import { VersionService, ModelService } from '../../_services/index.service';
 import swal from 'sweetalert2';
-
-declare var $ : any;
 export var myDiagram: go.Diagram;
 
 @Component({
@@ -12,15 +10,12 @@ export var myDiagram: go.Diagram;
 })
 
 export class ConceptMapComponent implements AfterViewInit, OnDestroy {
-  
-  name = 'GoJS';
+  @ViewChild('myDiagramDiv') element: ElementRef;
 
-  @ViewChild('myDiagramDiv')
-  element: ElementRef;
-
-  constructor(private versionService:VersionService, modelService:ModelService){}
+  constructor(private versionService:VersionService, private modelService:ModelService){}
 
   ngAfterViewInit() {
+      
     let conceptNodeTemplate, relationNodeTemplate, normalLinkTemplate, orLinkTemplate, mapTemplate, selectionAdornmentTemplate;
     const $ = go.GraphObject.make;  // for conciseness in defining templates
 
@@ -135,7 +130,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     // Upon a drop onto the background, or onto a top-level Node, make selection top-level.
     // If this is OK, we're done; otherwise we cancel the operation to rollback everything.
     function finishDrop(e, grp) {
-    var ok = (grp !== null
+        var ok = (grp !== null
                 ? grp.addMembers(grp.diagram.selection, true)
                 : e.diagram.commandHandler.addTopLevelParts(e.diagram.selection, true));
         if (!ok) e.diagram.currentTool.doCancel();
@@ -158,9 +153,39 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                         var contextmenu = obj.part;  // the Button is in the context menu Adornment
                         var part = contextmenu.adornedPart;  // the adornedPart is the Part that the context menu adorns
                         // now can do something with PART, or with its data, or with the Adornment (the context menu)
-                        if (part instanceof go.Link) alert(linkInfo(part.data));
-                        else if (part instanceof go.Group) alert(groupInfo(contextmenu));
-                        else alert(nodeInfo(part.data));
+                        if (part instanceof go.Link) {
+                            swal({
+                                title: 'Link Informations',
+                                text: linkInfo(part.data),
+                                type: 'info',
+                                showCancelButton: false,
+                                confirmButtonText: 'Ok',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }
+                        else if (part instanceof go.Group) {
+                            swal({
+                                title: 'Group Informations',
+                                text: groupInfo(contextmenu),
+                                type: 'info',
+                                showCancelButton: false,
+                                confirmButtonText: 'Ok',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }
+                        else {
+                            swal({
+                                title: 'Node/Relation Informations',
+                                text: nodeInfo(part.data),
+                                type: 'info',
+                                showCancelButton: false,
+                                confirmButtonText: 'Ok',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }
                     }, undefined ),
             makeButton("Cut",
                     function(e, obj) { e.diagram.commandHandler.cutSelection(); },
@@ -235,7 +260,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     conceptNodeTemplate = 
         $(go.Node, "Auto",  // the Shape will go around the TextBlock
             new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-            $(go.Shape, "Rectangle", 
+            $(go.Shape, "RoundedRectangle", 
             {
                 portId: "", 
                 strokeWidth: 1,
@@ -250,7 +275,8 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 stroke: "black"
             },
                 // Shape.fill is bound to Node.data.color
-                new go.Binding("fill", "color")
+                new go.Binding("fill", "color").makeTwoWay(),
+                new go.Binding("stroke", "stroke").makeTwoWay()
             ),
             $(go.TextBlock,
                 {
@@ -261,7 +287,8 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     editable: true  // allow in-place editing by user
                 },  // some room around the text
                 // TextBlock.text is bound to Node.data.key
-                new go.Binding("text", "text").makeTwoWay()
+                new go.Binding("text", "text").makeTwoWay(),
+                new go.Binding("stroke", "textColor").makeTwoWay()
             ),
             { // this tooltip Adornment is shared by all nodes
                 toolTip:
@@ -304,7 +331,8 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     editable: true
                 },  // some room around the text
                 // TextBlock.text is bound to Node.data.key
-                new go.Binding("text", "text").makeTwoWay()
+                new go.Binding("text", "text").makeTwoWay(),
+                new go.Binding("stroke", "textColor").makeTwoWay()
             ),
             { // this tooltip Adornment is shared by all nodes
                 toolTip:
@@ -429,9 +457,11 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     fromLinkableDuplicates: true,
                     toLinkable: true, 
                     toLinkableSelfNode: true, 
-                    toLinkableDuplicates: true 
+                    toLinkableDuplicates: true,
+                    fill:  $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)"})
                 },
-                new go.Binding("fill", "isHighlighted", function(h) { return h ? "rgba(255,0,0,0.2)" : $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)" }); }).ofObject(),
+                //new go.Binding("fill", "isHighlighted", function(h) { return h ? "rgba(255,0,0,0.2)" : $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)" }); }).ofObject(),
+                new go.Binding('fill', 'color').makeTwoWay()
             ),
             $(go.Panel, "Vertical",
                 { 
@@ -452,7 +482,9 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                             editable: true, 
                             alignment: go.Spot.Center
                         },
-                        new go.Binding("text", "text").makeTwoWay())
+                        new go.Binding("text", "text").makeTwoWay(),
+                        new go.Binding("stroke", "textColor").makeTwoWay(),
+                    )
                 ),
                 $(go.Placeholder, // create a placeholder to represent the area where the contents of the group are
                     { 
@@ -594,6 +626,10 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
     }
     
+    let currentModel = this.modelService.getCurrentModel();
+    if(!!currentModel)  myDiagram.model = go.Model.fromJson(currentModel);
+    else resetModel();
+
  }
   
   ngOnDestroy() {

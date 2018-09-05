@@ -1,11 +1,12 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import * as go from 'gojs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, MapService, MeService, ModelService } from '../_services/index.service';
 import { User, ConceptMap, Version } from '../_models/index.model';
 import { Router } from '@angular/router';
-import {myDiagram} from '../edit/conceptmap/conceptmap.component';
+import { myDiagram, ConceptMapComponent, resetModel } from '../edit/conceptmap/conceptmap.component';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,18 +14,15 @@ import {myDiagram} from '../edit/conceptmap/conceptmap.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild("map1") map1: ConceptMapComponent;
 
-  @ViewChild('myDiagramDiv')
-  element: ElementRef;
+  @ViewChild('myDiagramDiv') element: ElementRef;
 
   private images:SafeHtml[] = new Array<SafeHtml>();
-  private idMap:String[] = new Array<String>();
   public user:User;
   public maps: ConceptMap[];
-  public versions: Version[] = new Array<Version>();
 
-  constructor(
-      private http: HttpClient, 
+  constructor( 
       private _sanitizer: DomSanitizer, 
       private authServicve: AuthService,
       private mapService: MapService,
@@ -35,32 +33,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
   public ngOnInit() {
-      this.meService.updateDashboardMaps()
-        .subscribe(maps => {
-            this.maps = maps;
-            this.meService.updateDashboardMapsVersions(this.maps)
-                .subscribe(versions => {
-                    versions.forEach(v => {
-                        //this.versions.findIndex(item => item.map._id == v.map._id) === -1 ? this.versions.push(v) : {} ;
-                        this.maps.forEach((m, i) => {
-                            if(m._id == v.map._id) {
-                                this.versions[i] = v;
-                            }
-                        });
+        this.meService.getDashboardInfo()
+            .subscribe(maps => {
+                this.maps = maps;
+                let serializer = new XMLSerializer();
+                let svg;
+                this.maps.forEach((m, i)=> {
+                    myDiagram.model = go.Model.fromJson(m.versions[0].content);
+                    svg = myDiagram.makeSvg({
+                        scale: 0.5,
+                        maxSize: new go.Size(NaN, 220)
                     });
-                    let serializer = new XMLSerializer();
-                    let svg;
-                    for(let i = 0; i < (this.versions.length > 3 ? 3 : this.versions.length); i++){
-                        myDiagram.model = go.Model.fromJson(this.versions[i].content);
-                        this.idMap[i] = this.versions[i].map._id;
-                        svg = myDiagram.makeSvg({
-                            scale:0.5,
-                            maxSize: new go.Size(NaN, 220)
-                        });
-                        this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
-                    }
-                });
-        }, error => console.log(error));
+                    this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
+                });                
+            }, error => console.log(error));
    }
    ngAfterViewInit() {
    }
@@ -70,8 +56,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    }
    newMap(e){
        e.preventDefault();
-       this.modelService.removeCurrentModel();
-       this.mapService.removeCurrentMap();
-       this.router.navigate(['edit','cmap']);
+       swal({
+            title: 'Are you sure?',
+            text: "If you have a map not yet saved, this will delete all unsaved information. Do you wish to continue?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            confirmButtonText: 'Yes, create a new...',
+            buttonsStyling: false
+        }).then((result) => {
+            if (result.value) {
+                resetModel();
+                this.router.navigate(['edit','cmap']);
+            }
+        });
    }
 }
