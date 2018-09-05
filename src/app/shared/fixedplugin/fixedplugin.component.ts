@@ -107,7 +107,8 @@ export class FixedpluginComponent implements OnInit {
 
           const frasesDeLigacaoComConexoes = [];
 
-          const conexoes = myDiagram.model.linkDataArray;
+          const links = myDiagram.model;
+          const conexoes = (links as any).linkDataArray;
           
           conceitos.forEach(item => {
               const conceitoOrigem = item;
@@ -156,13 +157,45 @@ export class FixedpluginComponent implements OnInit {
         $('#bt-check-map i').html('autorenew');
         axios.post(`${API}mapa/erros`, params)
         .then(result => {
-            console.log({result});
+            const erros = result.data.mapaEnviado.erros;
+
+
+            Object.keys(erros).forEach(erro => {
+                
+                myDiagram.startTransaction("add error");
+                erros[erro].forEach(item => {
+                    
+
+                    if ('relation' === item.category) {
+                        console.log({item});
+                        
+                    }
+                    
+                    if (Array.isArray(item)) {
+                        item.forEach(item => {
+                            const node = myDiagram.model.findNodeDataForKey(item.key);
+                            myDiagram.model.setDataProperty(node, "color", "red");
+                            myDiagram.model.setDataProperty(node, "error", erro);
+                        })
+                    } else {
+                        const node = myDiagram.model.findNodeDataForKey(item.key);
+                        myDiagram.model.setDataProperty(node, "color", "red");
+                        myDiagram.model.setDataProperty(node, "error", erro);
+
+                        
+                    }
+
+                })
+                myDiagram.commitTransaction("add error");
+            })
         })
         .catch(error => console.log({error})
         )
         .then(() => {
             $('#bt-check-map i').html('spellcheck');
         })
+
+        
           
           
       });
