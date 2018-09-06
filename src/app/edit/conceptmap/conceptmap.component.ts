@@ -322,7 +322,9 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             },
                 // Shape.fill is bound to Node.data.color
                 new go.Binding("fill", "color").makeTwoWay(),
-                new go.Binding("stroke", "stroke").makeTwoWay()
+                new go.Binding("stroke", "stroke").makeTwoWay(),
+                new go.Binding("stroke", "", function(data){ return data.error ? "red":data.stroke ? data.stroke : "black"; }),
+                new go.Binding("strokeWidth", "error", function(t) { return t ? 3 : 1; })
             ),
             $(go.TextBlock,
                 {
@@ -376,7 +378,9 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 },  // some room around the text
                 // TextBlock.text is bound to Node.data.key
                 new go.Binding("text", "text").makeTwoWay(),
-                new go.Binding("stroke", "textColor").makeTwoWay()
+                new go.Binding("stroke", "textColor").makeTwoWay(),
+                new go.Binding("stroke", "", function(data){ return data.error ? "red":data.textColor ? data.textColor : "#333"; }),
+                new go.Binding("font", "error", function(t) { return t ? "bold 14px sans-serif" : "bold 12px sans-serif"; })
             ),
             { // this tooltip Adornment is shared by all nodes
                 toolTip:
@@ -505,7 +509,9 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     fill:  $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)"})
                 },
                 //new go.Binding("fill", "isHighlighted", function(h) { return h ? "rgba(255,0,0,0.2)" : $(go.Brush, "Linear", { 0: "rgba(224,234,252,0.5)", 1: "rgba(207,222,243,0.5)" }); }).ofObject(),
-                new go.Binding('fill', 'color').makeTwoWay()
+                new go.Binding('fill', 'color').makeTwoWay(),
+                new go.Binding("stroke", "", function(data){ return data.error ? "red": data.stroke ? data.stroke: "black"; }),
+                new go.Binding("strokeWidth", "error", function(t) { return t ? 3 : 1; })
             ),
             $(go.Panel, "Vertical",
                 { 
@@ -580,7 +586,6 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 $(go.Shape, "AsteriskLine", { width: 8, height: 8 }),
                 {click: checkInconsistence})
         ); // end Adornment
-    
 
     conceptNodeTemplate.selectionAdornmentTemplate = selectionAdornmentTemplate;
     relationNodeTemplate.selectionAdornmentTemplate = selectionAdornmentTemplate;
@@ -628,9 +633,9 @@ export function resetModel() {
         { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "black", textColor: "white" },
         { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
         { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
-        { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4 },
-        { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true },
-        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation" },
+        { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4, textColor: "blue" },
+        { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true, error: "error message" },
+        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", error: "error message" },
         { key: 6, text: "Concept 4", loc:"400 -30", category:"concept", error: "error message" }
     ];
     let linkDataArray =
