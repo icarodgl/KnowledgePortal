@@ -37,7 +37,7 @@ export class SaveMapComponent implements OnInit{
         if(!!myDiagram) {
             let serializer = new XMLSerializer();
             let svg = myDiagram.makeSvg({
-                scale:0.4,
+                scale:0.6,
                 maxSize: new go.Size(NaN, 220)
             });
             this.image = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));

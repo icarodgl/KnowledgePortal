@@ -4,7 +4,7 @@
             <h3 class="title">Save Concept Map</h3>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                         <div class="card">
                             <div class="card-header card-header-icon card-header-primary">
                                 <div class="card-icon">
@@ -25,23 +25,13 @@
                                                 <input matInput placeholder="Question of investigation" [(ngModel)]='map.question' name="question" type="text">
                                             </mat-form-field>
                                         <div class="form-group">
-                                            <label>Description</label>
+                                            <label class="bmd-label-floating">Description</label>
                                             <div class="form-group">
-                                                <label class="bmd-label-floating"> Talk about the content of this map.</label>
-                                                <textarea class="form-control" rows="3" [(ngModel)]='map.description' name="description"></textarea>
+                                                <textarea class="form-control" placeholder="Talk about the content of this map." rows="3" [(ngModel)]='map.description' name="description"></textarea>
                                             </div>
                                         </div>
                                         <label>Keywords</label>
-                                        <tag-input [(ngModel)]='map.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>
-                                        <div class="togglebutton">
-                                            <label>
-                                                Visibility level: 
-                                                <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
-                                                <span class="toggle"></span>
-                                                {{map.isPublic?'Is public':'Is private'}}
-                                            </label>
-                                        </div>
-                                        
+                                        <tag-input [(ngModel)]='map.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>                                        
                                     </form>
                                     </div>
                                 </div>
@@ -64,20 +54,10 @@
                             </div>
                         </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="row">
-                        <div class="card">
-                            <div class="card-header card-header-icon card-header-success">
-                                <div class="card-icon">
-                                    <i class="material-icons">image</i>
-                                </div>
-                                <h4 class="card-title">
-                                    Image
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="img" [innerHTML]="image"> </div>
-                            </div>
+                        <div class="col-md-12 text-center">
+                            <div class="img" [innerHTML]="image"> </div>
                         </div>
                     </div>
                     <div class="row">
@@ -87,14 +67,141 @@
                                     <i class="material-icons">share</i>
                                 </div>
                                 <h4 class="card-title">
-                                    Share with...
+                                    Share settings...
                                 </h4>
                             </div>
                             <div class="card-body">
-                                
+                                <!-- <div class="row">
+                                    <div class="col-md-4">
+                                        Public Visibility: 
+                                    </div>
+                                    <div class="col-md-4">
+                                        Group Visibility: 
+                                    </div>
+                                    <div class="col-md-4">
+                                        Specific Users: 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="togglebutton">    
+                                            <label>
+                                                <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                <span class="toggle"></span>
+                                                {{map.isPublic?'Is public':'Is private'}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="togglebutton">    
+                                            <label>
+                                                Public Visibility:
+                                                <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                <span class="toggle"></span>
+                                                {{map.isPublic?'Is public':'Is private'}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="togglebutton">    
+                                            <label>
+                                                <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                <span class="toggle"></span>
+                                                {{map.isPublic?'Is public':'Is private'}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="map.isPublic">
+                                    <div class="col-md-12">
+                                        <label>Specify users...</label>
+                                        <tag-input [(ngModel)]='map.keywords' secondaryPlaceholder="Enter a username" placeholder="+ Username" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>
+                                    </div>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <ul class="nav nav-pills nav-pills-rose flex-column" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#link4" role="tablist">
+                                            Public
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#link5" role="tablist">
+                                            Group
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#link6" role="tablist">
+                                            Users
+                                            </a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="tab-content">
+                                        <div class="tab-pane active" id="link4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    Can view
+                                                </div>
+                                                <div class="col-md-4">
+                                                    Can fork
+                                                </div>
+                                                <div class="col-md-4">
+                                                    Can edit
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="togglebutton">    
+                                                        <label>
+                                                            <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                            <span class="toggle"></span>
+                                                            {{map.isPublic?'Is public':'Is private'}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="togglebutton">    
+                                                        <label>
+                                                            <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                            <span class="toggle"></span>
+                                                            {{map.isPublic?'Is public':'Is private'}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="togglebutton">    
+                                                        <label>
+                                                            <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                            <span class="toggle"></span>
+                                                            {{map.isPublic?'Is public':'Is private'}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        <div class="tab-pane" id="link5">
+                                            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                                            <br>
+                                            <br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                                        </div>
+                                        <div class="tab-pane" id="link6">
+                                            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                                            <br>
+                                            <br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    
                 </div>
         </div>
     </div>

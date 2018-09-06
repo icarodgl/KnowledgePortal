@@ -583,7 +583,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             $("Button",
                 new go.Binding("opacity", "error", function(t) { return t ? 1 : 0; }),
                 { alignment: go.Spot.BottomRight, opacity: 0 },
-                $(go.Shape, "AsteriskLine", { width: 8, height: 8 }),
+                $(go.Shape, "FivePointedBurst", { width: 8, height: 8 }),
                 {click: checkInconsistence})
         ); // end Adornment
 
