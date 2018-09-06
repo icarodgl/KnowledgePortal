@@ -148,21 +148,47 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
         
     }
 
-    function checkInconsistence(){
+    function checkInconsistence(d){
         let message = "";
-        myDiagram.selection.each(node => {
-            console.log(node.data.error);
-            message + node.data.error + "<br />";
+        myDiagram.selection.each(function(node){
+            alert(node.data);
+            myDiagram.startTransaction("remove error");
+            
+            var data = node.data;
+            myDiagram.model.setDataProperty(data, "error", null);
+        
+            myDiagram.commitTransaction("remove error");
         });
-        swal({
-            title: 'Errors',
-            text: "This node contains the following errors> " + message,
-            type: 'error',
-            showCancelButton: false,
-            confirmButtonText: 'Verified',
-            confirmButtonClass: "btn btn-success",
-            buttonsStyling: false
-        });
+
+        // swal({
+        //     title: 'Are you sure?',
+        //     text: 'You will not be able to recover this imaginary file!',
+        //     type: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonText: 'Yes, delete it!',
+        //     cancelButtonText: 'No, keep it',
+        //     confirmButtonClass: "btn btn-success",
+        //     cancelButtonClass: "btn btn-danger",
+        //     buttonsStyling: false
+        // }).then((result) => {
+        //   if (result.value) {
+        //     swal({
+        //         title: 'Deleted!',
+        //         text: 'Your imaginary file has been deleted.',
+        //         type: 'success',
+        //         confirmButtonClass: "btn btn-success",
+        //         buttonsStyling: false
+        //     }).catch(swal.noop)
+        //   } else {
+        //     swal({
+        //         title: 'Cancelled',
+        //         text: 'Your imaginary file is safe :)',
+        //         type: 'error',
+        //         confirmButtonClass: "btn btn-info",
+        //         buttonsStyling: false
+        //     }).catch(swal.noop)
+        //   }
+        // })
     }
 
     // a context menu is an Adornment with a bunch of buttons in them
