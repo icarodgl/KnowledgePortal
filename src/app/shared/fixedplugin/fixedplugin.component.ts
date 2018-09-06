@@ -57,7 +57,7 @@ export class FixedpluginComponent implements OnInit {
       });
       $('#bt-font').click(function() {
           if($(this).hasClass('active')) {
-            $(this).removeClass('active'); 
+            $(this).removeClass('active');
             $('#a-color-picker').removeClass('text-color');
           }else {
             $(this).addClass('active');

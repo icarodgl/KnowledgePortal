@@ -5,6 +5,24 @@
             <i class="fa fa-cog fa-2x"> </i>
         </a>
         <ul class="dropdown-menu">
+            <li class="header-title">Operations</li>
+            <li class="adjustments-line">
+                <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Clear all and create a new map" id="bt-new-map">
+                    <i class="material-icons">clear</i>
+                </button>
+                <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save as new map" id="bt-save">
+                    <i class="material-icons">save</i>
+                </button>
+                <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Create a new version of this map" id="bt-version" [disabled]="!mapService.getCurrentMap()">
+                    <i class="material-icons">call_split</i>
+                </button>
+            </li>
+            <li class="header-title">Advanced Operations</li>
+            <li class="adjustments-line">
+                <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Verificar as inconsistências do mapa" id="bt-check-map">
+                    <i onclick="javascript:void(0)" class="material-icons">spellcheck</i>
+                </button>
+            </li>
             <li class="header-title">Colors</li>
             <li class="adjustments-line no-line">
                 <button type="button" mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Font color" id="bt-font">
@@ -50,8 +68,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-">
+                    <div class="col-md-12">
                         <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save this info..." id="bt-save-info">
                             <i class="material-icons">done</i>
                         </button>
@@ -59,32 +76,9 @@
                             <i class="material-icons">delete_forever</i>
                         </button>
                     </div>
-                    <div class="col-md-4">
-                    </div>
                 </div>
-                
-                
             </li>
-            <li class="header-title">Operations</li>
-            <li class="adjustments-line">
-                    <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Create a new map" id="bt-new-map">
-                        <i class="material-icons">add</i>
-                    </button>
-                    <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save as new map" id="bt-save">
-                        <i class="material-icons">save</i>
-                    </button>
-                    <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Save as new version" id="bt-version" [disabled]="!mapService.getCurrentMap()">
-                        <i class="material-icons">call_split</i>
-                    </button>
-            </li>
-            
-            <li class="header-title">Advanced Operations</li>
-            <li class="adjustments-line">
-                    <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Verificar as inconsistências do mapa" id="bt-check-map">
-                        <i onclick="javascript:void(0)" class="material-icons">spellcheck</i>
-                    </button>
-            </li>
-            <li class="adjustments-line">
+            <!-- <li class="adjustments-line">
               <a href="javascript:void(0)" class="switch-trigger">
                   <p>Sidebar Mini</p>
                   <label class="ml-auto">
@@ -98,8 +92,8 @@
                   <div class="clearfix"></div>
                   <div class="ripple-container"></div>
               </a>
-            </li>
-            <li class="adjustments-line">
+            </li> -->
+            <!-- <li class="adjustments-line">
               <a href="javascript:void(0)" class="switch-trigger">
                   <p>Sidebar Images</p>
                   <label class="switch-mini ml-auto">
@@ -134,7 +128,7 @@
                 <a class="img-holder switch-trigger" href="javascript:void(0)">
                     <img src="./assets/img/sidebar-4.jpg" alt="" />
                 </a>
-            </li>
+            </li> -->
             
         </ul>
     </div>
