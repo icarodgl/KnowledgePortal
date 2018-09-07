@@ -290,9 +290,6 @@ export class FixedpluginComponent implements OnInit {
 			}
         };
         
-        console.log({mapaConceitual});
-        
-		
 		const params = new URLSearchParams();
         params.append('mapa', JSON.stringify(mapaConceitual));
 
@@ -303,30 +300,21 @@ export class FixedpluginComponent implements OnInit {
         .then(result => {
             const erros = result.data.mapaEnviado.erros;
 
+            console.log({erros});
 
             Object.keys(erros).forEach(erro => {
                 
                 myDiagram.startTransaction("add error");
                 erros[erro].forEach(item => {
                     
-
-                    if ('relation' === item.category) {
-                        console.log({item});
-                        
-                    }
-                    
                     if (Array.isArray(item)) {
                         item.forEach(item => {
                             const node = myDiagram.model.findNodeDataForKey(item.key);
-                            myDiagram.model.setDataProperty(node, "color", "red");
                             myDiagram.model.setDataProperty(node, "error", erro);
                         })
                     } else {
                         const node = myDiagram.model.findNodeDataForKey(item.key);
-                        myDiagram.model.setDataProperty(node, "color", "red");
                         myDiagram.model.setDataProperty(node, "error", erro);
-
-                        
                     }
 
                 })
