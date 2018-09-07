@@ -300,18 +300,24 @@ export class FixedpluginComponent implements OnInit {
         .then(result => {
             const erros = result.data.mapaEnviado.erros;
 
-            console.log({erros});
-
             Object.keys(erros).forEach(erro => {
                 
                 myDiagram.startTransaction("add error");
                 erros[erro].forEach(item => {
-                    
+
                     if (Array.isArray(item)) {
-                        item.forEach(item => {
-                            const node = myDiagram.model.findNodeDataForKey(item.key);
+                        if ('proposicoesComErroDeConcordancia' === erro) {
+                            const node = myDiagram.model.findNodeDataForKey(item[0].key);
+                            const fix = item[1];
                             myDiagram.model.setDataProperty(node, "error", erro);
-                        })
+                            myDiagram.model.setDataProperty(node, 'fix', fix);
+                        } else {
+                            item.forEach(item => {
+                                const node = myDiagram.model.findNodeDataForKey(item.key);
+                                myDiagram.model.setDataProperty(node, "error", erro);
+                            })
+                        }
+                        
                     } else {
                         const node = myDiagram.model.findNodeDataForKey(item.key);
                         myDiagram.model.setDataProperty(node, "error", erro);
