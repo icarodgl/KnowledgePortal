@@ -1,4 +1,4 @@
-import { User, Version } from './index.model';
+import { User, Version, Permission } from './index.model';
 export class ConceptMap {
     _id: string;
     title: string;
@@ -8,6 +8,20 @@ export class ConceptMap {
     created?: Date;
     last_update?: Date;
     author?: User;
-    isPublic?: Boolean;
     versions?: Version[];
+    permissions?: {
+        publicPermission?: Permission,
+        groups?:[
+            {
+                groupId?: string,
+                permission?: Permission
+            }
+        ],
+        users?:[
+            {
+                userId?: string,
+                permission?: Permission
+            }
+        ]
+    };
 }

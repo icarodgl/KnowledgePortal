@@ -5,7 +5,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { MapService, AuthService } from '../../../_services/index.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
-import { ConceptMap } from '../../../_models/index.model';
+import { ConceptMap, Permission } from '../../../_models/index.model';
 import { Router } from '@angular/router';
 
 declare var $: any;
@@ -28,8 +28,10 @@ export class SaveMapComponent implements OnInit{
         private authService: AuthService
     ){
         this.map = new ConceptMap();
-        this.map.isPublic = true;
         this.map.keywords = [];
+        this.map.permissions = {
+            publicPermission: new Permission()
+        }
     }
 
     ngOnInit(): void {
@@ -73,6 +75,33 @@ export class SaveMapComponent implements OnInit{
     }
     back(){
         this.router.navigate(['edit/cmap']);
+    }
+
+    click(bt){
+        switch(bt){
+            case 'canView':
+                this.map.permissions.publicPermission.canView = !this.map.permissions.publicPermission.canView;
+                if(!this.map.permissions.publicPermission.canView){
+                    this.map.permissions.publicPermission.canFork = false;
+                    this.map.permissions.publicPermission.canEdit = false;
+                }
+                break;
+            case 'canFork':
+                this.map.permissions.publicPermission.canFork = !this.map.permissions.publicPermission.canFork;
+                if(this.map.permissions.publicPermission.canFork){
+                    this.map.permissions.publicPermission.canView = true;
+                }else{
+                    this.map.permissions.publicPermission.canEdit = false;
+                }
+                break;
+            case 'canEdit':
+                this.map.permissions.publicPermission.canEdit = !this.map.permissions.publicPermission.canEdit;
+                if(this.map.permissions.publicPermission.canEdit){
+                    this.map.permissions.publicPermission.canView = true;
+                    this.map.permissions.publicPermission.canFork = true;
+                }
+                break;
+        }
     }
     
 }

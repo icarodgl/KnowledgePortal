@@ -119,8 +119,9 @@
                                     </div>
                                 </div> -->
                                 <div class="row">
+                                    
                                     <div class="col-md-3">
-                                        <ul class="nav nav-pills nav-pills-rose flex-column" role="tablist">
+                                        <ul class="nav nav-pills nav-pills-info flex-column" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#link4" role="tablist">
                                             Public
@@ -142,46 +143,54 @@
                                         <div class="tab-content">
                                         <div class="tab-pane active" id="link4">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-3">
                                                     Can view
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     Can fork
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     Can edit
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-3">
                                                     <div class="togglebutton">    
                                                         <label>
-                                                            <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                            <input type="checkbox" [checked]="map.permissions.publicPermission.canView" (change)="click('canView')">
                                                             <span class="toggle"></span>
-                                                            {{map.isPublic?'Is public':'Is private'}}
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="togglebutton">    
                                                         <label>
-                                                            <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                            <input type="checkbox" [checked]="map.permissions.publicPermission.canFork" (change)="click('canFork')">
                                                             <span class="toggle"></span>
-                                                            {{map.isPublic?'Is public':'Is private'}}
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="togglebutton">    
                                                         <label>
-                                                            <input type="checkbox" [checked]="map.isPublic" (change)="map.isPublic = !map.isPublic">
+                                                            <input type="checkbox" [checked]="map.permissions.publicPermission.canEdit" (change)="click('canEdit')">
                                                             <span class="toggle"></span>
-                                                            {{map.isPublic?'Is public':'Is private'}}
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <br />
+                                                    <h6>Permissions Description: </h6>
+                                                    <p *ngIf="!map.permissions.publicPermission.canView">This map is completely private.</p>
+                                                    <p *ngIf="map.permissions.publicPermission.canView && !map.permissions.publicPermission.canFork && !map.permissions.publicPermission.canEdit">Everyone can only view this map and its versions.</p>
+                                                    <p *ngIf="map.permissions.publicPermission.canFork && !map.permissions.publicPermission.canEdit">Everyone can view this map and its versions and create/copy versions of this map.</p>
+                                                    <p *ngIf="map.permissions.publicPermission.canEdit">Everyone has full access to this map and its versions.</p>
+                                                </div>
+                                            </div>
                                             
                                         </div>
                                         <div class="tab-pane" id="link5">
