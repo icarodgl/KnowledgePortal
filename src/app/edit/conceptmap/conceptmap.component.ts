@@ -151,11 +151,16 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     function checkInconsistence(d){
         let message = "";
         myDiagram.selection.each(function(node){
-            alert(node.data);
             myDiagram.startTransaction("remove error");
+
+            const fix = node.data.fix;
+            if (fix) {
+                myDiagram.model.setDataProperty(node.data, "text", fix)
+            }
             
             var data = node.data;
             myDiagram.model.setDataProperty(data, "error", null);
+            myDiagram.model.setDataProperty(data, "textColor", null);
         
             myDiagram.commitTransaction("remove error");
         });
