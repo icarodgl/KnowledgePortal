@@ -160,7 +160,6 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             
             var data = node.data;
             myDiagram.model.setDataProperty(data, "error", null);
-            myDiagram.model.setDataProperty(data, "textColor", null);
         
             myDiagram.commitTransaction("remove error");
         });

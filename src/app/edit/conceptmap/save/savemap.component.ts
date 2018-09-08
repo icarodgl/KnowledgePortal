@@ -5,7 +5,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { MapService, AuthService } from '../../../_services/index.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
-import { ConceptMap, Permission } from '../../../_models/index.model';
+import { ConceptMap, Permission, Group } from '../../../_models/index.model';
 import { Router } from '@angular/router';
 
 declare var $: any;
@@ -20,6 +20,7 @@ export class SaveMapComponent implements OnInit{
     public map:ConceptMap;
     regularItems;
     teste:boolean = false;
+    private search: string;
 
     constructor(
         private _sanitizer: DomSanitizer, 
@@ -30,7 +31,9 @@ export class SaveMapComponent implements OnInit{
         this.map = new ConceptMap();
         this.map.keywords = [];
         this.map.permissions = {
-            publicPermission: new Permission()
+            publicPermission: new Permission(),
+            groups: [],
+            users: []
         }
     }
 
@@ -102,6 +105,18 @@ export class SaveMapComponent implements OnInit{
                 }
                 break;
         }
+    }
+
+    findAndAddGroup(e){
+        e.preventDefault();
+        let g = new Group();
+        g.name = this.search;
+        let a = {
+            group: g,
+            permission: new Permission()
+        }
+        this.map.permissions.groups.push(a);
+        
     }
     
 }

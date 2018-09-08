@@ -23,3 +23,14 @@
     width: 100%;
     overflow: hidden;
 }
+
+th{
+    font-weight: 400;
+    font-size: 1em !important;
+}
+.td-name{
+    min-width: 100px;
+}
+.th-small{
+    max-width: 5px;
+}
