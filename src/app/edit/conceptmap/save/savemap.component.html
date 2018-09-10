@@ -165,9 +165,9 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr *ngFor="let row of map.permissions.groups">
+                                                                <tr *ngFor="let row of map.permissions.groups; let i = index">
                                                                     <td class="td-actions th-small">
-                                                                        <button mat-raised-button type="button" class="btn btn-danger btn-link">
+                                                                        <button mat-raised-button type="button" class="btn btn-danger btn-link" (click)="removeGroup(i)">
                                                                             <i class="material-icons">close</i>
                                                                         </button>
                                                                     </td>
@@ -183,7 +183,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="row.permission.canView = !row.permission.canView">
+                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="row.permission.canFork = !row.permission.canFork">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -191,7 +191,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="row.permission.canView = !row.permission.canView">
+                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="row.permission.canEdit = !row.permission.canEdit">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -204,9 +204,64 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="link6">
-                                            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-                                            <br>
-                                            <br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="input-group no-border">
+                                                        <input type="text" [(ngModel)]="search" class="form-control" placeholder="Username..." [ngModelOptions]="{standalone: true}">
+                                                        <button mat-raised-button (click)="findAndAddUser($event)" class="btn btn-white btn-round btn-just-icon">
+                                                            <i class="material-icons">playlist_add</i>
+                                                            <div class="ripple-container"></div>
+                                                        </button>
+                                                    </div>
+                                                    <div class="table-responsive" *ngIf="map.permissions.users.length > 0">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center th-small">#</th>
+                                                                    <th class="text-center">Username</th>
+                                                                    <th class="text-center">View</th>
+                                                                    <th class="text-center">Fork</th>
+                                                                    <th class="text-center">Edit</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let row of map.permissions.users; let i = index">
+                                                                    <td class="td-actions th-small">
+                                                                        <button mat-raised-button type="button" class="btn btn-danger btn-link" (click)="removeUser(i)">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td class="text-center td-name">{{row.user.username}}</td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="row.permission.canView = !row.permission.canView">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="row.permission.canFork = !row.permission.canFork">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="row.permission.canEdit = !row.permission.canEdit">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         </div>
                                     </div>

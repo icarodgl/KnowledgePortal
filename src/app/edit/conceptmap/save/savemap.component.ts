@@ -5,7 +5,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { MapService, AuthService } from '../../../_services/index.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
-import { ConceptMap, Permission, Group } from '../../../_models/index.model';
+import { ConceptMap, Permission, Group, User } from '../../../_models/index.model';
 import { Router } from '@angular/router';
 
 declare var $: any;
@@ -116,7 +116,23 @@ export class SaveMapComponent implements OnInit{
             permission: new Permission()
         }
         this.map.permissions.groups.push(a);
-        
+    }
+    findAndAddUser(e){
+        e.preventDefault();
+        let u = new User();
+        u.username = this.search;
+        let a = {
+            user: u,
+            permission: new Permission()
+        }
+        this.map.permissions.users.push(a);
+    }
+
+    removeGroup(i){
+        this.map.permissions.groups.splice(i, 1);
+    }
+    removeUser(i){
+        this.map.permissions.users.splice(i, 1);
     }
     
 }
