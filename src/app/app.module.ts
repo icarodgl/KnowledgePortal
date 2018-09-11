@@ -57,6 +57,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService, MapService, VersionService, MeService, ModelService } from './_services/index.service';
 import { JwtInterceptor } from './_services/auth/jwt.interceptor';
 import { FollowService } from './_services/follow/follow.service';
+import { SpeechRecognitionModule } from './speech2map/speech-recognition.module';
+import { SpeechRecognitionComponent } from './speech2map/speech-recognition.component';
+import { SpeechRecognitionService } from './_services/speech2map/speech-recognition.service';
 
 @NgModule({
   exports: [
@@ -108,8 +111,12 @@ export class MaterialModule {}
         NavbarModule,
         FooterModule,
         FixedpluginModule,
-        HttpClientModule
+        HttpClientModule,
+        SpeechRecognitionModule
+    ],entryComponents: [
+      SpeechRecognitionComponent
     ],
+
     declarations: [
         AppComponent,
         AdminLayoutComponent,
@@ -126,6 +133,7 @@ export class MaterialModule {}
       MeService,
       LockGuard,
       AdminGuard,
+      SpeechRecognitionService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: JwtInterceptor,

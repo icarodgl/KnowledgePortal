@@ -7,6 +7,8 @@ import swal from 'sweetalert2';
 import * as go from "gojs";
 import axios from 'axios';
 import { TestBed } from '@angular/core/testing';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { SpeechRecognitionComponent } from '../../speech2map/speech-recognition.component';
 
 declare const $: any;
 const $$ = go.GraphObject.make;  // for conciseness in defining templates
@@ -26,7 +28,7 @@ const md: any = {
 
 export class FixedpluginComponent implements OnInit {
 
-  constructor(private router:Router, public mapService: MapService, private authService: AuthService) { }
+  constructor(private router:Router, public mapService: MapService, private authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit() {
       // fixed plugin
@@ -337,6 +339,17 @@ export class FixedpluginComponent implements OnInit {
           
           
       });
+
+      $('#bt-speech2map-map').click((event)=>{
+        event.preventDefault();
+          
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '1000px';
+        let dialogRef = this.dialog.open(SpeechRecognitionComponent, dialogConfig);
+      })
 
       $('.fixed-plugin a').click(function(event) {
         // Alex: if we click on switch, stop propagation of the event,
