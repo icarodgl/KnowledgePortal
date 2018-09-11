@@ -24,6 +24,9 @@ export const AppRoutes: Routes = [
                 loadChildren: './administration/administration.module#AdministrationModule',
                 canActivate: [AdminGuard]
             }, {
+                path: 'manage',
+                loadChildren: './manage/manage.module#ManageModule'
+            }, {
                 path: 'edit',
                 loadChildren: './edit/edit.module#EditModule'
             }, {

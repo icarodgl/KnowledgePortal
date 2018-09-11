@@ -41,6 +41,15 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'maps', title: 'Maps', ab:'M'}
         ]
     },{
+        path: '/manage',
+        title: 'Manage',
+        type: 'sub',
+        icontype: 'developer_board',
+        collapse: 'manage',
+        children: [
+            {path: 'groups', title: 'Groups', ab:'G'}
+        ]
+    },{
         path: '/edit',
         title: 'Edit',
         type: 'sub',

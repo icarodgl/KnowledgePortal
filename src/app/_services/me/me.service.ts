@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { meApiUri } from '../../global.vars';
-import { ConceptMap, Result, Version, User } from '../../_models/index.model';
+import { ConceptMap, Result, Version, User, Group } from '../../_models/index.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { AuthService } from '../index.service';
@@ -55,6 +55,10 @@ export class MeService {
                 localStorage.setItem('currentDashboardUserMapsVersions', JSON.stringify(versions));
                 return versions;
             });
+    }
+
+    getGroups(): Observable<Group[]> {
+        return this.http.get<Group[]>(meApiUri+'/groups');
     }
 
 }
