@@ -1,7 +1,7 @@
 import * as go from "gojs";
 import * as pegjs from "pegjs";
 import { myDiagram } from '../edit/conceptmap/conceptmap.component';
-declare var swal : any;
+import swal from 'sweetalert2';
 
 export class SpeechAnalysis {
 
