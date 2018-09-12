@@ -18,6 +18,7 @@ export class SaveMapComponent implements OnInit{
     private image:SafeHtml;
     public map:ConceptMap;
     private search: string;
+    private user:User;
 
     constructor(
         private _sanitizer: DomSanitizer, 
@@ -32,6 +33,7 @@ export class SaveMapComponent implements OnInit{
             groups: [],
             users: []
         }
+        this.user = JSON.parse(this.authService.getCurrentUser());
     }
 
     ngOnInit(): void {
@@ -132,13 +134,17 @@ export class SaveMapComponent implements OnInit{
 
     findAndAddGroup(e){
         e.preventDefault();
-        let g = new Group();
-        g.name = this.search;
-        let a = {
-            group: g,
-            permission: new Permission()
-        }
-        this.map.permissions.groups.push(a);
+        
+        let group = this.user.groups.find(g => g.name === this.search);
+        
+
+        // let g = new Group();
+        // g.name = this.search;
+        // let a = {
+        //     group: g,
+        //     permission: new Permission()
+        // }
+        // this.map.permissions.groups.push(a);
     }
     findAndAddUser(e){
         e.preventDefault();
