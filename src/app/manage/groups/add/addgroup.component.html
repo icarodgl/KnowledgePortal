@@ -1,0 +1,93 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h3 class="title">Create a new group</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card ">
+                  <div class="card-header card-header-icon card-header-success">
+                    <div class="card-icon">
+                        <i class="material-icons">group_add</i>
+                    </div>
+                    <h4 class="card-title">Group - <small class="description">Basic Informations</small></h4>
+                  </div>
+                  <div class="card-body ">
+                    <h3 class="text-center"></h3>
+                    <form method="#" action="#">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Group short name" type="text" [(ngModel)]="group.name" name="name">
+                                </mat-form-field> 
+                            </div>
+                            <div class="col-md-3 ml-auto text-right margin-top">
+                                <mat-checkbox color="primary" [(ngModel)]="group.isPublic" name="isPublic">Is public?</mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Group Description</mat-label>
+                                    <textarea matInput matTextareaAutosize matAutosizeMinRows=4 matAutosizeMaxRows=6 [(ngModel)]="group.description" name="description"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button mat-raised-button class="btn btn-success" (click)="create()">
+                                Create
+                            </button>
+                            <button mat-raised-button class="btn btn-danger" (click)="cancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-6 ml-auto">
+                <div class="card ">
+                    <div class="card-header card-header-icon card-header-info">
+                    <div class="card-icon">
+                        <i class="material-icons">card_membership</i>
+                    </div>
+                    <h4 class="card-title">Members - <small class="description">Add users to this group</small></h4>
+                    </div>
+                    <div class="card-body ">
+                        <div class="input-group no-border">
+                            <input type="text" [(ngModel)]="search" class="form-control" placeholder="Add by username..." [ngModelOptions]="{standalone: true}">
+                            <button mat-raised-button (click)="findAndAddUser($event)" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">playlist_add</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                        <div class="table-responsive" *ngIf="group.users.length > 0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center th-small">#</th>
+                                        <th class="text-center">Username</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of group.users; let i = index">
+                                        <td class="text-center">{{i}}</td>
+                                        <td class="text-center td-name">{{row.username}}</td>
+                                        <td class="text-center">
+                                            <button mat-raised-button type="button" class="btn btn-danger btn-link" (click)="removeUser(i)">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
