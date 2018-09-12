@@ -5,54 +5,54 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header card-header-icon card-header-primary">
-                                <div class="card-icon">
-                                    <i class="material-icons">assignment</i>
-                                </div>
-                                <h4 class="card-title">
-                                    Required Meta-Informations
-                                </h4>
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-primary">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                    <form method="#" action="#">
-                                        <mat-form-field class="example-full-width">
-                                            <input matInput placeholder="Map Title" [(ngModel)]='map.title' name="title" type="text">
+                            <h4 class="card-title">
+                                Required Meta-Informations
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <form method="#" action="#">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Map Title" [(ngModel)]='map.title' name="title" type="text">
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Question of investigation" [(ngModel)]='map.question' name="question" type="text">
                                         </mat-form-field>
-                                        <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Question of investigation" [(ngModel)]='map.question' name="question" type="text">
-                                            </mat-form-field>
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Description</label>
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Description</label>
-                                            <div class="form-group">
-                                                <textarea class="form-control" placeholder="Talk about the content of this map." rows="3" [(ngModel)]='map.description' name="description"></textarea>
-                                            </div>
+                                            <textarea class="form-control" placeholder="Talk about the content of this map." rows="3" [(ngModel)]='map.description' name="description"></textarea>
                                         </div>
-                                        <label>Keywords</label>
-                                        <tag-input [(ngModel)]='map.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>                                        
-                                    </form>
                                     </div>
+                                    <label>Keywords</label>
+                                    <tag-input [(ngModel)]='map.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>                                        
+                                </form>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <button mat-raised-button class="btn btn-success" (click)="save()">
-                                                <span class="btn-label">
-                                                    <i class="material-icons">check</i>
-                                                </span>
-                                                Save
-                                        </button>
-                                        <button mat-raised-button class="btn btn-danger" (click)="back()">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button mat-raised-button class="btn btn-success" (click)="save()">
                                             <span class="btn-label">
-                                                <i class="material-icons">keyboard_arrow_left</i>
+                                                <i class="material-icons">check</i>
                                             </span>
-                                            Back
-                                        </button>
-                                    </div>
+                                            Save
+                                    </button>
+                                    <button mat-raised-button class="btn btn-danger" (click)="back()">
+                                        <span class="btn-label">
+                                            <i class="material-icons">keyboard_arrow_left</i>
+                                        </span>
+                                        Back
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -175,7 +175,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="row.permission.canView = !row.permission.canView">
+                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="click('canView', 'groups', i)">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -183,7 +183,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="row.permission.canFork = !row.permission.canFork">
+                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="click('canFork', 'groups', i)">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -191,7 +191,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="row.permission.canEdit = !row.permission.canEdit">
+                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="click('canEdit', 'groups', i)">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -235,7 +235,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="row.permission.canView = !row.permission.canView">
+                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="click('canView', 'users', i)">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -243,7 +243,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="row.permission.canFork = !row.permission.canFork">
+                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="click('canFork', 'users', i)">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>
@@ -251,7 +251,7 @@
                                                                     <td class="text-center">
                                                                         <div class="togglebutton">  
                                                                             <label>
-                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="row.permission.canEdit = !row.permission.canEdit">
+                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="click('canEdit', 'users', i)">
                                                                                 <span class="toggle"></span>
                                                                             </label>
                                                                         </div>

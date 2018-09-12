@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {myDiagram} from '../conceptmap.component';
+import { myDiagram } from '../conceptmap.component';
 import * as go from 'gojs';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { MapService, AuthService } from '../../../_services/index.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import { ConceptMap, Permission, Group, User } from '../../../_models/index.model';
 import { Router } from '@angular/router';
@@ -18,8 +17,6 @@ declare var $: any;
 export class SaveMapComponent implements OnInit{
     private image:SafeHtml;
     public map:ConceptMap;
-    regularItems;
-    teste:boolean = false;
     private search: string;
 
     constructor(
@@ -38,7 +35,6 @@ export class SaveMapComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.regularItems = [];
         if(!!myDiagram) {
             let serializer = new XMLSerializer();
             let svg = myDiagram.makeSvg({
@@ -76,36 +72,63 @@ export class SaveMapComponent implements OnInit{
                 }, 
                 error => console.log(error));
     }
+
     back(){
         this.router.navigate(['edit/cmap']);
     }
 
-    click(bt){
+    click(bt, gu?, i?){
         switch(bt){
             case 'canView':
-                this.map.permissions.publicPermission.canView = !this.map.permissions.publicPermission.canView;
-                if(!this.map.permissions.publicPermission.canView){
-                    this.map.permissions.publicPermission.canFork = false;
-                    this.map.permissions.publicPermission.canEdit = false;
+                if(gu){
+                    this.map.permissions[gu][i].permission.canView = !this.map.permissions[gu][i].permission.canView;
+                    if(!this.map.permissions[gu][i].permission.canView){
+                        this.map.permissions[gu][i].permission.canFork = false;
+                        this.map.permissions[gu][i].permission.canEdit = false;
+                    }
+                }else{
+                    this.map.permissions.publicPermission.canView = !this.map.permissions.publicPermission.canView;
+                    if(!this.map.permissions.publicPermission.canView){
+                        this.map.permissions.publicPermission.canFork = false;
+                        this.map.permissions.publicPermission.canEdit = false;
+                    }
                 }
                 break;
             case 'canFork':
-                this.map.permissions.publicPermission.canFork = !this.map.permissions.publicPermission.canFork;
-                if(this.map.permissions.publicPermission.canFork){
-                    this.map.permissions.publicPermission.canView = true;
+                if(gu){
+                    this.map.permissions[gu][i].permission.canFork = !this.map.permissions[gu][i].permission.canFork;
+                    if(this.map.permissions[gu][i].permission.canFork){
+                        this.map.permissions[gu][i].permission.canView = true;
+                    }else{
+                        this.map.permissions[gu][i].permission.canEdit = false;
+                    }
                 }else{
-                    this.map.permissions.publicPermission.canEdit = false;
+                    this.map.permissions.publicPermission.canFork = !this.map.permissions.publicPermission.canFork;
+                    if(this.map.permissions.publicPermission.canFork){
+                        this.map.permissions.publicPermission.canView = true;
+                    }else{
+                        this.map.permissions.publicPermission.canEdit = false;
+                    }
                 }
                 break;
             case 'canEdit':
-                this.map.permissions.publicPermission.canEdit = !this.map.permissions.publicPermission.canEdit;
-                if(this.map.permissions.publicPermission.canEdit){
-                    this.map.permissions.publicPermission.canView = true;
-                    this.map.permissions.publicPermission.canFork = true;
+                if(gu){
+                    this.map.permissions[gu][i].permission.canEdit = !this.map.permissions[gu][i].permission.canEdit;
+                    if(this.map.permissions[gu][i].permission.canEdit){
+                        this.map.permissions[gu][i].permission.canView = true;
+                        this.map.permissions[gu][i].permission.canFork = true;
+                    }
+                }else{
+                    this.map.permissions.publicPermission.canEdit = !this.map.permissions.publicPermission.canEdit;
+                    if(this.map.permissions.publicPermission.canEdit){
+                        this.map.permissions.publicPermission.canView = true;
+                        this.map.permissions.publicPermission.canFork = true;
+                    }
                 }
                 break;
         }
     }
+    
 
     findAndAddGroup(e){
         e.preventDefault();
