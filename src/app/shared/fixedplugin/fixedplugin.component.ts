@@ -311,17 +311,20 @@ export class FixedpluginComponent implements OnInit {
                         if ('proposicoesComErroDeConcordancia' === erro) {
                             const node = myDiagram.model.findNodeDataForKey(item[0].key);
                             const fix = item[1];
+                            node.category === 'relation'?myDiagram.model.setDataProperty(node, "prevColor", node.textColor):myDiagram.model.setDataProperty(node, "prevColor", node.stroke);
                             myDiagram.model.setDataProperty(node, "error", erro);
                             myDiagram.model.setDataProperty(node, 'fix', fix);
                         } else {
                             item.forEach(item => {
                                 const node = myDiagram.model.findNodeDataForKey(item.key);
+                                node.category === 'relation'?myDiagram.model.setDataProperty(node, "prevColor", node.textColor):myDiagram.model.setDataProperty(node, "prevColor", node.stroke);
                                 myDiagram.model.setDataProperty(node, "error", erro);
                             })
                         }
                         
                     } else {
                         const node = myDiagram.model.findNodeDataForKey(item.key);
+                        node.category === 'relation'?myDiagram.model.setDataProperty(node, "prevColor", node.textColor):myDiagram.model.setDataProperty(node, "prevColor", node.stroke);
                         myDiagram.model.setDataProperty(node, "error", erro);
                     }
 
