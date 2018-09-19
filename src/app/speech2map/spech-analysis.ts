@@ -3,6 +3,10 @@ import * as pegjs from "pegjs";
 import swal from 'sweetalert2';
 import { myDiagram } from '../edit/conceptmap/conceptmap.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import swal from 'sweetalert2';
+>>>>>>> f2fe5b33e3cd9e7545d95bc9a24b5b9a25ce0e01
 =======
 import swal from 'sweetalert2';
 >>>>>>> f2fe5b33e3cd9e7545d95bc9a24b5b9a25ce0e01
