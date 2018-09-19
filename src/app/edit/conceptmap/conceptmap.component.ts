@@ -154,13 +154,21 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             myDiagram.startTransaction("remove error");
 
             const fix = node.data.fix;
+            const error = node.data.error;
+            
+            if ('conceitoRepetido' === error) {
+                // remove concepts
+                console.log('remove concepts');
+            } 
+
             if (fix) {
                 myDiagram.model.setDataProperty(node.data, "text", fix)
             }
             
             var data = node.data;
+            console.log(data.prevColor);
+            data.category === 'relation'?myDiagram.model.setDataProperty(data, "textColor", data.prevColor):myDiagram.model.setDataProperty(data, "stroke", data.prevColor);
             myDiagram.model.setDataProperty(data, "error", null);
-        
             myDiagram.commitTransaction("remove error");
         });
 

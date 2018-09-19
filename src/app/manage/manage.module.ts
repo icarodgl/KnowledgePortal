@@ -8,6 +8,7 @@ import { ManageRoutes } from './manage.routing';
 import { NouisliderModule } from 'ng2-nouislider';
 import { TagInputModule } from 'ngx-chips';
 import { ManageGroupsComponent } from './groups/managegroups.component';
+import { AddGroupComponent } from './groups/add/addgroup.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ManageGroupsComponent } from './groups/managegroups.component';
     MaterialModule
   ],
   declarations: [
-      ManageGroupsComponent
+      ManageGroupsComponent,
+      AddGroupComponent
   ]
 })
 
