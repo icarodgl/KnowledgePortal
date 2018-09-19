@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Group, User } from '../../../_models/index.model';
-import { UserService, GroupService } from '../../../_services/index.service';
+import { UserService, GroupService, AuthService } from '../../../_services/index.service';
 
 declare interface DataTable {
     headerRow: string[];
@@ -20,7 +20,7 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
     private group:Group = new Group();
     private search:string;
     
-    constructor(private userService:UserService, private groupService:GroupService){
+    constructor(private userService:UserService, private groupService:GroupService, private authService:AuthService){
         this.group.isPublic = false;
         this.group.users = [];
     }
@@ -78,7 +78,10 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
 
     create(){
         this.groupService.create(this.group)
-                .subscribe(res => console.log(res), error => console.log(error));
+                .subscribe(res => {
+                    this.authService.updateUser()
+                        .subscribe( _ => {}, error => console.log(error));
+                }, error => console.log(error));
     }
 
     findAndAddUser(e){
