@@ -21,4 +21,8 @@ export class UserService {
     getUserData(userId:string){
         return this.http.get<User>(userApiUri+'/'+userId);
     }
+
+    searchByUserName(userName: string){
+        return this.http.get<[User]>(userApiUri+'/search?username='+userName);
+    }
 }

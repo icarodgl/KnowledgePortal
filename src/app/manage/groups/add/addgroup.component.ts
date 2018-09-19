@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Group, User } from '../../../_models/index.model';
+import { UserService } from '../../../_services/index.service';
 
 declare interface DataTable {
     headerRow: string[];
@@ -19,7 +20,7 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
     private group:Group = new Group();
     private search:string;
     
-    constructor(){
+    constructor(private userService:UserService){
         this.group.isPublic = false;
         this.group.users = [];
     }
@@ -80,12 +81,16 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
     }
     findAndAddUser(e){
         e.preventDefault();
-        let u = new User();
-        u.username = this.search;
-        this.group.users.push(u);
-        var table = $('#datatables').DataTable();
-        table.row.add([this.group.users.length, u.username, '<a href="#" class="btn btn-link btn-danger btn-just-icon remove" style="float: right;height: 28px;margin-top: -7px;"><i class="material-icons">close</i></a>'])
-            .draw(true);
+        this.userService.searchByUserName(this.search)
+            .subscribe(res => {
+                let u = res[0];
+                var table = $('#datatables').DataTable();
+                table.row.add([this.group.users.length, u.username, '<a href="#" class="btn btn-link btn-danger btn-just-icon remove" style="float: right;height: 28px;margin-top: -7px;"><i class="material-icons">close</i></a>'])
+                    .draw(true);
+
+            }, error => console.log(error));
+
+        
     }
 
     removeUser(i){
