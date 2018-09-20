@@ -4,7 +4,7 @@
             <h3 class="title">Concept Map Visualization</h3>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12" id="metaInfo">
                 <div class="card">
                     <div class="card-header card-header-icon card-header-primary">
                         <div class="card-icon">
@@ -12,6 +12,11 @@
                         </div>
                         <h4 class="card-title">
                             Meta-Informations
+                            <div class="col-md-3 ml-auto text-right">
+                                <button mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab" (click)="expand()">
+                                    <i class="material-icons">favorite</i>
+                                </button>
+                            </div>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -33,15 +38,6 @@
                                 </div>
                                 <label>Keywords</label>
                                 <tag-input [(ngModel)]='currentMap.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>
-                                <div class="togglebutton">
-                                    <label>
-                                        Visibility level: 
-                                        <input type="checkbox" [checked]="currentMap.isPublic" (change)="currentMap.isPublic = !currentMap.isPublic">
-                                        <span class="toggle"></span>
-                                        {{currentMap.isPublic?'Is public':'Is private'}}
-                                    </label>
-                                </div>
-                                
                             </form>
                             </div>
                         </div>
@@ -64,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-0" id="otherInfo">
                 <div class="row">
                     <div class="card">
                         <div class="card-header card-header-icon card-header-success">
@@ -115,7 +111,7 @@
                 </div>
         </div>
         </div>
-        <app-comments-areas></app-comments-areas> 
+        <!-- <app-comments-areas></app-comments-areas>  -->
     </div>
 </div>
    

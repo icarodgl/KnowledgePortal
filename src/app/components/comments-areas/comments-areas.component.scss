@@ -32,11 +32,11 @@
         }
     }
     .media-footer{
-        .btn{
-            margin-bottom: 20px;
+        margin-top: -30px;
 
+        & .bt-comment {
+            top: -45px;
         }
-
         &:after{
             display: table;
             content: " ";

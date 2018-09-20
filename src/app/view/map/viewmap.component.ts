@@ -5,6 +5,7 @@ import * as go from 'gojs';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
+declare const $:any;
 
 var myDiagram: go.Diagram;
 
@@ -19,6 +20,7 @@ export class ViewMapComponent implements OnInit {
     @ViewChild('myDiagramDiv')
     element: ElementRef;
 
+    private expanded:boolean = false;
     private count:number = 0;
     private currentMap: ConceptMap;
     public versionList: Version[];
@@ -256,5 +258,17 @@ export class ViewMapComponent implements OnInit {
     previus() {
         this.count--;
         this.count < 0 ? this.count = this.images.length - 1 : {} ;
+    }
+    expand() {
+        this.expanded = !this.expanded
+        $('#metaInfo').toggleClass('col-md-12 col-md-6');
+        if(this.expanded){
+            setTimeout(function() {
+                $('#otherInfo').toggleClass('col-md-0 col-md-6');
+            }, 500); 
+        }else{
+            $('#otherInfo').toggleClass('col-md-0 col-md-6');
+        }
+          
     }
 }
