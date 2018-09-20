@@ -23,6 +23,7 @@ export class ManageGroupsComponent implements OnInit, AfterViewInit, AfterViewCh
     public dataTable: DataTable;
     public loaded: boolean = false;
     public rendered: boolean = false; 
+    public isChecked: boolean = true;
 
     constructor(private meService:MeService){}
 
@@ -89,5 +90,8 @@ export class ManageGroupsComponent implements OnInit, AfterViewInit, AfterViewCh
             $('.card .material-datatables label').addClass('form-group');
             this.rendered = true;
           }
+    }
+    change(){
+        console.log(this.isChecked);
     }
 }

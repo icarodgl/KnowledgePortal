@@ -20,9 +20,9 @@
                                 <div class="col-md-3">
                                     <div class="togglebutton text-right">
                                         <label>
-                                            <input type="checkbox" checked="">
+                                            <input type="checkbox" [checked]="isChecked" (change)="isChecked = !isChecked" (click)="change()">
                                             <span class="toggle"></span>
-                                            Toggle is on
+                                            Only your groups?
                                         </label>
                                     </div>
                                 </div>
