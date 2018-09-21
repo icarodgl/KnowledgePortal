@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Group, User } from '../../../_models/index.model';
+import { UserService, GroupService, AuthService } from '../../../_services/index.service';
 
 declare interface DataTable {
     headerRow: string[];
@@ -19,7 +20,7 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
     private group:Group = new Group();
     private search:string;
     
-    constructor(){
+    constructor(private userService:UserService, private groupService:GroupService, private authService:AuthService){
         this.group.isPublic = false;
         this.group.users = [];
     }
@@ -61,7 +62,7 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
         table.on('click', '.remove', (e) => {
             const $tr = $('.remove').closest('tr');
             const data = table.row($tr).data();
-            this.removeUser(data[0]-1);
+            this.removeUser(data[0]);
             table.row($tr).remove().draw();
             e.preventDefault();
         });
@@ -76,19 +77,33 @@ export class AddGroupComponent implements OnInit, AfterViewInit{
     }
 
     create(){
-        console.log(this.group);
-    }
-    findAndAddUser(e){
-        e.preventDefault();
-        let u = new User();
-        u.username = this.search;
-        this.group.users.push(u);
-        var table = $('#datatables').DataTable();
-        table.row.add([this.group.users.length, u.username, '<a href="#" class="btn btn-link btn-danger btn-just-icon remove" style="float: right;height: 28px;margin-top: -7px;"><i class="material-icons">close</i></a>'])
-            .draw(true);
+        this.groupService.create(this.group)
+                .subscribe(res => {
+                    this.authService.updateUser()
+                        .subscribe( _ => {}, error => console.log(error));
+                }, error => console.log(error));
     }
 
-    removeUser(i){
-        this.group.users.splice(i, 1);
+    findAndAddUser(e){
+        e.preventDefault();
+        this.userService.searchByUserName(this.search)
+            .subscribe(res => {
+                let u = res[0];
+                if(!this.group.users.some(o => o.username == u.username))
+                {
+                    this.group.users.push(u);
+                    var table = $('#datatables').DataTable();
+                    table.row.add([u.username, '<a href="#" class="btn btn-link btn-danger btn-just-icon remove" style="float: right;height: 28px;margin-top: -7px;"><i class="material-icons">close</i></a>'])
+                        .draw(true);
+                }
+                
+
+            }, error => console.log(error));
+    }
+
+    removeUser(username){
+        this.group.users = this.group.users.filter(u => {
+            return u.username != username;
+        });
     }
 }

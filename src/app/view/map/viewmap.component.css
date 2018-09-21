@@ -4,3 +4,10 @@
 .img {
     overflow: hidden;
 }
+.col-md-0 {
+    display: none;
+}
+
+.row div{
+    transition: all 0.5s;
+}

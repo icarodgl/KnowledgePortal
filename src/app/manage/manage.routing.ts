@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ManageGroupsComponent } from './groups/managegroups.component';
 import { AddGroupComponent } from './groups/add/addgroup.component';
+import { ManageMapsComponent } from './maps/managemaps.component';
 
 export const ManageRoutes: Routes = [
     {
@@ -15,6 +16,9 @@ export const ManageRoutes: Routes = [
                     path:'add',
                     component: AddGroupComponent
                 }]
+        },{
+            path: 'maps',
+            component: ManageMapsComponent
         }]
     }
 ];

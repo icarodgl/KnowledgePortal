@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular
 import { Subscription } from 'rxjs/Subscription';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from '../../_services/auth/auth.service';
+import { User } from '../../_models/user.model';
 const misc: any = {
     navbar_menu_visible: 0,
     active_collapse: true,
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
     private _router: Subscription;
+    private user: User;
 
     @ViewChild('app-navbar-cmp') button: any;
 
@@ -32,6 +34,7 @@ export class NavbarComponent implements OnInit {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+        this.user = JSON.parse(this.authService.getCurrentUser());
     }
     minimizeSidebar(){
       const body = document.getElementsByTagName('body')[0];

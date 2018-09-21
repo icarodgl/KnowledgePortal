@@ -9,6 +9,8 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { TagInputModule } from 'ngx-chips';
 import { ManageGroupsComponent } from './groups/managegroups.component';
 import { AddGroupComponent } from './groups/add/addgroup.component';
+import { ManageMapsComponent } from './maps/managemaps.component';
+import { EditModule } from '../edit/edit.module';
 
 @NgModule({
   imports: [
@@ -18,11 +20,13 @@ import { AddGroupComponent } from './groups/add/addgroup.component';
     ReactiveFormsModule,
     NouisliderModule,
     TagInputModule,
-    MaterialModule
+    MaterialModule,
+    EditModule
   ],
   declarations: [
       ManageGroupsComponent,
-      AddGroupComponent
+      AddGroupComponent,
+      ManageMapsComponent
   ]
 })
 

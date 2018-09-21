@@ -47,7 +47,8 @@ export const ROUTES: RouteInfo[] = [{
         icontype: 'developer_board',
         collapse: 'manage',
         children: [
-            {path: 'groups', title: 'Groups', ab:'G'}
+            {path: 'groups', title: 'Groups', ab:'G'},
+            {path: 'maps', title: 'Maps', ab:'M'}
         ]
     },{
         path: '/edit',

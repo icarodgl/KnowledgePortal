@@ -1,4 +1,4 @@
-import { User, Version, Permission, Group } from './index.model';
+import { User, Version, Permission } from './index.model';
 export class ConceptMap {
     _id: string;
     title: string;

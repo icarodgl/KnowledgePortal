@@ -1,46 +1,53 @@
 // IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
 
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { Group } from '../../_models/group.model';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { ConceptMap } from '../../_models/conceptmap.model';
 import { MeService } from '../../_services/me/me.service';
+import { myDiagram, ConceptMapComponent, resetModel } from '../../edit/conceptmap/conceptmap.component';
+import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 declare interface DataTable {
     headerRow: string[];
     footerRow: string[];
-    dataRows: Group[];
+    dataRows: ConceptMap[];
 }
 
 declare const $: any;
 
 @Component({
-    selector: 'app-manage-groups-cmp',
-    templateUrl: 'managegroups.component.html',
-    styleUrls: ['./managegroups.component.css']
+    selector: 'app-manage-maps-cmp',
+    templateUrl: 'managemaps.component.html',
+    styleUrls: ['./managemaps.component.css']
 })
 
-export class ManageGroupsComponent implements OnInit, AfterViewInit, AfterViewChecked {
-    private groupList: Group[];
+export class ManageMapsComponent implements OnInit, AfterViewInit, AfterViewChecked {
+    @ViewChild("map1") map1: ConceptMapComponent;
+
+    @ViewChild('myDiagramDiv') element: ElementRef;
+
+    private mapList: ConceptMap[];
     public dataTable: DataTable;
     public loaded: boolean = false;
     public rendered: boolean = false; 
     public isChecked: boolean = true;
 
-    constructor(private meService:MeService){}
+    constructor(private meService:MeService, private router:Router){}
 
     populate() {
         this.dataTable = {
-            headerRow: [ 'Name','Description', 'Is Public', 'Members', 'Actions' ],
-            footerRow: [ 'Name','Description', 'Is Public', 'Members', 'Actions' ],
+            headerRow: [ 'id','Title', 'Description', 'Versions', 'Actions' ],
+            footerRow: [ 'id','Title', 'Description', 'Versions', 'Actions' ],
 
-            dataRows: this.groupList
+            dataRows: this.mapList
             };
             this.loaded = true;
     }
 
     ngOnInit() {
-        this.meService.getGroups()
+        this.meService.getMaps()
             .subscribe(data => {
-                this.groupList = data;
+                this.mapList = data;
                 this.populate();
             });
     }
@@ -93,5 +100,24 @@ export class ManageGroupsComponent implements OnInit, AfterViewInit, AfterViewCh
     }
     change(){
         console.log(this.isChecked);
+    }
+
+    newMap(e){
+        e.preventDefault();
+        swal({
+             title: 'Are you sure?',
+             text: "If you have a map not yet saved, this will delete all unsaved information. Do you wish to continue?",
+             type: 'warning',
+             showCancelButton: true,
+             confirmButtonClass: 'btn btn-success',
+             cancelButtonClass: 'btn btn-danger',
+             confirmButtonText: 'Yes, create a new...',
+             buttonsStyling: false
+         }).then((result) => {
+             if (result.value) {
+                 resetModel();
+                 this.router.navigate(['edit','cmap']);
+             }
+         });
     }
 }

@@ -40,4 +40,8 @@ export class User {
     groups?: Group[];
     following?: User[];
     followers?: User[];
+    notifications?: [{
+        message: string,
+        readed: boolean
+    }];
 }
