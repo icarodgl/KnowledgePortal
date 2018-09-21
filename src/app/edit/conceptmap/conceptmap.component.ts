@@ -169,38 +169,41 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
             console.log(data.prevColor);
             data.category === 'relation'?myDiagram.model.setDataProperty(data, "textColor", data.prevColor):myDiagram.model.setDataProperty(data, "stroke", data.prevColor);
             myDiagram.model.setDataProperty(data, "error", null);
+            myDiagram.model.setDataProperty(data, "textColor", '#333');
             myDiagram.commitTransaction("remove error");
         });
 
-        // swal({
-        //     title: 'Are you sure?',
-        //     text: 'You will not be able to recover this imaginary file!',
-        //     type: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonText: 'Yes, delete it!',
-        //     cancelButtonText: 'No, keep it',
-        //     confirmButtonClass: "btn btn-success",
-        //     cancelButtonClass: "btn btn-danger",
-        //     buttonsStyling: false
-        // }).then((result) => {
-        //   if (result.value) {
-        //     swal({
-        //         title: 'Deleted!',
-        //         text: 'Your imaginary file has been deleted.',
-        //         type: 'success',
-        //         confirmButtonClass: "btn btn-success",
-        //         buttonsStyling: false
-        //     }).catch(swal.noop)
-        //   } else {
-        //     swal({
-        //         title: 'Cancelled',
-        //         text: 'Your imaginary file is safe :)',
-        //         type: 'error',
-        //         confirmButtonClass: "btn btn-info",
-        //         buttonsStyling: false
-        //     }).catch(swal.noop)
-        //   }
-        // })
+        swal({
+            title: 'Você deseja fazer essa correção?',
+            text: `A frase de ligação possui um erro de concordância que pode prejudicar a mensagem da proposição. 
+            
+            Você pode corrigir para "possuem".`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, faça a correção!',
+            cancelButtonText: 'Não, deixe como está',
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger",
+            buttonsStyling: false
+        }).then((result) => {
+          if (result.value) {
+            swal({
+                title: 'Corrigido!',
+                text: 'A inconsistência foi corrigida com sucesso.',
+                type: 'success',
+                confirmButtonClass: "btn btn-success",
+                buttonsStyling: false
+            }).catch(swal.noop)
+          } else {
+            swal({
+                title: 'Cancelled',
+                text: 'Your imaginary file is safe :)',
+                type: 'error',
+                confirmButtonClass: "btn btn-info",
+                buttonsStyling: false
+            }).catch(swal.noop)
+          }
+        })
     }
 
     // a context menu is an Adornment with a bunch of buttons in them
