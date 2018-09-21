@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MeService } from '../_services/me/me.service';
 
 declare const $:any;
 
@@ -17,14 +18,19 @@ interface FileReaderEvent extends Event {
 })
 
 export class UserComponent implements OnInit{
+    @ViewChild('wizardPicture') el:ElementRef;
+
+    constructor(public meService:MeService){};
+
+
     ngOnInit(): void {
         // Prepare the preview for profile picture
-        $('#wizard-picture').change(function(){
-            const input = $(this);
-
+        $(this.el.nativeElement).change((e, args) => {
+            const input = $(this.el.nativeElement);
+            const file:File = input[0].files[0]; 
+            this.meService.sendProfileImage(file).subscribe(_=>{});
             if (input[0].files && input[0].files[0]) {
                 const reader = new FileReader();
-
                 reader.onload = function (e: FileReaderEvent) {
                     $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
                 };
