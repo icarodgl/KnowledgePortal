@@ -3,5 +3,6 @@ export interface Result{
     userMessage: string,
     user?: User,
     map?: ConceptMap,
-    version?: Version
+    version?: Version,
+    url?:string
 };

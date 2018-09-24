@@ -6,10 +6,6 @@ import 'rxjs/add/operator/map';
 import { AuthService } from '../index.service';
 import { Observable, of } from 'rxjs';
 
-declare interface ResObject {
-    url:string;
-}
-
 @Injectable()
 export class MeService {
     private updated:boolean = false;
@@ -66,13 +62,23 @@ export class MeService {
     }
 
     
-    sendProfileImage(img:File):Observable<ResObject>{
+    sendProfileImage(img:File):Observable<Result>{
         const uploadData = new FormData();
         uploadData.append('file', img);
-        return this.http.post(meApiUri+'/profileImage', uploadData).map((res:ResObject) => {
+        return this.http.post(meApiUri+'/profileImage', uploadData).map((res:Result) => {
             let user:User = JSON.parse(localStorage.getItem('currentUser'));
             user.profile_picture = res.url;
             localStorage.setItem('currentUser', JSON.stringify(user));
+            return res;
+        });
+    }
+
+    updateInfo(data:User){
+        return this.http.put<User>(meApiUri, data).map((res:User) => {
+            let u:User = JSON.parse(localStorage.getItem('currentUser'));
+            res.token = u.token;
+            res.stats = u.stats;
+            localStorage.setItem('currentUser', JSON.stringify(res));
             return res;
         });
     }

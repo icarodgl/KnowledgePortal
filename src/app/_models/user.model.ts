@@ -44,4 +44,5 @@ export class User {
         message: string,
         readed: boolean
     }];
+    description?:string;
 }

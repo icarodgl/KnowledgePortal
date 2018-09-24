@@ -60,6 +60,7 @@ import { FollowService } from './_services/follow/follow.service';
 import { SpeechRecognitionModule } from './speech2map/speech-recognition.module';
 import { SpeechRecognitionComponent } from './speech2map/speech-recognition.component';
 import { SpeechRecognitionService } from './_services/speech2map/speech-recognition.service';
+import { SidebarService } from './_services/sidebar/sidebar.service';
 
 @NgModule({
   exports: [
@@ -133,6 +134,7 @@ export class MaterialModule {}
       MeService,
       LockGuard,
       AdminGuard,
+      SidebarService,
       SpeechRecognitionService,
       GroupService,
       {

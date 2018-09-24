@@ -3,6 +3,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { AuthService } from '../_services/auth/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../_models/user.model';
+import { SidebarService } from '../_services/sidebar/sidebar.service';
 
 declare const $: any;
 
@@ -159,7 +160,7 @@ export const ROUTES: RouteInfo[] = [{
 export class SidebarComponent implements OnInit {
     public user:User;
 
-    constructor(private router:Router, private authService: AuthService){
+    constructor(private router:Router, private authService: AuthService, private sidebarService:SidebarService){
         this.user = JSON.parse(this.authService.getCurrentUser());
     }
 
@@ -176,6 +177,10 @@ export class SidebarComponent implements OnInit {
         this.menuItems = ROUTES.filter(menuItem => {
             if(menuItem.title !== "Administration") return menuItem;
              else if(this.user.groups.filter(g=> (g.name === "Admin")).length > 0) return menuItem;
+        });
+
+        this.sidebarService.update.subscribe(res => {
+            this.user.profile_picture = res;
         });
     }
     updatePS(): void  {
@@ -202,5 +207,10 @@ export class SidebarComponent implements OnInit {
         event.preventDefault();
         this.authService.lock();
         this.router.navigate(['pages/lock']);
+    }
+
+
+    updateUser() {
+
     }
 }
