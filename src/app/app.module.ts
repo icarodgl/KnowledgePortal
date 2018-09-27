@@ -61,6 +61,8 @@ import { SpeechRecognitionModule } from './speech2map/speech-recognition.module'
 import { SpeechRecognitionComponent } from './speech2map/speech-recognition.component';
 import { SpeechRecognitionService } from './_services/speech2map/speech-recognition.service';
 import { SidebarService } from './_services/sidebar/sidebar.service';
+import { WebsocketService } from './_services/websocket/websocket.service';
+import { ChatService } from './_services/chatservice/chat.service';
 
 @NgModule({
   exports: [
@@ -137,6 +139,8 @@ export class MaterialModule {}
       SidebarService,
       SpeechRecognitionService,
       GroupService,
+      WebsocketService,
+      ChatService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: JwtInterceptor,

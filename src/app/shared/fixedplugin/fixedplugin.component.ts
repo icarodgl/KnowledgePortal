@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MapService, AuthService } from '../../_services/index.service';
 import { myDiagram, resetModel } from '../../edit/conceptmap/conceptmap.component';
-import { MyErrorStateMatcher } from '../../forms/validationforms/validationforms.component';
 import swal from 'sweetalert2';
 import * as go from "gojs";
 import axios from 'axios';
-import { TestBed } from '@angular/core/testing';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { SpeechRecognitionComponent } from '../../speech2map/speech-recognition.component';
+import { ChatService } from '../../_services/chatservice/chat.service';
+import { v4 as uuid } from 'uuid';
 
 declare const $: any;
 const $$ = go.GraphObject.make;  // for conciseness in defining templates
@@ -27,11 +27,27 @@ const md: any = {
 })
 
 export class FixedpluginComponent implements OnInit {
+  private isEnabled:boolean = false;
 
-  constructor(private router:Router, public mapService: MapService, private authService: AuthService, public dialog: MatDialog) { }
+  constructor(private router:Router, public mapService: MapService, private authService: AuthService, public dialog: MatDialog, private chat:ChatService) { }
+
+  sendMessage() {
+      this.chat.sendMsg('Test message');
+  }
+
+  initRealtime() {
+    this.chat.connect();
+    this.chat.messages.subscribe(msg => {
+        console.log(msg);
+    });
+  }
+
+  disconnectRealTime() {
+      this.chat.disconnect();
+  }
 
   ngOnInit() {
-      // fixed plugin
+       // fixed plugin
       const $sidebar = $('.sidebar');
       const $sidebar_img_container = $sidebar.find('.sidebar-background');
       //
@@ -237,6 +253,10 @@ export class FixedpluginComponent implements OnInit {
                console.log(error);
             });
       });
+    //   $('#bt-realtime').click((event) => {
+    //     event.preventDefault();
+    //     this.sendMessage();
+    //   });
 
       $('#bt-check-map').click((event) => {
           event.preventDefault();
@@ -485,35 +505,55 @@ export class FixedpluginComponent implements OnInit {
           }
       });
 
-      $('.switch-sidebar-mini input').change(function(){
-          const $body = $('body');
+      $('.switch-realtime input').change(() => {
+        if ($('.switch-realtime input')[0].checked){
+            this.initRealtime();
+            this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: uuid()}});
+            this.isEnabled = true;
+            setTimeout(function() {
+                $('#realtime-link').text(window.location.href);
+            }, 0);
 
-          const $input = $(this);
-
-          if (md.misc.sidebar_mini_active === true) {
-              $('body').removeClass('sidebar-mini');
-              md.misc.sidebar_mini_active = false;
-
-          } else {
-              setTimeout(function(){
-                  $('body').addClass('sidebar-mini');
-
-                  $('.sidebar .collapse').css('height', 'auto');
-                  md.misc.sidebar_mini_active = true;
-              }, 300);
-          }
-
-          // we simulate the window Resize so the charts will get updated in realtime.
-          const simulateWindowResize = setInterval(function(){
-              window.dispatchEvent(new Event('resize'));
-          }, 180);
-
-          // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function(){
-              clearInterval(simulateWindowResize);
-          }, 1000);
-
+        }else{
+            this.disconnectRealTime();
+            this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: null}});
+            this.isEnabled = false;
+        }
       });
+
+    //   $('.switch-sidebar-mini input').change(function(){
+    //       const $body = $('body');
+
+    //       const $input = $(this);
+
+    //       if (md.misc.sidebar_mini_active === true) {
+    //           $('body').removeClass('sidebar-mini');
+    //           md.misc.sidebar_mini_active = false;
+
+    //       } else {
+    //           setTimeout(function(){
+    //               $('body').addClass('sidebar-mini');
+
+    //               $('.sidebar .collapse').css('height', 'auto');
+    //               md.misc.sidebar_mini_active = true;
+    //           }, 300);
+    //       }
+
+    //       // we simulate the window Resize so the charts will get updated in realtime.
+    //       const simulateWindowResize = setInterval(function(){
+    //           window.dispatchEvent(new Event('resize'));
+    //       }, 180);
+
+    //       // we stop the simulation of Window Resize after the animations are completed
+    //       setTimeout(function(){
+    //           clearInterval(simulateWindowResize);
+    //       }, 1000);
+
+    //   });
+  }
+
+  copyLink(){
+      console.log('clicou');
   }
 
 }

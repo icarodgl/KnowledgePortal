@@ -20,6 +20,9 @@
             </li>
             <li class="header-title">Advanced Operations</li>
             <li class="adjustments-line">
+                <!-- <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Check map inconsistencies" id="bt-realtime">
+                    <i onclick="javascript:void(0)" class="material-icons">sync</i>
+                </button> -->
                 <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Check map inconsistencies" id="bt-check-map">
                     <i onclick="javascript:void(0)" class="material-icons">spellcheck</i>
                 </button>
@@ -82,11 +85,12 @@
                     </div>
                 </div>
             </li>
-            <!-- <li class="adjustments-line">
+            <li class="header-title">Realtime edition</li>
+            <li class="adjustments-line realtime">
               <a href="javascript:void(0)" class="switch-trigger">
-                  <p>Sidebar Mini</p>
+                  <p>Activate realtime</p>
                   <label class="ml-auto">
-                    <div class="togglebutton switch-sidebar-mini">
+                    <div class="togglebutton switch-realtime">
                       <label>
                           <input type="checkbox">
                               <span class="toggle"></span>
@@ -96,7 +100,11 @@
                   <div class="clearfix"></div>
                   <div class="ripple-container"></div>
               </a>
-            </li> -->
+              
+                <button *ngIf="isEnabled" type="button" mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab btn-sm" title="Copy shareable link" (click)="copyLink()">
+                    <i class="material-icons">file_copy</i>
+                </button>
+            </li>
             <!-- <li class="adjustments-line">
               <a href="javascript:void(0)" class="switch-trigger">
                   <p>Sidebar Images</p>

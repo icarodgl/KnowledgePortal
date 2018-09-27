@@ -193,6 +193,7 @@ export class NavbarComponent implements OnInit {
 
     getTitle() {
         let titlee: any = this.location.prepareExternalUrl(this.location.path());
+        titlee = String(titlee).split('?')[0];
         for (let i = 0; i < this.listTitles.length; i++) {
             if (this.listTitles[i].type === "link" && this.listTitles[i].path === titlee) {
                 return this.listTitles[i].title;

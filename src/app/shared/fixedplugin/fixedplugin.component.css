@@ -28,6 +28,10 @@
 .more-info {
     height: 145px !important;
 }
+
+.realtime {
+    height: 120px !important;
+}
 /* 
 .revert {
     -webkit-transform: rotate(180deg);
