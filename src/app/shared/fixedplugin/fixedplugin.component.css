@@ -32,6 +32,10 @@
 .realtime {
     height: 120px !important;
 }
+.realtime-link{
+    font-weight: normal;
+    font-size: .8125rem !important;
+}
 /* 
 .revert {
     -webkit-transform: rotate(180deg);

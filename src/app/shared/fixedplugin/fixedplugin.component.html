@@ -100,10 +100,17 @@
                   <div class="clearfix"></div>
                   <div class="ripple-container"></div>
               </a>
-              
-                <button *ngIf="isEnabled" type="button" mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab btn-sm" title="Copy shareable link" (click)="copyLink()">
-                    <i class="material-icons">file_copy</i>
-                </button>
+                <div class="row">
+                    <div class="col-md-9">
+                        <p *ngIf="isEnabled" class="realtime-link" id="realtime-link"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <button *ngIf="isEnabled" type="button" mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab btn-sm" title="Copy shareable link" (click)="copyLink()">
+                            <i class="material-icons">file_copy</i>
+                        </button>
+                    </div>                   
+                </div>  
+            
             </li>
             <!-- <li class="adjustments-line">
               <a href="javascript:void(0)" class="switch-trigger">
