@@ -9,6 +9,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { SpeechRecognitionComponent } from '../../speech2map/speech-recognition.component';
 import { ChatService } from '../../_services/chatservice/chat.service';
 import { v4 as uuid } from 'uuid';
+import { ClipboardService } from 'ngx-clipboard';
 
 declare const $: any;
 const $$ = go.GraphObject.make;  // for conciseness in defining templates
@@ -29,7 +30,14 @@ const md: any = {
 export class FixedpluginComponent implements OnInit {
   private isEnabled:boolean = false;
 
-  constructor(private router:Router, public mapService: MapService, private authService: AuthService, public dialog: MatDialog, private chat:ChatService) { }
+  constructor(
+      private router:Router, 
+      public mapService: MapService, 
+      private authService: AuthService, 
+      public dialog: MatDialog, 
+      private chat:ChatService,
+      private clipboardService: ClipboardService
+    ) { }
 
   sendMessage() {
       this.chat.sendMsg('Test message');
@@ -553,7 +561,7 @@ export class FixedpluginComponent implements OnInit {
   }
 
   copyLink(){
-      console.log('clicou');
+      this.clipboardService.copyFromContent(window.location.href);
   }
 
 }
