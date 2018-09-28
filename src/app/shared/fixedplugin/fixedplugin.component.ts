@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MapService, AuthService } from '../../_services/index.service';
-import { myDiagram, resetModel } from '../../edit/conceptmap/conceptmap.component';
+import { myDiagram, resetModel, initListener, stopListener } from '../../edit/conceptmap/conceptmap.component';
 import swal from 'sweetalert2';
 import * as go from "gojs";
 import axios from 'axios';
@@ -521,43 +521,15 @@ export class FixedpluginComponent implements OnInit {
             setTimeout(function() {
                 $('#realtime-link').text(window.location.href);
             }, 0);
+            initListener();
 
         }else{
             this.disconnectRealTime();
             this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: null}});
             this.isEnabled = false;
+            stopListener();
         }
       });
-
-    //   $('.switch-sidebar-mini input').change(function(){
-    //       const $body = $('body');
-
-    //       const $input = $(this);
-
-    //       if (md.misc.sidebar_mini_active === true) {
-    //           $('body').removeClass('sidebar-mini');
-    //           md.misc.sidebar_mini_active = false;
-
-    //       } else {
-    //           setTimeout(function(){
-    //               $('body').addClass('sidebar-mini');
-
-    //               $('.sidebar .collapse').css('height', 'auto');
-    //               md.misc.sidebar_mini_active = true;
-    //           }, 300);
-    //       }
-
-    //       // we simulate the window Resize so the charts will get updated in realtime.
-    //       const simulateWindowResize = setInterval(function(){
-    //           window.dispatchEvent(new Event('resize'));
-    //       }, 180);
-
-    //       // we stop the simulation of Window Resize after the animations are completed
-    //       setTimeout(function(){
-    //           clearInterval(simulateWindowResize);
-    //       }, 1000);
-
-    //   });
   }
 
   copyLink(){

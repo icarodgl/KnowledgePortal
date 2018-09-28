@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                         maxSize: new go.Size(NaN, 220)
                     });
                     this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
+                    resetModel();
                 });                
             }, error => console.log(error));
    }

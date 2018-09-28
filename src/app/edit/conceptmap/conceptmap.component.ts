@@ -643,23 +643,18 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
 }
 
 export function resetModel() {
-    let nodeDataArray =
-    [
-        { key: 0, text: "Concept 1", category: "concept", loc:"-80 -6", group: 4, stroke: "blue", color: "black", textColor: "white" },
-        { key: 1, text: "Concept 2", category: "concept", loc:"170 -30", group: 4},
-        { key: 2, text: "Concept 3", category: "concept", loc:"170 10", group: 4},
-        { key: 3, text: "Relation 1", category: "relation", loc:"30 -6", group: 4, textColor: "blue" },
-        { key: 4, text: "Concept Map 1", isGroup: true, category: "map", expanded: true, error: "error message" },
-        { key: 5, text: "Relation 2", loc:"290 -30", category:"relation", error: "error message" },
-        { key: 6, text: "Concept 4", loc:"400 -30", category:"concept", error: "error message" }
-    ];
-    let linkDataArray =
-    [
-        { from: 0, to: 3, category: "normal", color: "red", group: 4 },
-        { from: 3, to: 1, category: "or", group: 4 },
-        { from: 3, to: 2, category: "or", group: 4 },
-        { from: 1, to: 5, category :"normal"},
-        { from: 5, to: 6, category :"normal"}
-    ];
-    myDiagram.model = new go.GraphLinksModel(nodeDataArray,linkDataArray);
+    myDiagram.model = new go.GraphLinksModel([],[]);
+}
+
+let monitor = function(e) {
+    if(e.isTransactionFinished){
+        console.log(e.object);
+    }
+}
+export function initListener(){
+    myDiagram.addModelChangedListener(monitor);
+}
+
+export function stopListener(){
+    myDiagram.removeModelChangedListener(monitor);
 }
