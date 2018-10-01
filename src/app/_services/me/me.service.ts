@@ -3,7 +3,7 @@ import { meApiUri } from '../../global.vars';
 import { ConceptMap, Result, Version, User, Group } from '../../_models/index.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { AuthService } from '../index.service';
+import { AuthService } from '../auth/auth.service';
 import { Observable, of } from 'rxjs';
 
 @Injectable()

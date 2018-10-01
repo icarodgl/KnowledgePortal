@@ -3,6 +3,7 @@ import * as go from "gojs";
 import { VersionService, ModelService } from '../../_services/index.service';
 import swal from 'sweetalert2';
 export var myDiagram: go.Diagram;
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'conceptmap',
@@ -432,7 +433,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                     stroke: null
                 },
                 new go.Binding("stroke", "color").makeTwoWay(),
-                new go.Binding("fill", "color").makeTwoWay(),
+                new go.Binding("fill", "color").makeTwoWay()
             ),
             { // this tooltip Adornment is shared by all links
                 toolTip:
@@ -618,7 +619,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     myDiagram.toolManager.relinkingTool.linkValidation = validateLink;
     
     let currentModel = this.modelService.getCurrentModel();
-    if(!!currentModel)  myDiagram.model = go.Model.fromJson(currentModel);
+    if(!!currentModel)  loadModel(currentModel);
     else resetModel();
  }
   
@@ -642,8 +643,21 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
   }
 }
 
+export function loadModel(loadedModel) {
+    let model = go.Model.fromJson(loadedModel);
+    model.makeUniqueKeyFunction = function() { return uuid(); };
+    model["makeUniqueLinkKeyFunction"] = function() { return uuid(); };
+    model["linkKeyProperty"] = 'key';
+    myDiagram.model = model;
+}
+
 export function resetModel() {
-    myDiagram.model = new go.GraphLinksModel([],[]);
+    let model = new go.GraphLinksModel([],[]);
+    model.makeUniqueKeyFunction = function() { return uuid(); };
+    model.makeUniqueLinkKeyFunction = function() { return uuid(); };
+    model.linkKeyProperty = 'key';
+    myDiagram.model = model;
+
 }
 
 let monitor = function(e) {

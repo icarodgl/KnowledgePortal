@@ -4,7 +4,7 @@ import { ConceptMap, Result, Version, User } from '../../_models/index.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
-import { AuthService } from '../index.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class VersionService {
