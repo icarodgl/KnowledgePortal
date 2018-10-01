@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MapService, AuthService } from '../../_services/index.service';
-import { myDiagram, resetModel, initListener, stopListener } from '../../edit/conceptmap/conceptmap.component';
+import { myDiagram, resetModel, initListener, stopListener, realTimeUpdateModel } from '../../edit/conceptmap/conceptmap.component';
 import swal from 'sweetalert2';
 import * as go from "gojs";
 import axios from 'axios';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { SpeechRecognitionComponent } from '../../speech2map/speech-recognition.component';
-import { ChatService } from '../../_services/chatservice/chat.service';
+import { SocketService } from '../../_services/socketservice/socket.service';
 import { v4 as uuid } from 'uuid';
 import { ClipboardService } from 'ngx-clipboard';
+import { SocketMessage, SocketResponse } from '../../_models/socketMessage.model';
 
 declare const $: any;
 const $$ = go.GraphObject.make;  // for conciseness in defining templates
@@ -35,23 +36,75 @@ export class FixedpluginComponent implements OnInit {
       public mapService: MapService, 
       private authService: AuthService, 
       public dialog: MatDialog, 
-      private chat:ChatService,
-      private clipboardService: ClipboardService
+      private socket:SocketService,
+      private clipboardService: ClipboardService,
+      private activateRoute: ActivatedRoute
     ) { }
 
-  sendMessage() {
-      this.chat.sendMsg('Test message');
-  }
-
   initRealtime() {
-    this.chat.connect();
-    this.chat.messages.subscribe(msg => {
-        console.log(msg);
+    this.socket.connect();
+    let message = new SocketMessage();
+    message.type = 'join';
+    message.username = JSON.parse(this.authService.getCurrentUser()).username;
+    setTimeout(() => {
+        message.content = this.activateRoute.snapshot.queryParams.roomId;
+        this.socket.send(message);
+    }, 0);
+
+    this.socket.messages.subscribe((msg:SocketResponse) => {
+        if(msg.type == 'newMessage')
+            $.notify({
+                icon: 'notifications',
+                message: `<b>${msg.content.from}: </b>${msg.content.text}.`
+            }, {
+                type: 'success',
+                timer: 2000,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                },
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0} alert-with-icon" role="alert">' +
+                '<button mat-raised-button type="button" aria-hidden="true" class="close" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+                '<i class="material-icons" data-notify="icon">notifications</i> ' +
+                '<span data-notify="title">{1}</span> ' +
+                '<span data-notify="message">{2}</span>' +
+                '<div class="progress" data-notify="progressbar">' +
+                    '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                '</div>' +
+                '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                '</div>'
+            });
+        else if(msg.type == 'updateModel')
+            realTimeUpdateModel(msg.content);
     });
   }
 
   disconnectRealTime() {
-      this.chat.disconnect();
+      this.socket.disconnect();
+  }
+
+  startRealtime(id) {
+    $('.switch-realtime input').attr('checked', true);
+    this.initRealtime();
+    this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: id}});
+    this.isEnabled = true;
+    setTimeout(function() {
+        $('#realtime-link').text(window.location.href);
+    }, 0);
+    initListener();
+  }
+
+  stopRealtime(){
+    this.disconnectRealTime();
+    this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: null}});
+    this.isEnabled = false;
+    stopListener();
+  }
+
+  checkRealtimeUrl() {
+      if(window.location.href.indexOf('roomId') > 0){
+        this.startRealtime(this.activateRoute.snapshot.queryParams.roomId);
+      }
   }
 
   ngOnInit() {
@@ -515,21 +568,13 @@ export class FixedpluginComponent implements OnInit {
 
       $('.switch-realtime input').change(() => {
         if ($('.switch-realtime input')[0].checked){
-            this.initRealtime();
-            this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: uuid()}});
-            this.isEnabled = true;
-            setTimeout(function() {
-                $('#realtime-link').text(window.location.href);
-            }, 0);
-            initListener();
-
+            this.startRealtime(uuid());
         }else{
-            this.disconnectRealTime();
-            this.router.navigate(['edit', 'cmap'],{queryParams:{roomId: null}});
-            this.isEnabled = false;
-            stopListener();
+            this.stopRealtime();
         }
       });
+
+      this.checkRealtimeUrl();
   }
 
   copyLink(){
