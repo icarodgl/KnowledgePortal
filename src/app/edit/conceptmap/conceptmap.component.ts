@@ -683,10 +683,37 @@ export function stopListener(){
     myDiagram.removeModelChangedListener(monitor);
 }
 
+function getGroupIndex(arr){
+    let index = -1;
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i].hasOwnProperty('isGroup')) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
 export function realTimeUpdateModel(model) {
     stopListener();
     let received = go.Model.fromJson(model);
     let diff = myDiagram.model["computeJsonDifference"](received);
-    myDiagram.model.applyIncrementalJson(diff);
+    diff = JSON.parse(diff);
+    if(diff.insertedNodeKeys){
+        let index = getGroupIndex(diff.modifiedNodeData);
+        if(index > -1){
+            myDiagram.startTransaction('newGroup');
+            myDiagram.model.addNodeData(diff.modifiedNodeData[index]);
+            myDiagram.commitTransaction('newGroup');
+            diff.insertedNodeKeys = diff.insertedNodeKeys.filter((el) => el != diff.modifiedNodeData[index].key);
+            diff.modifiedNodeData.splice(index, 1);
+        }
+    }else if(diff.modifiedNodeData){
+        let index = getGroupIndex(diff.modifiedNodeData);
+        if(index > -1){
+            delete(diff.modifiedNodeData[index].isGroup);
+        }
+    }
+    myDiagram.model.applyIncrementalJson(JSON.stringify(diff));
     initListener();
 }
