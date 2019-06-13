@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MapService, MeService, VersionService } from '../../../_services/index.service';
+import { MapService, MeService, VersionService, ModelService } from '../../../_services/index.service';
 import { ConceptMap, Version } from '../../../_models/index.model';
 import * as go from 'gojs';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
@@ -29,6 +29,7 @@ export class ViewMapVersionsComponent implements OnInit {
         private meService: MeService, 
         private _sanitizer: DomSanitizer, 
         private versionService:VersionService,
+        private modelService: ModelService,
         private router:Router
     ){}
 
@@ -245,7 +246,8 @@ export class ViewMapVersionsComponent implements OnInit {
     }
 
     edit(n) {
-        this.versionService.setCurrentLoadVersion(this.versionList[n]);
+        console.log(this.versionList[n]);
+        this.modelService.setCurrentModel(this.versionList[n].content);
         this.router.navigate(['edit', 'cmap']);
     }
     next() {
