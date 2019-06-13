@@ -4,6 +4,10 @@ import { VersionService, ModelService } from '../../_services/index.service';
 import swal from 'sweetalert2';
 export var myDiagram: go.Diagram;
 import { v4 as uuid } from 'uuid';
+import { SocketMessage } from '../../_models/socketMessage.model';
+import { SocketService } from '../../_services/socketservice/socket.service';
+
+export var socket:SocketService;
 
 @Component({
   selector: 'conceptmap',
@@ -13,7 +17,9 @@ import { v4 as uuid } from 'uuid';
 export class ConceptMapComponent implements AfterViewInit, OnDestroy {
   @ViewChild('myDiagramDiv') element: ElementRef;
 
-  constructor(private versionService:VersionService, private modelService:ModelService){}
+  constructor(private versionService:VersionService, private modelService:ModelService, private s:SocketService){
+      socket = s;
+  }
 
   ngAfterViewInit() {
       
@@ -661,9 +667,13 @@ export function resetModel() {
 }
 
 let monitor = function(e) {
-    if(e.isTransactionFinished){
-        console.log(e.object);
-    }
+    let message:SocketMessage = new SocketMessage();
+    message.type = 'sendModel';
+    message.content = myDiagram.model.toJson();
+    socket.send(message);
+    //if(e.isTransactionFinished){
+        //console.log(e);
+    //}
 }
 export function initListener(){
     myDiagram.addModelChangedListener(monitor);
@@ -671,4 +681,39 @@ export function initListener(){
 
 export function stopListener(){
     myDiagram.removeModelChangedListener(monitor);
+}
+
+function getGroupIndex(arr){
+    let index = -1;
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i].hasOwnProperty('isGroup')) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
+export function realTimeUpdateModel(model) {
+    stopListener();
+    let received = go.Model.fromJson(model);
+    let diff = myDiagram.model["computeJsonDifference"](received);
+    diff = JSON.parse(diff);
+    if(diff.insertedNodeKeys){
+        let index = getGroupIndex(diff.modifiedNodeData);
+        if(index > -1){
+            myDiagram.startTransaction('newGroup');
+            myDiagram.model.addNodeData(diff.modifiedNodeData[index]);
+            myDiagram.commitTransaction('newGroup');
+            diff.insertedNodeKeys = diff.insertedNodeKeys.filter((el) => el != diff.modifiedNodeData[index].key);
+            diff.modifiedNodeData.splice(index, 1);
+        }
+    }else if(diff.modifiedNodeData){
+        let index = getGroupIndex(diff.modifiedNodeData);
+        if(index > -1){
+            delete(diff.modifiedNodeData[index].isGroup);
+        }
+    }
+    myDiagram.model.applyIncrementalJson(JSON.stringify(diff));
+    initListener();
 }

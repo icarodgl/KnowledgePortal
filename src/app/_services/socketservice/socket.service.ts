@@ -5,12 +5,12 @@ import { Subject } from 'rxjs/Rx';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class SocketService {
     messages: Subject<any>;
 
     constructor(private wsService: WebsocketService) {}
 
-    sendMsg(msg){
+    send(msg){
         this.messages.next(msg);
     }
 

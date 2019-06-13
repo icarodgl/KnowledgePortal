@@ -60,16 +60,17 @@ export const ROUTES: RouteInfo[] = [{
         children: [
             {path: 'cmap', title: 'Concept Map', ab:'CM'}
         ]
-    },{
-        path: '/tools',
-        title: 'Tools',
-        type: 'sub',
-        icontype: 'build',
-        collapse: 'tools',
-        children: [
-            {path: 'mapdb', title: 'Map Debates', ab:'MD'}
-        ]
     }
+    // ,{
+    //     path: '/tools',
+    //     title: 'Tools',
+    //     type: 'sub',
+    //     icontype: 'build',
+    //     collapse: 'tools',
+    //     children: [
+    //         {path: 'mapdb', title: 'Map Debates', ab:'MD'}
+    //     ]
+    // }
     // ,{
     //     path: '/components',
     //     title: 'Components',
