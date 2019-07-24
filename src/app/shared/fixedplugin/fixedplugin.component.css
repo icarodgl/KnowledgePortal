@@ -1,0 +1,46 @@
+.f-left {
+    float: left;
+}
+
+.f-44 {
+    font-size: 44px;
+    color: #000
+}
+
+.active {
+    border: 4px solid;
+    border-color: #f44336 !important;
+}
+
+.active .material-icons {
+    line-height: 21px;
+    background-color: #2CA8FF;
+}
+
+.no-line {
+    border-bottom: 0px !important;
+}
+
+.color-picker {
+    height: 75px !important;
+}
+
+.more-info {
+    height: 145px !important;
+}
+
+.realtime {
+    height: 120px !important;
+}
+.realtime-link{
+    font-weight: normal;
+    font-size: .8125rem !important;
+}
+/* 
+.revert {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg)
+} */

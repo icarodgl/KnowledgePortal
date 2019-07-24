@@ -1,0 +1,196 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <h4>Your Statistics</h4>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">device_hub</i>
+              </div>
+              <p class="card-category">Concept Maps</p>
+              <h3 class="card-title">{{this.user.stats.maps}}</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-success">plus_one</i>
+                <a (click)="newMap($event)" class="text-primary" href="">Create a new...</a>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">group</i>
+              </div>
+              <p class="card-category">Groups</p>
+              <h3 class="card-title">{{this.user.stats.groups}}</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-warning">group_add</i> 
+                <a routerLink="/manage/groups" class="text-primary" href=""> Manage your groups...</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                  <i class="fas fa-user-tag"></i>
+              </div>
+              <p class="card-category">Following</p>
+              <h3 class="card-title">{{this.user.stats.following}}</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-danger">timeline</i> 
+                <a routerLink="/pages/timeline" class="text-primary" href=""> View timeline...</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="fa fa-twitter"></i>
+              </div>
+              <p class="card-category">Followers</p>
+              <h3 class="card-title">+{{this.user.stats.followers}}</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-info">share</i> 
+                <a routerLink="/edit/cmap" class="text-primary" href=""> Manage your maps access level...</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h6>Your recent maps...</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-product" *ngIf="images[0]">
+            <div class="card-header card-header-image" data-header-animation="true">
+              <a href="#pablo">
+                <div class="mapimg" [innerHTML]="images[0]"> </div>
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="card-actions text-center">
+                <button mat-raised-button type="button" class="btn btn-danger btn-link fix-broken-card">
+                  <i class="material-icons">build</i> Fix Header!
+                </button>
+                <button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="View" [matTooltipPosition]="'below'" (click)="click(0)">
+                  <i class="material-icons">art_track</i>
+                </button>
+                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Edit" [matTooltipPosition]="'below'">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button mat-raised-button type="button" class="btn btn-danger btn-link" matTooltip="Remove" [matTooltipPosition]="'below'">
+                  <i class="material-icons">close</i>
+                </button>
+              </div>
+              <h4 class="card-title">
+                <a href="#pablo">{{this.maps[0].title}}</a>
+              </h4>
+              <div class="card-description">
+                {{this.maps[0].description}}
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <p class="card-category"><i class="material-icons">calendar_today</i> {{this.maps[0].last_update | date:'medium'}}</p>
+              </div>
+              <div class="stats">
+                <p class="card-category"><i class="material-icons">favorite</i> 5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-product" *ngIf="images[1]">
+            <div class="card-header card-header-image" data-header-animation="true">
+              <a href="#pablo">
+                  <div class="mapimg" [innerHTML]="images[1]"> </div>
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="card-actions text-center">
+                <button mat-raised-button type="button" class="btn btn-danger btn-link fix-broken-card">
+                  <i class="material-icons">build</i> Fix Header!
+                </button>
+                <button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="View" [matTooltipPosition]="'below'" (click)="click(1)">
+                  <i class="material-icons">art_track</i>
+                </button>
+                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Edit" [matTooltipPosition]="'below'">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button mat-raised-button type="button" class="btn btn-danger btn-link" matTooltip="Remove" [matTooltipPosition]="'below'">
+                  <i class="material-icons">close</i>
+                </button>
+              </div>
+              <h4 class="card-title">
+                <a href="#pablo">{{this.maps[1].title}}</a>
+              </h4>
+              <div class="card-description">
+                {{this.maps[1].description}}
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <p class="card-category"><i class="material-icons">calendar_today</i> {{this.maps[1].last_update | date:'medium'}}</p>
+              </div>
+              <div class="stats">
+                <p class="card-category"><i class="material-icons">favorite</i> 5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-product" *ngIf="images[2]">
+            <div class="card-header card-header-image" data-header-animation="true">
+              <a href="#pablo">
+                  <div class="mapimg" [innerHTML]="images[2]"> </div>
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="card-actions text-center">
+                <button mat-raised-button type="button" class="btn btn-danger btn-link fix-broken-card">
+                  <i class="material-icons">build</i> Fix Header!
+                </button>
+                <button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="View" [matTooltipPosition]="'below'" (click)="click(2)">
+                  <i class="material-icons">art_track</i>
+                </button>
+                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Edit" [matTooltipPosition]="'below'">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button mat-raised-button type="button" class="btn btn-danger btn-link" matTooltip="Remove" [matTooltipPosition]="'below'">
+                  <i class="material-icons">close</i>
+                </button>
+              </div>
+              <h4 class="card-title">
+                <a href="#pablo">{{this.maps[2].title}}</a>
+              </h4>
+              <div class="card-description">
+                {{this.maps[2].description}}
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <p class="card-category"><i class="material-icons">calendar_today</i> {{this.maps[2].last_update | date:'medium'}}</p>
+              </div>
+              <div class="stats">
+                <p class="card-category"><i class="material-icons">favorite</i> 5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<conceptmap id="map" #map1></conceptmap>

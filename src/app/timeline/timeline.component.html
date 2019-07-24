@@ -1,0 +1,42 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h3 class="title">{{currentUser.firstname}} friends maps...</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-content">
+                        <ul class="timeline">
+                            <li class="timeline-inverted" *ngFor="let value of currentUser.following; index as i; trackBy: index">
+                                <div class="timeline-badge primary">
+                                    <i class="material-icons">filter_{{i+1}}</i>
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h6>{{value.maps && value.maps[value.maps.length-1].title}}</h6>
+                                        <div><i class="material-icons text-primary">account_circle</i> {{value.username}}</div>
+                                    </div>
+                                    <div class="timeline-body">
+                                        {{value.maps && value.maps[value.maps.length-1].description}}
+                                    </div>
+                                    <div class="mapimg" [innerHTML]="images[i]"> </div>
+                                    <hr>
+                                    <div class="foot">
+                                        <h6>
+                                            <i class="material-icons text-primary">access_time</i> Create at: {{value.maps && value.maps[value.maps.length-1].created | date:'medium'}}
+                                        </h6>
+                                        
+                                        <a href="" (click)="like($event, i)"><i class="material-icons text-danger">favorite_border</i></a>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map" #myDiagramDiv></div>

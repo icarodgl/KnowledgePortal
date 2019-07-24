@@ -1,0 +1,172 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h3 class="title">Versions Visualization</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                        <div class="card-header card-header-tabs card-header-danger">
+                          <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">Versions:</span>
+                              <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                  <a class="nav-link active" href="#list" data-toggle="tab">
+                                    <i class="material-icons">view_list</i> List
+                                    <div class="ripple-container"></div>
+                                  </a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#navigate" data-toggle="tab">
+                                    <i class="material-icons">code</i> Navigate
+                                    <div class="ripple-container"></div>
+                                  </a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#settings" data-toggle="tab">
+                                    <i class="material-icons">cloud</i> Server
+                                    <div class="ripple-container"></div>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="card-body">
+                              <div class="tab-content">
+                                  <div class="tab-pane active" id="list">
+                                      <table class="table">
+                                            <thead>
+                                                    <tr>
+                                                      <th class="text-center">Check</th>
+                                                      <th>Small Pic</th>
+                                                      <th>Last Update</th>
+                                                      <th>Options</th>
+                                                    </tr>
+                                                </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of versionList; let i = index" [attr.data-index]="i">
+                                                        <td>
+                                                            <div [ngSwitch]="row.checked">
+                                                                <div *ngSwitchCase="true">
+                                                                    <div class="form-check">
+                                                                    <label class="form-check-label">
+                                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                                        <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                        </span>
+                                                                    </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngSwitchDefault>
+                                                                    <div class="form-check">
+                                                                    <label class="form-check-label">
+                                                                        <input class="form-check-input" type="checkbox" value="">
+                                                                        <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                        </span>
+                                                                    </label>
+                                                                    </div>
+                                                                </div>
+            
+                                                            </div>
+                                                        </td>
+                                                    <td><div class="mapimg" [innerHTML]="images[i]"> </div></td>
+                                                    <td>{{row.last_update | date:'medium'}}</td>
+                                                    <td class="td-actions text-right">
+                                                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'left'" class="btn btn-primary btn-link btn-sm" (click)="edit(i)">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+      
+                                                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'left'" class="btn btn-danger btn-link btn-sm">
+                                                            <i class="material-icons">close</i>
+                                                        </button>
+                                                    </td>
+                                                 </tr>
+                                            </tbody>
+                                      </table>
+                                  </div>
+                                  <div class="tab-pane" id="navigate">
+                                     <div class="row">
+                                         <div class="col-md-12 text-center">
+                                             <div class="mapimg2" [innerHTML]="images2[count]"> </div>
+                                         </div>
+                                     </div>
+                                     <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button mat-raised-button class="btn">
+                                                <span class="btn-label">
+                                                    <i class="material-icons">keyboard_arrow_left</i>
+                                                </span>
+                                            </button>
+                                            <button mat-raised-button class="btn btn-success">
+                                                <span class="btn-label">
+                                                    <i class="material-icons">edit</i>
+                                                </span>
+                                            </button>
+                                            <button mat-raised-button class="btn btn-danger">
+                                                <span class="btn-label">
+                                                    <i class="material-icons">delete</i>
+                                                </span>
+                                            </button>
+                                            <button mat-raised-button class="btn btn" (click)="next()">
+                                                <span class="btn-label">
+                                                    <i class="material-icons">keyboard_arrow_right</i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <div class="tab-pane" id="settings">
+                                      <table class="table">
+                                            <tbody>
+                                                <tr *ngFor="let row of tasks3">
+                                                    <td>
+                                                        <div [ngSwitch]="row.checked">
+                                                            <div *ngSwitchCase="true">
+                                                              <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                  <input class="form-check-input" type="checkbox" value="" checked>
+                                                                  <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                  </span>
+                                                                </label>
+                                                              </div>
+                                                            </div>
+                                                            <div *ngSwitchDefault>
+                                                              <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                  <input class="form-check-input" type="checkbox" value="">
+                                                                  <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                  </span>
+                                                                </label>
+                                                              </div>
+                                                            </div>
+      
+                                                        </div>
+                                                    </td>
+                                                    <td>{{row.title}}</td>
+                                                    <td class="td-actions text-right">
+                                                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"class="btn btn-primary btn-link btn-sm">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
+                                                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm">
+                                                            <i class="material-icons">close</i>
+                                                        </button>
+                                                    </td>
+                                                 </tr>
+                                            </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="map" #myDiagramDiv></div>

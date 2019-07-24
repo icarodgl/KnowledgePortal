@@ -1,0 +1,76 @@
+import { Injectable } from '@angular/core';
+import { authApiUri, meApiUri } from '../../global.vars';
+import { User } from '../../_models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+
+@Injectable()
+export class AuthService {
+    private options
+
+    constructor(private http: HttpClient) {
+        this.options = { headers: this.getHeaders() };
+    }
+
+    private getHeaders(): HttpHeaders {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+        return headers;
+    }
+
+
+    getCurrentUser(){
+        return localStorage.getItem('currentUser');
+    }
+
+    setCurrentUser(user:User) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+
+    updateUser() {
+        return this.http.get<User>(meApiUri)
+            .map(user => {
+                user.token = JSON.parse(this.getCurrentUser()).token;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                return user;
+            });
+    }
+
+    login(user:User){
+        return this.http.post<any>(authApiUri, user)
+            .map(res => {
+                if(res.user && res.user.token){
+                    localStorage.setItem('currentUser', JSON.stringify(res.user));
+                }
+
+                return res;
+            });
+    }
+
+    fbLogin(user: User){
+        return this.http.post<any>(authApiUri+'/facebook', user)
+            .map(res => {
+                if(res.user && res.user.token) {
+                    localStorage.setItem('currentUser', JSON.stringify(res.user));
+                }
+            });
+    }
+
+    gLogin(user: User){
+        return this.http.post<any>(authApiUri+'/google', user)
+            .map(res => {
+                if(res.user && res.user.token) {
+                    localStorage.setItem('currentUser', JSON.stringify(res.user));
+                }
+            });
+    }
+
+    logout(){
+        localStorage.clear();
+    }
+
+    lock(){
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        delete user.token;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+}

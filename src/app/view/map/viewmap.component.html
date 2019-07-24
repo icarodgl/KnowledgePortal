@@ -1,0 +1,119 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h3 class="title">Concept Map Visualization</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="metaInfo">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-primary">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title">
+                            Meta-Informations
+                            <div class="col-md-3 ml-auto text-right">
+                                <button mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab" (click)="expand()">
+                                    <i class="material-icons">favorite</i>
+                                </button>
+                            </div>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <form method="#" action="#">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Map Title" [(ngModel)]='currentMap.title' name="title" type="text">
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Question of investigation" [(ngModel)]='currentMap.question' name="question" type="text">
+                                    </mat-form-field>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating"> Talk about the content of this map.</label>
+                                        <textarea class="form-control" rows="3" [(ngModel)]='currentMap.description' name="description"></textarea>
+                                    </div>
+                                </div>
+                                <label>Keywords</label>
+                                <tag-input [(ngModel)]='currentMap.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>
+                            </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button mat-raised-button class="btn btn-success" (click)="save()">
+                                        <span class="btn-label">
+                                            <i class="material-icons">update</i>
+                                        </span>
+                                        Update
+                                </button>
+                                <button mat-raised-button class="btn btn-danger" (click)="back()">
+                                    <span class="btn-label">
+                                        <i class="material-icons">delete</i>
+                                    </span>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-0" id="otherInfo">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-success">
+                            <div class="card-icon">
+                                <i class="material-icons">image</i>
+                            </div>
+                            <h4 class="card-title">
+                                Versions Preview
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="img" [innerHTML]="images[count]"> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" (click)="previus()">
+                                        <i class="material-icons">chevron_left</i>
+                                    </button>
+                                    <a routerLink="./versions" mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="View history">
+                                        <i class="material-icons">history</i>
+                                    </a>
+                                    <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" (click)="next()">
+                                        <i class="material-icons">chevron_right</i>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-info">
+                            <div class="card-icon">
+                                <i class="material-icons">share</i>
+                            </div>
+                            <h4 class="card-title">
+                                Share with...
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        <!-- <app-comments-areas></app-comments-areas>  -->
+    </div>
+</div>
+   
+
+<div id="map" #myDiagramDiv></div>

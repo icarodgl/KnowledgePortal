@@ -1,0 +1,278 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="header text-center">
+            <h3 class="title">Save Concept Map</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-primary">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h4 class="card-title">
+                                Required Meta-Informations
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <form method="#" action="#">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Map Title" [(ngModel)]='map.title' name="title" type="text">
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Question of investigation" [(ngModel)]='map.question' name="question" type="text">
+                                        </mat-form-field>
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Description</label>
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="Talk about the content of this map." rows="3" [(ngModel)]='map.description' name="description"></textarea>
+                                        </div>
+                                    </div>
+                                    <label>Keywords</label>
+                                    <tag-input [(ngModel)]='map.keywords' secondaryPlaceholder="Enter keyword" placeholder="+ Keyword" theme='filled-theme' [ngModelOptions]="{standalone: true}"></tag-input>                                        
+                                </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button mat-raised-button class="btn btn-success" (click)="save()">
+                                            <span class="btn-label">
+                                                <i class="material-icons">check</i>
+                                            </span>
+                                            Save
+                                    </button>
+                                    <button mat-raised-button class="btn btn-danger" (click)="back()">
+                                        <span class="btn-label">
+                                            <i class="material-icons">keyboard_arrow_left</i>
+                                        </span>
+                                        Back
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="img" [innerHTML]="image"> </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header card-header-icon card-header-info">
+                                <div class="card-icon">
+                                    <i class="material-icons">share</i>
+                                </div>
+                                <h4 class="card-title">
+                                    Share settings...
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <ul class="nav nav-pills nav-pills-info flex-column" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#link4" role="tablist">
+                                            Public
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#link5" role="tablist">
+                                            Group
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#link6" role="tablist">
+                                            Users
+                                            </a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="tab-content">
+                                        <div class="tab-pane active" id="link4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    Can view
+                                                </div>
+                                                <div class="col-md-4">
+                                                    Can fork
+                                                </div>
+                                                <div class="col-md-4">
+                                                    Can edit
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="togglebutton">    
+                                                        <label>
+                                                            <input type="checkbox" [checked]="map.permissions.publicPermission.canView" (change)="click('canView')">
+                                                            <span class="toggle"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="togglebutton">    
+                                                        <label>
+                                                            <input type="checkbox" [checked]="map.permissions.publicPermission.canFork" (change)="click('canFork')">
+                                                            <span class="toggle"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="togglebutton">    
+                                                        <label>
+                                                            <input type="checkbox" [checked]="map.permissions.publicPermission.canEdit" (change)="click('canEdit')">
+                                                            <span class="toggle"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <br />
+                                                    <h6>Permissions Description: </h6>
+                                                    <p *ngIf="!map.permissions.publicPermission.canView">This map is completely private.</p>
+                                                    <p *ngIf="map.permissions.publicPermission.canView && !map.permissions.publicPermission.canFork && !map.permissions.publicPermission.canEdit">Everyone can only view this map and its versions.</p>
+                                                    <p *ngIf="map.permissions.publicPermission.canFork && !map.permissions.publicPermission.canEdit">Everyone can view this map and its versions and create/copy versions of this map.</p>
+                                                    <p *ngIf="map.permissions.publicPermission.canEdit">Everyone has full access to this map and its versions.</p>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="tab-pane" id="link5">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="input-group no-border">
+                                                        <input type="text" [(ngModel)]="search" class="form-control" placeholder="Group name..." [ngModelOptions]="{standalone: true}">
+                                                        <button mat-raised-button (click)="findAndAddGroup($event)" class="btn btn-white btn-round btn-just-icon">
+                                                            <i class="material-icons">playlist_add</i>
+                                                            <div class="ripple-container"></div>
+                                                        </button>
+                                                    </div>
+                                                    <div class="table-responsive" *ngIf="map.permissions.groups.length > 0">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center th-small">#</th>
+                                                                    <th class="text-center">Group Name</th>
+                                                                    <th class="text-center">View</th>
+                                                                    <th class="text-center">Fork</th>
+                                                                    <th class="text-center">Edit</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let row of map.permissions.groups; let i = index">
+                                                                    <td class="td-actions th-small">
+                                                                        <button mat-raised-button type="button" class="btn btn-danger btn-link" (click)="removeGroup(i)">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td class="text-center td-name">{{row.group.name}}</td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="click('canView', 'groups', i)">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="click('canFork', 'groups', i)">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="click('canEdit', 'groups', i)">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="link6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="input-group no-border">
+                                                        <input type="text" [(ngModel)]="search" class="form-control" placeholder="Username..." [ngModelOptions]="{standalone: true}">
+                                                        <button mat-raised-button (click)="findAndAddUser($event)" class="btn btn-white btn-round btn-just-icon">
+                                                            <i class="material-icons">playlist_add</i>
+                                                            <div class="ripple-container"></div>
+                                                        </button>
+                                                    </div>
+                                                    <div class="table-responsive" *ngIf="map.permissions.users.length > 0">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center th-small">#</th>
+                                                                    <th class="text-center">Username</th>
+                                                                    <th class="text-center">View</th>
+                                                                    <th class="text-center">Fork</th>
+                                                                    <th class="text-center">Edit</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let row of map.permissions.users; let i = index">
+                                                                    <td class="td-actions th-small">
+                                                                        <button mat-raised-button type="button" class="btn btn-danger btn-link" (click)="removeUser(i)">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td class="text-center td-name">{{row.user.username}}</td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canView" (change)="click('canView', 'users', i)">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canFork" (change)="click('canFork', 'users', i)">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div class="togglebutton">  
+                                                                            <label>
+                                                                                <input type="checkbox" [checked]="row.permission.canEdit" (change)="click('canEdit', 'users', i)">
+                                                                                <span class="toggle"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+        </div>
+    </div>
+</div>
+  

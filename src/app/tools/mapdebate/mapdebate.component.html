@@ -1,0 +1,217 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- <div class="header text-center">
+            <h3 class="title">Map Debates</h3>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                <div class="card-header ">
+                    <h4 class="card-title">Map Debates -
+                    <small class="description">Using Theses Debate in Concept Maps</small>
+                    </h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <!--
+                                        color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
+                                    -->
+                        <ul class="nav nav-pills nav-pills-rose nav-pills-icons flex-column" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#link10" role="tablist">
+                            <i class="material-icons">gavel</i> Debates
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#link11" role="tablist">
+                            <i class="material-icons">schedule</i> Settings
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="tab-content">
+                        <div class="tab-pane active" id="link10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card ">
+                                    <div class="card-body ">
+                                        <ul class="nav nav-pills nav-pills-warning" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist">
+                                            Create
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                                            List
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
+                                            Results
+                                            </a>
+                                        </li>
+                                        </ul>
+                                        <div class="tab-content tab-space">
+                                        <div class="tab-pane active" id="link1">
+                                                <div class="col-md-12 mr-auto ml-auto">
+                                                <!--      Wizard container        -->
+                                                <div class="wizard-container">
+                                                    <div class="card card-wizard" data-color="rose" id="wizardProfile">
+                                                    <form action="" method="">
+                                                        <div class="wizard-navigation">
+                                                        <ul class="nav nav-pills">
+                                                            <li class="nav-item">
+                                                            <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                                                                About
+                                                            </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                            <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                                                                Account
+                                                            </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                            <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                                                                Address
+                                                            </a>
+                                                            </li>
+                                                        </ul>
+                                                        </div>
+                                                        <div class="card-body">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="about">
+                                                            <h5 class="info-text"> Let's start with the basic information (The Main Subject)</h5>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-lg-10 mt-3">
+                                                                <div class="input-group form-control-lg">
+                                                                    <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="material-icons">email</i>
+                                                                    </span>
+                                                                    </div>
+                                                                    <mat-form-field class="example-full-width">
+                                                                        <input matInput placeholder="Email (required)" [formControl]="emailFormControl"
+                                                                        type="email" id="exampleemalil" name="email">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="account">
+                                                            <h5 class="info-text"> What are you doing? (checkboxes) </h5>
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-lg-10">
+                                                                <div class="row">
+                                                                    <div class="col-sm-4">
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        <input type="checkbox" name="jobb" value="Design">
+                                                                        <div class="icon">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                        </div>
+                                                                        <h6>Design</h6>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        <input type="checkbox" name="jobb" value="Code">
+                                                                        <div class="icon">
+                                                                        <i class="fa fa-terminal"></i>
+                                                                        </div>
+                                                                        <h6>Code</h6>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        <input type="checkbox" name="jobb" value="Develop">
+                                                                        <div class="icon">
+                                                                        <i class="fa fa-laptop"></i>
+                                                                        </div>
+                                                                        <h6>Develop</h6>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="address">
+                                                            <div class="row justify-content-center">
+                                                                <div class="col-sm-12">
+                                                                <h5 class="info-text"> Are you living in a nice area? </h5>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                <mat-form-field class="example-full-width">
+                                                                    <input matInput type="text" placeholder="Street Name">
+                                                                </mat-form-field>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                <mat-form-field class="example-full-width">
+                                                                    <input matInput type="text" placeholder="Street No.">
+                                                                </mat-form-field>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                <mat-form-field class="example-full-width">
+                                                                    <input matInput type="text" placeholder="City">
+                                                                </mat-form-field>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <mat-form-field>
+                                                                        <mat-select placeholder="Single City" name="city">
+                                                                        <mat-option *ngFor="let city of cities" [value]="city.value">
+                                                                            {{ city.viewValue }}
+                                                                        </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                        <div class="mr-auto">
+                                                            <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                                                        </div>
+                                                        <div class="ml-auto">
+                                                            <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                                                            <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;">
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        </div>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                                <!-- wizard container -->
+                                                </div>
+                                        </div>
+                                        <div class="tab-pane" id="link2">
+                                            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                                            <br />
+                                            <br />Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                                        </div>
+                                        <div class="tab-pane" id="link3">
+                                            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                                            <br />
+                                            <br />Dynamically innovate resource-leveling customer service for state of the art customer service.
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="link11">
+                            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                            <br>
+                            <br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
