@@ -46,7 +46,6 @@ import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedpluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
 import { AuthService } from './_services/auth/auth.service';
@@ -63,6 +62,7 @@ import { SpeechRecognitionService } from './_services/speech2map/speech-recognit
 import { SidebarService } from './_services/sidebar/sidebar.service';
 import { WebsocketService } from './_services/websocket/websocket.service';
 import { SocketService } from './_services/socketservice/socket.service';
+import { HomeComponent } from './_viewers/home/home.component';
 
 @NgModule({
   exports: [
@@ -123,7 +123,7 @@ export class MaterialModule {}
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent
+        HomeComponent,
     ],
     providers: [
       AuthService, 

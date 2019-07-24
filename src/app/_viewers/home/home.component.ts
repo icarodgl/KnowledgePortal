@@ -5,10 +5,10 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { User } from '../../_models/index.model';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './auth-layout.component.html'
+  selector: 'app-home',
+  templateUrl: './home.component.html'
 })
-export class AuthLayoutComponent implements OnInit {
+export class HomeComponent implements OnInit {
   private toggleButton: any;
   private sidebarVisible: boolean;
   mobile_menu_visible: any = 0;

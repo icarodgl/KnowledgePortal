@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     login() {
-        console.log(this.authService.login(this.user))
         this.authService.login(this.user)
             .subscribe(_ => {
                 this.router.navigate(['dashboard']);

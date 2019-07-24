@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AuthGuard } from './_services/auth/auth.guard';
 import { LockGuard } from './_services/auth/lock.guard';
 import { AdminGuard } from './_services/auth/admin.guard';
+import { HomeComponent } from './_viewers/home/home.component';
 
 export const AppRoutes: Routes = [
     {
@@ -68,8 +68,8 @@ export const AppRoutes: Routes = [
             }
         ]
     },{
-      path: '',
-      component: AuthLayoutComponent,
+        path: '',
+        component: HomeComponent,
       children: [{
         path: 'pages',
         loadChildren: './pages/pages.module#PagesModule'

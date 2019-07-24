@@ -1,4 +1,6 @@
 {
   "ENTRAR": "Log In",
-  "BEM_VINDO": "Welcome"
+  "BEM_VINDO": "Welcome",
+  "ESQUECEU_SENHA": "Forgot password?",
+  "CADASTRAR":  "REGISTER"
 }

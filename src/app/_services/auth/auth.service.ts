@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
 import { authApiUri, meApiUri } from '../../global.vars';
 import { User } from '../../_models/user.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
-    private options
 
-    constructor(private http: HttpClient) {
-        this.options = { headers: this.getHeaders() };
-    }
-
-    private getHeaders(): HttpHeaders {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-        return headers;
-    }
-
+    constructor(private http: HttpClient){}
 
     getCurrentUser(){
         return localStorage.getItem('currentUser');
