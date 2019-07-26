@@ -3,10 +3,13 @@
     "",
     "\\documentation",
     "\\src",
-    "\\src\\app\\speech2map",
-    "\\src\\app\\_services\\auth",
-    "\\src\\app\\_services\\user"
+    "\\src\\app",
+    "\\src\\app\\layouts\\admin",
+    "\\src\\app\\_viewers",
+    "\\src\\app\\_viewers\\pages",
+    "\\src\\assets",
+    "\\src\\assets\\i18n"
   ],
-  "SelectedNode": "\\src\\app",
+  "SelectedNode": "\\src\\app\\app.routing.ts",
   "PreviewInSolutionExplorer": false
 }

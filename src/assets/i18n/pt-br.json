@@ -2,5 +2,14 @@
   "ENTRAR": "Entrar",
   "BEM_VINDO": "Bem Vindo",
   "ESQUECEU_SENHA": "Esqueceu sua Senha?",
-  "CADASTRAR": "CADASTRAR"
+  "CADASTRAR": "CADASTRAR",
+  "NUVEM": "Nuvem",
+  "NUVEM_DESCRI": "Não perca seus mapas. Usando o CMPaaS, você terá acesso aos seus mapas onde e quando quiser.",
+  "OPENSOURCE_DESCRI": "Nosso projeto é completamente open-source. Você pode usar nosso api livremente em seus projetos e integrá-los no CMPaaS.",
+  "REDE_SOCIAL": "Rede Social de Mapa Conceitual",
+  "REDESOCIAL_DESCRI": "Você pode usar nossos serviços para interagir com a comunidade de mapeamento, criar mapas colaborativos, acessar e publicar seus mapas para pesquisas em toda a nossa rede.",
+  "NOME...": "Nome...",
+  "SOBRENOME...": "Sobrenome...",
+  "NOME_USUARIO": "Nome de Usuário...",
+  "SENHA...": "Senha..."
 }

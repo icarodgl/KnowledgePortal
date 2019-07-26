@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
-
-import { RegisterComponent } from './register/register.component';
-import { PricingComponent } from './pricing/pricing.component';
 import { LockComponent } from './lock/lock.component';
 import { LoginComponent } from './login/login.component';
-import { LockGuard } from '../_services/auth/lock.guard';
-import { AuthGuard } from '../_services/auth/auth.guard';
+import { ForgotComponent } from './forgot/forgot.component';
+import { RegisterComponent } from './register/register.component';
+import { LockGuard } from 'app/_services/auth/lock.guard';
+import { AuthGuard } from 'app/_services/auth/auth.guard';
 
 export const PagesRoutes: Routes = [
 
@@ -24,8 +23,9 @@ export const PagesRoutes: Routes = [
             component: RegisterComponent,
             canActivate: [LockGuard]
         }, {
-            path: 'pricing',
-            component: PricingComponent
+            path: 'forgot',
+            component: ForgotComponent,
+            canActivate: [LockGuard]
         }]
     }
 ];

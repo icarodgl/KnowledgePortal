@@ -1,20 +1,19 @@
 import { Component, OnInit, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
-import { AuthService } from '../../_services/auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
-import { User } from '../../_models/user.model';
-import { UserService } from '../../_services/user/user.service';
+import { User } from 'app/_models/user.model';
+import { AuthService, UserService } from 'app/_services/index.service';
 
 declare var $: any;
 declare var FB: any;
 declare const gapi: any;
 
 @Component({
-    selector: 'app-login-cmp',
-    templateUrl: './login.component.html'
+    selector: 'app-forgot-cmp',
+    templateUrl: './forgot.component.html'
 })
 
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ForgotComponent implements OnInit, OnDestroy, AfterViewInit {
     private user: User = new User();
     test: Date = new Date();
     private toggleButton: any;

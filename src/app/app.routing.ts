@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthGuard } from './_services/auth/auth.guard';
 import { LockGuard } from './_services/auth/lock.guard';
@@ -72,7 +71,7 @@ export const AppRoutes: Routes = [
         component: HomeComponent,
       children: [{
         path: 'pages',
-        loadChildren: './pages/pages.module#PagesModule'
+          loadChildren: './_viewers/pages/pages.module#PagesModule'
       }]
     }
 ];

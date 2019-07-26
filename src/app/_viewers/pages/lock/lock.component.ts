@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from '../../_models/index.model';
-import { AuthService } from '../../_services/auth/auth.service';
 import { Router } from '@angular/router';
+import { User } from 'app/_models/user.model';
+import { AuthService } from 'app/_services/index.service';
 
 declare var $: any;
 

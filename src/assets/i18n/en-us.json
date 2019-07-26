@@ -2,5 +2,14 @@
   "ENTRAR": "Log In",
   "BEM_VINDO": "Welcome",
   "ESQUECEU_SENHA": "Forgot password?",
-  "CADASTRAR":  "REGISTER"
+  "CADASTRAR": "REGISTER",
+  "NUVEM": "Cloud",
+  "NUVEM_DESCRI": "Do not miss your maps. Using CMPaaS you will have access to your maps wherever and whenever you want.",
+  "OPENSOURCE_DESCRI": "Our project is completely open-source. You can use our api's freely in your projects and integrate them into the CMPaaS.",
+  "REDE_SOCIAL": "Social Concept Map Network",
+  "REDESOCIAL_DESCRI": "You can use our services to interact with the mapping community, build collaborative maps, access and publish your maps for surveys across our network.",
+  "NOME...": "First Name...",
+  "SOBRENOME...": "Surname...",
+  "NOME_USUARIO": "Username...",
+  "SENHA...":  "Password..."
 }

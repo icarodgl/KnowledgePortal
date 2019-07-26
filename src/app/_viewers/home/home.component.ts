@@ -9,7 +9,8 @@ import { User } from '../../_models/index.model';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  private toggleButton: any;
+    private toggleButton: any;
+    test: Date = new Date();
   private sidebarVisible: boolean;
   mobile_menu_visible: any = 0;
   private _router: Subscription;
