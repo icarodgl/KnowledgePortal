@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from 'app/app.module';
 import { RegisterComponent } from './register/register.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { NewPasswordComponent } from './newPassword/newPassword.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { ForgotComponent } from './forgot/forgot.component';
     LoginComponent,
     RegisterComponent,
     ForgotComponent,
-    LockComponent
+    LockComponent,
+    NewPasswordComponent
   ]
 })
 

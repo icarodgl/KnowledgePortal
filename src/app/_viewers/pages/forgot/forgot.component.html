@@ -3,20 +3,8 @@
           <div class="card card-login card-hidden">
             <div class="card-header card-header-danger text-center">
                 <h4 class="card-title">Redefinir sua Senha</h4>
-              <!--<div class="social-line">
-                <a class="btn btn-just-icon btn-link btn-white" (click)="fbLogin($event)">
-                  <i class="fa fa-facebook-square"></i>
-                </a>
-                 <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                  <i class="fa fa-twitter"></i>
-                </a> 
-                <a id="googleBtn" class="btn btn-just-icon btn-link btn-white" (click)="gLogin($event)">
-                  <i class="fa fa-google"></i>
-                </a>
-              </div>-->
             </div>
             <div class="card-body ">
-                <!--<p class="card-description text-center">Or Be Classical</p>-->
                 <span class="bmd-form-group">
                     <div class="input-group">
                       <span class="text-center" ><strong>Digite seu endereço de e-mail e nós iremos enviar um link para redefinir sua senha.</strong></span>
@@ -25,12 +13,12 @@
                               <i class="material-icons">mail</i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Email..." [(ngModel)]="user.username" name="username">
+                        <input type="text" class="form-control" placeholder="Email..." [(ngModel)]="email" name="username">
                     </div>
                 </span>
             </div>
             <div class="card-footer justify-content-center">
-              <button type="submit" class="btn btn-rose btn-link btn-lg" (click)="login()">Recuperar Senha</button>
+              <button type="submit" class="btn btn-rose btn-link btn-lg">Recuperar Senha</button>
             </div>
           </div>
         </form>

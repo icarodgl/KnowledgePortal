@@ -5,6 +5,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { RegisterComponent } from './register/register.component';
 import { LockGuard } from 'app/_services/auth/lock.guard';
 import { AuthGuard } from 'app/_services/auth/auth.guard';
+import { NewPasswordComponent } from './newPassword/newPassword.component';
 
 export const PagesRoutes: Routes = [
 
@@ -25,6 +26,11 @@ export const PagesRoutes: Routes = [
         }, {
             path: 'forgot',
             component: ForgotComponent,
+            canActivate: [LockGuard]
+            },
+        {
+            path: 'newpassword',
+            component: NewPasswordComponent,
             canActivate: [LockGuard]
         }]
     }
