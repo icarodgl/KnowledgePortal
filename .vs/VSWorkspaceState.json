@@ -4,12 +4,12 @@
     "\\documentation",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\calendar",
     "\\src\\app\\layouts\\admin",
-    "\\src\\app\\_viewers",
-    "\\src\\app\\_viewers\\pages",
-    "\\src\\assets",
+    "\\src\\app\\_services",
+    "\\src\\app\\_services\\auth",
     "\\src\\assets\\i18n"
   ],
-  "SelectedNode": "\\src\\app\\app.routing.ts",
+  "SelectedNode": "\\src\\app\\global.vars.ts",
   "PreviewInSolutionExplorer": false
 }
