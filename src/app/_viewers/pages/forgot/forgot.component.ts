@@ -35,7 +35,15 @@ export class ForgotComponent implements OnInit {
             // after 1000 ms we add the class animated to the login/register card
             card.classList.remove('card-hidden');
         }, 700);
-        
+    }
 
+    recuperarSenha(){
+        this.authService.forgotPassword(this.email).subscribe(
+            success => {
+                console.log('Solicitacao Enviada')
+            },
+          error => {
+                console.log('Erro')
+          })
     }
 }

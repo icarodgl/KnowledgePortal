@@ -27,14 +27,20 @@ export class AuthService {
     }
 
     login(user:User){
-        return this.http.post<any>(authApiUri, user)
+        return this.http.post<any>(authApiUri+'/login', user)
             .map(res => {
-                if(res.user && res.user.token){
-                    localStorage.setItem('currentUser', JSON.stringify(res.user));
+                console.log(res)
+                if(res.access_token){
+                    localStorage.setItem('currentUser', JSON.stringify(res.access_token));
                 }
 
                 return res;
             });
+    }
+
+    forgotPassword(email: string){
+        let send = {'email': email}
+        return this.http.post<any>(authApiUri+'/reset/password', send)
     }
 
     fbLogin(user: User){

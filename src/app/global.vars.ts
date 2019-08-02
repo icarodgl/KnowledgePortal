@@ -1,5 +1,5 @@
-export const authApiUri: string = 'api/auth';
-export const userApiUri: string = 'api/users';
+export const authApiUri: string = 'https://cmpaas-nest.herokuapp.com/v1/auth';
+export const userApiUri: string = 'https://cmpaas-nest.herokuapp.com/v1/users';
 export const mapApiUri: string = 'api/maps';
 export const meApiUri: string = 'api/users/me';
 export const versionApiUri: string = 'api/versions';
