@@ -3,11 +3,11 @@ const express = require('express');
 const path = require('path');
 const app = express();
  
-app.use(express.static(__dirname +'/dist/KnowledgePortal'));
+app.use(express.static(__dirname +'/dist/md-angular-cli-pro'));
  
 app.get('/*', function (req, res) {
 
-    res.sendFile(path.join(__dirname + '/dist/KnowledgePortal/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/md-angular-cli-pro/index.html'));
 });
 
 app.listen(process.env.PORT || 8080);
