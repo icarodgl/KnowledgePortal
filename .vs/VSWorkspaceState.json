@@ -5,11 +5,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\calendar",
-    "\\src\\app\\layouts\\admin",
     "\\src\\app\\_services",
-    "\\src\\app\\_services\\auth",
-    "\\src\\assets\\i18n"
+    "\\src\\app\\_services\\auth"
   ],
-  "SelectedNode": "\\src\\app\\global.vars.ts",
+  "SelectedNode": "\\server.js",
   "PreviewInSolutionExplorer": false
 }
