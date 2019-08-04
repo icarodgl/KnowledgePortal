@@ -1,11 +1,6 @@
 {
-  "name": "md-angular-cli-pro",
+  "name": "cmpaas-frontend",
   "version": "2.1.0",
-  "license": "https://demos.creative-tim.com/material-dashboard-pro-angular2/documentation/tutorial",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/creativetimofficial/ct-material-dashboard-pro-angular.git"
-  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
