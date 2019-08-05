@@ -14,7 +14,6 @@ export const PagesRoutes: Routes = [
         children: [ {
             path: 'login',
             component: LoginComponent,
-            canActivate: [LockGuard]
         }, {
             path: 'lock',
             component: LockComponent,
@@ -22,16 +21,13 @@ export const PagesRoutes: Routes = [
         }, {
             path: 'register',
             component: RegisterComponent,
-            canActivate: [LockGuard]
         }, {
             path: 'forgot',
             component: ForgotComponent,
-            canActivate: [LockGuard]
             },
         {
-            path: 'newpassword',
+            path: 'newpassword/:token',
             component: NewPasswordComponent,
-            canActivate: [LockGuard]
         }]
     }
 ];

@@ -12,24 +12,19 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-                <li class="nav-item" routerLinkActive="active" *ngIf="!this.isLocked()">
+                <li class="nav-item" routerLinkActive="active">
                     <a class="nav-link" [routerLink]="['/dashboard']">
                         <i class="material-icons">dashboard</i> Dashboard
                     </a>
                 </li>
-                <li class="nav-item" routerLinkActive="active" *ngIf="!this.isLocked()">
+                <li class="nav-item" routerLinkActive="active">
                     <a class="nav-link" [routerLink]="['/pages/register']">
                         <i class="material-icons">person_add</i> Registrar
                     </a>
                 </li>
-                <li class="nav-item" routerLinkActive="active" *ngIf="!this.isLocked()">
+                <li class="nav-item" routerLinkActive="active">
                     <a class="nav-link" [routerLink]="['/pages/login']">
                         <i class="material-icons">fingerprint</i> Login
-                    </a>
-                </li>
-                <li class="nav-item" routerLinkActive="active" *ngIf="this.isLocked()">
-                    <a class="nav-link" [routerLink]="['/pages/lock']">
-                        <i class="material-icons">lock_open</i> Lock
                     </a>
                 </li>
             </ul>

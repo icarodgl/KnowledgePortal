@@ -4,6 +4,7 @@ import swal from 'sweetalert2';
 import { User } from 'app/_models/user.model';
 import { AuthService, UserService } from 'app/_services/index.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SharedService } from 'app/_services/shared.service';
 
 declare var $: any;
 declare var FB: any;
@@ -18,14 +19,22 @@ declare const gapi: any;
 export class NewPasswordComponent implements OnInit {
     senhaForm: FormGroup
     private toggleButton: any;
-
+    token: string
 
     constructor(
         private element: ElementRef,
-        private formBuilder: FormBuilder) { }
+        private formBuilder: FormBuilder,
+        private routeract: ActivatedRoute,
+        private authService: AuthService,
+        private sharedService: SharedService,
+        private router: Router,
+    ) { }
 
 
     ngOnInit() {
+        this.routeract.params.subscribe(params => {
+            this.token = params.token
+        })
         this.senhaForm = this.formBuilder.group({
             'senha1': [null, [Validators.required, Validators.minLength(6)]],
             'senha2': [null, [Validators.required, Validators.minLength(6)]]
@@ -44,5 +53,20 @@ export class NewPasswordComponent implements OnInit {
     }
     print(a) {
         console.log(a)
+    }
+
+    sendNewPass() {
+        console.log(this.senhaForm.value.senha1)
+        let password = { 'password': this.senhaForm.value.senha1 }
+        this.authService.newPassword(password, this.token).subscribe(
+            success => {
+                console.log(success)
+                this.sharedService.nofiticacao(success.message, 'success')
+                this.router.navigate(['../../pages/login'])
+            },
+            error => {
+                console.log(error)
+                this.sharedService.nofiticacao(error.error, 'danger')
+            })
     }
 }

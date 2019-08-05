@@ -72,11 +72,4 @@ export class HomeComponent implements OnInit {
           this.sidebarClose();
       }
   }
-
-  isLocked() {
-      if(this.user && !this.user.token){
-          return true;
-      }
-      return false;
-  }
 }

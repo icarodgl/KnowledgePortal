@@ -9,9 +9,9 @@ export class LockGuard implements CanActivate{
     constructor(private authService: AuthService, private router: Router){}
 
     canActivate(router: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        let user = JSON.parse(this.authService.getCurrentUser());
-        if(user && !user.token) {
-            this.router.navigate(['pages/lock'], { queryParams: {returnUrl: state.url} });
+        let token = JSON.parse(this.authService.getCurrentUser());
+        if(!token) {
+            this.router.navigate(['pages/login'], { queryParams: {returnUrl: state.url} });
         }
 
         return true;

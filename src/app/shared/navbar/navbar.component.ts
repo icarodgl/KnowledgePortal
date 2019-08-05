@@ -218,17 +218,11 @@ export class NavbarComponent implements OnInit {
         return this.location.prepareExternalUrl(this.location.path());
     }
 
-    logout(event:any){
-        event.preventDefault();
+    logout(){
         this.authService.logout();
         this.router.navigate(['pages/login']);
     }
 
-    lock(event:any){
-        event.preventDefault();
-        this.authService.lock();
-        this.router.navigate(['pages/lock']);
-    }
 
     redirectToSearch(e){
         e.preventDefault();

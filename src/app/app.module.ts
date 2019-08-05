@@ -63,6 +63,7 @@ import { SidebarService } from './_services/sidebar/sidebar.service';
 import { WebsocketService } from './_services/websocket/websocket.service';
 import { SocketService } from './_services/socketservice/socket.service';
 import { HomeComponent } from './_viewers/home/home.component';
+import { SharedService } from './_services/shared.service';
 
 @NgModule({
   exports: [
@@ -140,6 +141,7 @@ export class MaterialModule {}
       SpeechRecognitionService,
       GroupService,
       WebsocketService,
+      SharedService,
       SocketService,
       {
         provide: HTTP_INTERCEPTORS,

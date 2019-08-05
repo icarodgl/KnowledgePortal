@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { authApiUri, meApiUri } from '../../global.vars';
 import { User } from '../../_models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -43,31 +43,34 @@ export class AuthService {
         return this.http.post<any>(authApiUri+'/reset/password', send)
     }
 
-    fbLogin(user: User){
-        return this.http.post<any>(authApiUri+'/facebook', user)
-            .map(res => {
-                if(res.user && res.user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(res.user));
-                }
-            });
-    }
-
-    gLogin(user: User){
-        return this.http.post<any>(authApiUri+'/google', user)
-            .map(res => {
-                if(res.user && res.user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(res.user));
-                }
-            });
-    }
-
-    logout(){
+    logout() {
         localStorage.clear();
     }
 
-    lock(){
-        let user = JSON.parse(localStorage.getItem('currentUser'));
-        delete user.token;
-        localStorage.setItem('currentUser', JSON.stringify(user));
+    newPassword(password, token) {
+        let headers = new HttpHeaders();
+        headers.set('x - access - token', `${token}`)
+        return this.http.post<any>(authApiUri + '/new/password', password, {headers})
     }
+
+    //fbLogin(user: User){
+    //    return this.http.post<any>(authApiUri+'/facebook', user)
+    //        .map(res => {
+    //            if(res.user && res.user.token) {
+    //                localStorage.setItem('currentUser', JSON.stringify(res.user));
+    //            }
+    //        });
+    //}
+
+    //gLogin(user: User){
+    //    return this.http.post<any>(authApiUri+'/google', user)
+    //        .map(res => {
+    //            if(res.user && res.user.token) {
+    //                localStorage.setItem('currentUser', JSON.stringify(res.user));
+    //            }
+    //        });
+    //}
+
+
+
 }

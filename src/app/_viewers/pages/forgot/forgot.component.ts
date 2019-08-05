@@ -1,8 +1,7 @@
-import { Component, OnInit, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import swal from 'sweetalert2';
-import { User } from 'app/_models/user.model';
-import { AuthService, UserService } from 'app/_services/index.service';
+import { AuthService } from 'app/_services/index.service';
+import { SharedService } from 'app/_services/shared.service';
 
 declare var $: any;
 declare var FB: any;
@@ -19,7 +18,9 @@ export class ForgotComponent implements OnInit {
 
     constructor(private element: ElementRef,
         private authService: AuthService,
-        private router: Router,) {
+        private router: Router,
+        private sharedService: SharedService
+    ) {
         
     }
 
@@ -40,10 +41,13 @@ export class ForgotComponent implements OnInit {
     recuperarSenha(){
         this.authService.forgotPassword(this.email).subscribe(
             success => {
-                console.log('Solicitacao Enviada')
+                console.log(success)
+                this.sharedService.nofiticacao(success.message, 'success')
+                this.router.navigate(['../../pages/login'])
             },
-          error => {
-                console.log('Erro')
+            error => {
+                console.log(error)
+                this.sharedService.nofiticacao(error.error.userMessage, 'danger')
           })
     }
 }
