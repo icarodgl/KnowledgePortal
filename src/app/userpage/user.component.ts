@@ -35,21 +35,21 @@ export class UserComponent implements OnInit{
 
     ngOnInit(): void {
         // Prepare the preview for profile picture
-        $(this.el.nativeElement).change((e, args) => {
-            const input = $(this.el.nativeElement);
-            const file:File = input[0].files[0]; 
-            this.meService.sendProfileImage(file).subscribe(_=>{
-                this.sidebarService.updateUserProfile();
-            });
-            if (input[0].files && input[0].files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e: FileReaderEvent) {
-                    $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
-                };
-                reader.readAsDataURL(input[0].files[0]);
-            }
+        //$(this.el.nativeElement).change((e, args) => {
+        //    const input = $(this.el.nativeElement);
+        //    const file:File = input[0].files[0]; 
+        //    this.meService.sendProfileImage(file).subscribe(_=>{
+        //        this.sidebarService.updateUserProfile();
+        //    });
+        //    if (input[0].files && input[0].files[0]) {
+        //        const reader = new FileReader();
+        //        reader.onload = function (e: FileReaderEvent) {
+        //            $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+        //        };
+        //        reader.readAsDataURL(input[0].files[0]);
+        //    }
             
-        });
+        //});
     }
     edit(){
         if(this.editing){

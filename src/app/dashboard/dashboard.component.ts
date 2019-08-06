@@ -33,21 +33,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
   public ngOnInit() {
-        this.meService.getDashboardInfo()
-            .subscribe(maps => {
-                this.maps = maps;
-                let serializer = new XMLSerializer();
-                let svg;
-                this.maps.forEach((m, i)=> {
-                    myDiagram.model = go.Model.fromJson(m.versions[0].content);
-                    svg = myDiagram.makeSvg({
-                        scale: 0.5,
-                        maxSize: new go.Size(NaN, 220)
-                    });
-                    this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
-                    resetModel();
-                });                
-            }, error => console.log(error));
+        //this.meService.getDashboardInfo()
+        //    .subscribe(maps => {
+        //        this.maps = maps;
+        //        let serializer = new XMLSerializer();
+        //        let svg;
+        //        this.maps.forEach((m, i)=> {
+        //            myDiagram.model = go.Model.fromJson(m.versions[0].content);
+        //            svg = myDiagram.makeSvg({
+        //                scale: 0.5,
+        //                maxSize: new go.Size(NaN, 220)
+        //            });
+        //            this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
+        //            resetModel();
+        //        });                
+        //    }, error => console.log(error));
    }
    ngAfterViewInit() {
    }

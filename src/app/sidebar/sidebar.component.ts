@@ -85,10 +85,10 @@ export class SidebarComponent implements OnInit {
     };
 
     ngOnInit() {
-        //this.menuItems = ROUTES.filter(menuItem => {
-        //    if(menuItem.title !== "Administration") return menuItem;
-        //     else if(this.user.groups.filter(g=> (g.name === "Admin")).length > 0) return menuItem;
-        //});
+        this.menuItems = ROUTES.filter(menuItem => {
+            if(menuItem.title !== "Administration") return menuItem;
+             else/* if(this.user.groups.filter(g=> (g.name === "Admin")).length > 0)*/ return menuItem;
+        });
 
         this.sidebarService.update.subscribe(res => {
             this.user.profile_picture = res;

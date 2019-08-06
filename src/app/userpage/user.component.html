@@ -17,19 +17,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Username (uneditable)</label>
-                    <input type="text" class="form-control" value="{{editUser.username}}" disabled>
+                    <input type="text" class="form-control" value="Nome de usuário" disabled>
                   </div>
                 </div>
                 <div class="col-md-5">
                   <div class="form-group">
                     <label class="bmd-label-floating">E-Mail</label>
-                    <input type="email" class="form-control" value="{{editUser.email}}" [disabled]="!editing" #email (blur)='editUser.email = email.value'>
+                    <input type="email" class="form-control" value="email@email.com" [disabled]="!editing" #email (blur)='editUser.email = email.value'>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="bmd-label-floating">Registered at</label>
-                    <input type="text" class="form-control" value="{{editUser.created | date:'medium'}}" disabled>
+                    <input type="text" class="form-control" value="06/08/2019" disabled>
                   </div>
                 </div>
               </div>
@@ -37,13 +37,13 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">First Name</label>
-                    <input type="text" class="form-control" value="{{editUser.firstname}}" [disabled]="!editing" #firstname (blur)='editUser.firstname = firstname.value'>
+                    <input type="text" class="form-control" value="Primeiro Nome" [disabled]="!editing" #firstname (blur)='editUser.firstname = firstname.value'>
                   </div>
                 </div>
                 <div class="col-md-8">
                   <div class="form-group">
                     <label class="bmd-label-floating">Surname</label>
-                    <input type="text" class="form-control" value="{{editUser.surname}}" [disabled]="!editing" #surname (blur)='editUser.surname = surname.value'>
+                    <input type="text" class="form-control" value="Segundo Nome" [disabled]="!editing" #surname (blur)='editUser.surname = surname.value'>
                   </div>
                 </div>  
               </div>
@@ -51,19 +51,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Country</label>
-                    <input type="text" class="form-control" value="{{editUser.locInfo.country}}" [disabled]="!editing" #country (blur)='editUser.locInfo.country = country.value'>
+                    <input type="text" class="form-control" value="Pais" [disabled]="!editing" #country (blur)='editUser.locInfo.country = country.value'>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Region / State</label>
-                    <input type="text" class="form-control" value="{{editUser.locInfo.regionName}}" [disabled]="!editing" #region (blur)='editUser.locInfo.regionName = region.value'>
+                    <input type="text" class="form-control" value="Estado" [disabled]="!editing" #region (blur)='editUser.locInfo.regionName = region.value'>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">City</label>
-                    <input type="text" class="form-control" value="{{editUser.locInfo.city}}" [disabled]="!editing" #city (blur)='editUser.locInfo.city = city.value'>
+                    <input type="text" class="form-control" value="Cidade" [disabled]="!editing" #city (blur)='editUser.locInfo.city = city.value'>
                   </div>
                 </div>
               </div>
@@ -87,15 +87,15 @@
         <div class="card card-profile">
           <div class="card-avatar">
             <div class="picture">
-              <img src="{{user.profile_picture}}" class="picture-src" id="wizardPicturePreview" title="" />
+              <img src="/assets/img/conceptmap.png" class="picture-src" id="wizardPicturePreview" title="" />
               <input type="file" id="wizard-picture" #wizardPicture title="Click to change your profile picture">
             </div>
           </div>
           <div class="card-body">
-            <h6 class="card-category text-gray">{{user.username}} </h6>
-            <h4 class="card-title">{{user.firstname + ' ' + user.surname}}</h4>
+            <h6 class="card-category text-gray">Nome de Usuário </h6>
+            <h4 class="card-title">Nome e Sobrenome</h4>
             <p class="card-description">
-              {{user.description}}
+              Descrição
             </p>
           </div>
         </div>
