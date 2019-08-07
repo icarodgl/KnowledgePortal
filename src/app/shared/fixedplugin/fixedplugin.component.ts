@@ -375,7 +375,6 @@ export class FixedpluginComponent implements OnInit {
         
 		const params = new URLSearchParams();
         params.append('mapa', JSON.stringify(mapaConceitual));
-        console.log(mapaConceitual)
 
         const API = 'http://cmpaas.inf.ufes.br:5002/';
         
