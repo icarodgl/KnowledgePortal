@@ -49,7 +49,7 @@ export class AuthService {
 
     newPassword(password, token) {
         let headers = new HttpHeaders();
-        headers.set('Authorization', token)
+        headers.set('Authorization', 'Bearer ' +token)
         return this.http.post<any>(authApiUri + '/new/password', password, {headers})
     }
 
