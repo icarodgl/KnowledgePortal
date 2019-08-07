@@ -48,8 +48,12 @@ export class AuthService {
     }
 
     newPassword(password, token) {
-        let headers = new HttpHeaders();
-        headers.set('Authorization', 'Bearer ' + token)
+        let headers = new HttpHeaders({
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+            'Accept': '*/*',
+        });
         return this.http.post<any>(authApiUri + '/new/password', password, { headers: headers })
     }
 
