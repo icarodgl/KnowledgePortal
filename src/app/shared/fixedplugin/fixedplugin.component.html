@@ -5,40 +5,46 @@
             <i class="fa fa-cog fa-2x"> </i>
         </a>
         <ul class="dropdown-menu">
-            <li class="header-title">Operations</li>
+            <li class="header-title">Operações</li>
             <li class="adjustments-line">
-                <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Clear all and create a new map" id="bt-new-map">
+                <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Limpar tudo e criar novo mapa" id="bt-new-map">
                     <i class="material-icons">clear</i>
                 </button>
-                <button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save as new map" id="bt-save">
+                <button mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab btn-sm" title="Enviar arquivo de mapa">
+                    <i class="material-icons">cloud_upload</i>
+                </button>
+                <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Baixar arquivo de mapa" (click)="download()">
+                    <i class="material-icons">save_alt</i>
+                </button>
+                <!--<button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save as new map" id="bt-save">
                     <i class="material-icons">save</i>
                 </button>
                 <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Create a new version of this map" id="bt-version" [disabled]="!mapService.getCurrentMap()">
                     <i class="material-icons">call_split</i>
-                    <!-- <i class="material-icons">device_hub</i> -->
-                </button>
+                     <i class="material-icons">device_hub</i> 
+                </button>-->
             </li>
-            <li class="header-title">Advanced Operations</li>
+            <!--<li class="header-title">Advanced Operations</li>
             <li class="adjustments-line">
-                <!-- <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Check map inconsistencies" id="bt-realtime">
+                 <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Check map inconsistencies" id="bt-realtime">
                     <i onclick="javascript:void(0)" class="material-icons">sync</i>
-                </button> -->
+                </button> 
                 <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Check map inconsistencies" id="bt-check-map">
                     <i onclick="javascript:void(0)" class="material-icons">spellcheck</i>
                 </button>
                 <button mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab btn-sm" title="Speech2Map" id="bt-speech2map-map">
                     <i onclick="javascript:void(0)" class="material-icons">mic</i>
                 </button>
-            </li>
-            <li class="header-title">Colors</li>
+            </li>-->
+            <li class="header-title">Cores</li>
             <li class="adjustments-line no-line">
-                <button type="button" mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Font color" id="bt-font">
+                <button type="button" mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Cor da Fonte" id="bt-font">
                     <i class="material-icons">format_color_text</i>
                 </button>
-                <button mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Border/Line color" id="bt-stroke">
+                <button mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Cor da Borda/Linha" id="bt-stroke">
                     <i class="material-icons">border_color</i>
                 </button>
-                <button mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Background-Color" id="bt-background">
+                <button mat-raised-button mat-min-fab class="btn btn-default btn-round btn-fab btn-sm color-change" title="Cor de Fundo" id="bt-background">
                     <i class="material-icons">format_color_fill</i>
                 </button>
             </li>
@@ -67,7 +73,7 @@
                     <div class="clearfix"></div>
                 </a>
             </li>
-            <li class="header-title">More Info...</li>
+            <!--<li class="header-title">More Info...</li>
             <li class="adjustments-line more-info">
                 <div class="row">
                     <div class="col-md-12">
@@ -84,8 +90,8 @@
                         </button>
                     </div>
                 </div>
-            </li>
-            <li class="header-title">Realtime edition</li>
+            </li>-->
+            <!--<li class="header-title">Realtime edition</li>
             <li class="adjustments-line realtime">
               <a href="javascript:void(0)" class="switch-trigger">
                   <p>Activate realtime</p>
@@ -111,7 +117,7 @@
                     </div>                   
                 </div>  
             
-            </li>
+            </li>-->
             <!-- <li class="adjustments-line">
               <a href="javascript:void(0)" class="switch-trigger">
                   <p>Sidebar Images</p>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MapService, AuthService } from '../../_services/index.service';
-import { myDiagram, resetModel, initListener, stopListener, realTimeUpdateModel } from '../../edit/conceptmap/conceptmap.component';
+import { MapService, AuthService, ModelService } from '../../_services/index.service';
+import { myDiagram, resetModel, initListener, stopListener, realTimeUpdateModel, loadModel } from '../../edit/conceptmap/conceptmap.component';
 import swal from 'sweetalert2';
 import * as go from "gojs";
 import axios from 'axios';
@@ -29,7 +29,13 @@ const md: any = {
 })
 
 export class FixedpluginComponent implements OnInit {
-  private isEnabled:boolean = false;
+    private isEnabled: boolean = false;
+    private setting = {
+        element: {
+            dynamicDownload: null as HTMLElement
+        }
+    }
+
 
   constructor(
       private router:Router, 
@@ -38,7 +44,8 @@ export class FixedpluginComponent implements OnInit {
       public dialog: MatDialog, 
       private socket:SocketService,
       private clipboardService: ClipboardService,
-      private activateRoute: ActivatedRoute
+      private activateRoute: ActivatedRoute,
+      private modelService: ModelService,
     ) { }
 
   initRealtime() {
@@ -581,4 +588,24 @@ export class FixedpluginComponent implements OnInit {
       this.clipboardService.copyFromContent(window.location.href);
   }
 
+
+    download() {
+        this.dyanmicDownloadByHtmlTag({
+            nome: 'mapa.json',
+            conteudo: this.modelService.getCurrentModel()
+        });
+    }
+
+    private dyanmicDownloadByHtmlTag(arquivo: {nome: string,conteudo: string}){
+        if (!this.setting.element.dynamicDownload) {
+            this.setting.element.dynamicDownload = document.createElement('a');
+        }
+        const element = this.setting.element.dynamicDownload;
+        const fileType = arquivo.nome.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+        element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arquivo.conteudo)}`);
+        element.setAttribute('download', arquivo.nome);
+
+        var event = new MouseEvent("click");
+        element.dispatchEvent(event);
+    }
 }
