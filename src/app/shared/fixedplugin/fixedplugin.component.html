@@ -10,19 +10,24 @@
                 <button mat-raised-button mat-min-fab class="btn btn-danger btn-round btn-fab btn-sm" title="Limpar tudo e criar novo mapa" id="bt-new-map">
                     <i class="material-icons">clear</i>
                 </button>
-                <button mat-raised-button mat-min-fab class="btn btn-primary btn-round btn-fab btn-sm" title="Enviar arquivo de mapa">
-                    <i class="material-icons">cloud_upload</i>
-                </button>
+                <div class="fileinput fileinput-new text-center" data-provides="fileinput"  title="Enviar arquivo de mapa">
+                    <div>
+                        <span class="btn btn-primary btn-round btn-fab btn-sm btn-file">
+                            <i class="material-icons">cloud_upload</i>
+                            <input type="file" name="..." (change)="fileChanged($event)" />
+                        </span>
+                    </div>
+                </div>
                 <button mat-raised-button mat-min-fab class="btn btn-info btn-round btn-fab btn-sm" title="Baixar arquivo de mapa" (click)="download()">
                     <i class="material-icons">save_alt</i>
                 </button>
                 <!--<button mat-raised-button mat-min-fab class="btn btn-success btn-round btn-fab btn-sm" title="Save as new map" id="bt-save">
-                    <i class="material-icons">save</i>
-                </button>
-                <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Create a new version of this map" id="bt-version" [disabled]="!mapService.getCurrentMap()">
-                    <i class="material-icons">call_split</i>
-                     <i class="material-icons">device_hub</i> 
-                </button>-->
+        <i class="material-icons">save</i>
+    </button>
+    <button mat-raised-button mat-min-fab class="btn btn-warning btn-round btn-fab btn-sm" title="Create a new version of this map" id="bt-version" [disabled]="!mapService.getCurrentMap()">
+        <i class="material-icons">call_split</i>
+         <i class="material-icons">device_hub</i>
+    </button>-->
             </li>
             <!--<li class="header-title">Advanced Operations</li>
             <li class="adjustments-line">

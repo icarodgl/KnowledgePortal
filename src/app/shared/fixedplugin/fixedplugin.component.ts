@@ -30,6 +30,7 @@ const md: any = {
 
 export class FixedpluginComponent implements OnInit {
     private isEnabled: boolean = false;
+    file: any
     private setting = {
         element: {
             dynamicDownload: null as HTMLElement
@@ -251,12 +252,12 @@ export class FixedpluginComponent implements OnInit {
       $('#bt-new-map').click((event) => {
         event.preventDefault();
         swal({
-            title: 'Are you sure?',
-            text: 'All your current map modifications will be lost...',
+            title: 'Você tem certeza?',
+            text: 'Todas as suas modificações atuais no mapa serão perdidas ...',
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, proceed...',
-            cancelButtonText: 'No, keep it',
+            confirmButtonText: 'Sim, continuar...',
+            cancelButtonText: 'Não',
             confirmButtonClass: "btn btn-success",
             cancelButtonClass: "btn btn-danger",
             buttonsStyling: false
@@ -591,8 +592,8 @@ export class FixedpluginComponent implements OnInit {
 
     download() {
         this.dyanmicDownloadByHtmlTag({
-            nome: 'mapa.json',
-            conteudo: this.modelService.getCurrentModel()
+            nome: 'mapa.cmp',
+            conteudo: myDiagram.model.toJson()
         });
     }
 
@@ -601,11 +602,21 @@ export class FixedpluginComponent implements OnInit {
             this.setting.element.dynamicDownload = document.createElement('a');
         }
         const element = this.setting.element.dynamicDownload;
-        const fileType = arquivo.nome.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+        const fileType = arquivo.nome.indexOf('.cmp') > -1 ? 'text/json' : 'text/plain';
         element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arquivo.conteudo)}`);
         element.setAttribute('download', arquivo.nome);
 
         var event = new MouseEvent("click");
         element.dispatchEvent(event);
+    }
+
+    fileChanged(e) {
+        this.file = e.target.files[0];
+        let fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            console.log(fileReader.result);
+            myDiagram.model = go.Model.fromJson(fileReader.result)
+        }
+        fileReader.readAsText(this.file);
     }
 }
