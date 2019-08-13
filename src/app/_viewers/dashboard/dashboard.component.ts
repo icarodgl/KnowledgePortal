@@ -2,10 +2,10 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import * as go from 'gojs';
 import { HttpClient } from '@angular/common/http';
-import { AuthService, MapService, MeService, ModelService } from '../_services/index.service';
-import { User, ConceptMap, Version } from '../_models/index.model';
+import { AuthService, MapService, MeService, ModelService } from '../../_services/index.service';
+import { User, ConceptMap, Version } from '../../_models/index.model';
 import { Router } from '@angular/router';
-import { myDiagram, ConceptMapComponent, resetModel } from '../edit/conceptmap/conceptmap.component';
+import { myDiagram, ConceptMapComponent, resetModel } from '../../edit/conceptmap/conceptmap.component';
 import swal from 'sweetalert2';
 
 @Component({
@@ -58,13 +58,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    newMap(e){
        e.preventDefault();
        swal({
-            title: 'Are you sure?',
-            text: "If you have a map not yet saved, this will delete all unsaved information. Do you wish to continue?",
+            title: 'Você tem certeza?',
+           text: "Se você tiver um mapa ainda não salvo, isso excluirá todas as informações não salvas. Você deseja continuar?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',
-            confirmButtonText: 'Yes, create a new...',
+            confirmButtonText: 'Sim, criar um novo...',
+            cancelButtonText: 'Cancelar',
             buttonsStyling: false
         }).then((result) => {
             if (result.value) {

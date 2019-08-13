@@ -30,35 +30,38 @@ export const ROUTES: RouteInfo[] = [{
         title: 'Dashboard',
         type: 'link',
         icontype: 'dashboard'
-    },{
-        path: '/administration',
-        title: 'Administration',
-        type: 'sub',
-        icontype: 'security',
-        collapse: 'administration',
-        children: [
-            {path: 'dashboard', title: 'Dashboard', ab:'D'},
-            {path: 'users', title: 'Users', ab:'U'},
-            {path: 'maps', title: 'Maps', ab:'M'}
-        ]
-    },{
-        path: '/manage',
-        title: 'Manage',
-        type: 'sub',
-        icontype: 'developer_board',
-        collapse: 'manage',
-        children: [
-            {path: 'groups', title: 'Groups', ab:'G'},
-            {path: 'maps', title: 'Maps', ab:'M'}
-        ]
-    },{
+    },
+    //{
+    //    path: '/administration',
+    //    title: 'Administration',
+    //    type: 'sub',
+    //    icontype: 'security',
+    //    collapse: 'administration',
+    //    children: [
+    //        {path: 'dashboard', title: 'Dashboard', ab:'D'},
+    //        {path: 'users', title: 'Users', ab:'U'},
+    //        {path: 'maps', title: 'Maps', ab:'M'}
+    //    ]
+    //},
+    //  {
+    //    path: '/manage',
+    //    title: 'Manage',
+    //    type: 'sub',
+    //    icontype: 'developer_board',
+    //    collapse: 'manage',
+    //    children: [
+    //        {path: 'groups', title: 'Groups', ab:'G'},
+    //        {path: 'maps', title: 'Maps', ab:'M'}
+    //    ]
+    //},
+        {
         path: '/edit',
-        title: 'Edit',
+        title: 'Editar',
         type: 'sub',
         icontype: 'palette',
         collapse: 'edit',
         children: [
-            {path: 'cmap', title: 'Concept Map', ab:'CM'}
+            {path: 'cmap', title: 'Mapa Conceitual', ab:'MC'}
         ]
     }
  

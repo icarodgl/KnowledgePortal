@@ -1,14 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\documentation\\css",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\shared\\fixedplugin",
     "\\src\\app\\_services",
-    "\\src\\app\\_services\\auth",
-    "\\src\\app\\_viewers",
-    "\\src\\app\\_viewers\\pages"
+    "\\src\\app\\_services\\auth"
   ],
-  "SelectedNode": "\\src\\app\\_services\\auth\\auth.guard.ts",
+  "SelectedNode": "\\src\\app\\_services\\auth\\auth.service.ts",
   "PreviewInSolutionExplorer": false
 }

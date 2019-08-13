@@ -13,11 +13,11 @@ export const AppRoutes: Routes = [
     }, {
       path: '',
       component: AdminLayoutComponent,
-      canActivate: [AuthGuard, LockGuard],
+      canActivate: [AuthGuard],
       children: [
             {
                 path: '',
-                loadChildren: './dashboard/dashboard.module#DashboardModule'
+                loadChildren: './_viewers/dashboard/dashboard.module#DashboardModule'
             }, {
                 path: 'administration',
                 loadChildren: './administration/administration.module#AdministrationModule',
