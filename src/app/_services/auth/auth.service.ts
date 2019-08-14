@@ -4,8 +4,11 @@ import { User } from '../../_models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
+
 @Injectable()
 export class AuthService {
+    user: User
+
 
     constructor(private http: HttpClient){}
 
@@ -30,7 +33,7 @@ export class AuthService {
         return this.http.post<any>(authApiUri+'/login', user)
             .map(res => {
                 console.log(res)
-                if(res.access_token){
+                if (res.access_token) {
                     localStorage.setItem('currentUser', JSON.stringify(res.access_token));
                 }
 

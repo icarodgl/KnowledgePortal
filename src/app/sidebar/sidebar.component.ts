@@ -4,7 +4,7 @@ import { AuthService } from '../_services/auth/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../_models/user.model';
 import { SidebarService } from '../_services/sidebar/sidebar.service';
-
+import * as jwt_decode from 'jwt-decode';
 declare const $: any;
 
 //Metadata
@@ -72,10 +72,10 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent implements OnInit {
-    public user:User;
+    public user:User 
 
-    constructor(private router:Router, private authService: AuthService, private sidebarService:SidebarService){
-        this.user = JSON.parse(this.authService.getCurrentUser());
+    constructor(private router: Router, private authService: AuthService, private sidebarService: SidebarService) {
+        this.user = jwt_decode(this.authService.getCurrentUser())
     }
 
     public menuItems: any[];
