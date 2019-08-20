@@ -3,10 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\edit",
     "\\src\\app\\shared\\fixedplugin",
-    "\\src\\app\\_services",
-    "\\src\\app\\_services\\auth"
+    "\\src\\app\\sidebar",
+    "\\src\\app\\_services\\model",
+    "\\src\\app\\_services\\user",
+    "\\src\\app\\_viewers",
+    "\\src\\app\\_viewers\\dashboard"
   ],
-  "SelectedNode": "\\src\\app\\_services\\auth\\auth.service.ts",
+  "SelectedNode": "\\src\\app\\_viewers\\dashboard\\dashboard.component.html",
   "PreviewInSolutionExplorer": false
 }

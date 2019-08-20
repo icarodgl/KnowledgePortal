@@ -62,7 +62,7 @@ export class MapService {
 
 
     getAllVerisonMap(mapId: string) {
-        return this.http.get<Version[]>(mapApiUri + '/' + mapId + '/versions');
+        return this.http.get<Version[]>(mapApiUri + '/' + mapId + '/versions', { headers: this.header });
     }
 
     removeMap(mapId: string) {
@@ -70,6 +70,6 @@ export class MapService {
     }
 
     getVerisonMap(mapId: string, versionId: string) {
-        return this.http.get<Version>(mapApiUri + '/' + mapId + '/versions/' + versionId);
+        return this.http.get<Version>(mapApiUri + '/' + mapId + '/versions/' + versionId, { headers: this.header });
     }
 }

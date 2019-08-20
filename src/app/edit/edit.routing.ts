@@ -18,7 +18,7 @@ export const EditRoutes: Routes = [
                     component: SaveMapComponent
                 },
                 {
-                    path: ':id',
+                    path: ':id/:id2',
                     component: ConceptMapComponent
                 }
             ]

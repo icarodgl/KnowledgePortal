@@ -1,11 +1,12 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import * as go from "gojs";
-import { VersionService, ModelService } from '../../_services/index.service';
+import { VersionService, ModelService, MapService } from '../../_services/index.service';
 import swal from 'sweetalert2';
 export var myDiagram: go.Diagram;
 import { v4 as uuid } from 'uuid';
 import { SocketMessage } from '../../_models/socketMessage.model';
 import { SocketService } from '../../_services/socketservice/socket.service';
+import { ActivatedRoute } from '@angular/router';
 
 export var socket:SocketService;
 
@@ -15,10 +16,32 @@ export var socket:SocketService;
 })
 
 export class ConceptMapComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('myDiagramDiv') element: ElementRef;
+    @ViewChild('myDiagramDiv') element: ElementRef;
+    mapId: string
+    versionId: string
 
-  constructor(private versionService:VersionService, private modelService:ModelService, private s:SocketService){
-      socket = s;
+    constructor(private versionService: VersionService,
+        private modelService: ModelService,
+        private s: SocketService,
+        private router: ActivatedRoute,
+        private mapService: MapService,
+    ) {
+        socket = s;
+        this.router.params.subscribe(params => {
+            if (params['id']) {
+                this.mapId = params['id']
+                this.versionId = params['id2']
+                this.mapService.getVerisonMap(this.mapId, this.versionId).subscribe(version => {
+                    console.log(version)
+                    this.mapService.setCurrentMap(version.content)
+                    myDiagram.model = go.Model.fromJson(version.content)
+                })
+            }
+            else {
+                this.mapService.removeCurrentMap();
+                resetModel();
+            }
+        })
   }
 
   ngAfterViewInit() {
@@ -54,7 +77,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
         // add the new node data to the model
         var model = diagram.model;
         model.addNodeData(newNode);
-
+    
         // create a link data from the old node data to the new node data
         var nodeData = {
             from: model.getKeyForNodeData(fromData),  // or just: fromData.id
@@ -625,7 +648,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     myDiagram.toolManager.relinkingTool.linkValidation = validateLink;
     
     let currentModel = this.modelService.getCurrentModel();
-    if(!!currentModel)  loadModel(currentModel);
+    if(!currentModel)  loadModel(currentModel);
     else resetModel();
  }
   
