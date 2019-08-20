@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../_models/user.model';
 import { SidebarService } from '../_services/sidebar/sidebar.service';
 import * as jwt_decode from 'jwt-decode';
+import { MapService } from 'app/_services/index.service';
 declare const $: any;
 
 //Metadata
@@ -54,16 +55,16 @@ export const ROUTES: RouteInfo[] = [{
     //        {path: 'maps', title: 'Maps', ab:'M'}
     //    ]
     //},
-        {
-        path: '/edit',
-        title: 'Editar',
-        type: 'sub',
-        icontype: 'palette',
-        collapse: 'edit',
-        children: [
-            {path: 'cmap', title: 'Mapa Conceitual', ab:'MC'}
-        ]
-    }
+    //    {
+    //    path: '/edit',
+    //    title: 'Editar',
+    //    type: 'sub',
+    //    icontype: 'palette',
+    //    collapse: 'edit',
+    //    children: [
+    //        {path: 'cmap', title: 'Mapa Conceitual', ab:'MC'}
+    //    ]
+    //}
  
 ];
 @Component({
@@ -73,8 +74,8 @@ export const ROUTES: RouteInfo[] = [{
 
 export class SidebarComponent implements OnInit {
     public user:User 
-
-    constructor(private router: Router, private authService: AuthService, private sidebarService: SidebarService) {
+    maps
+    constructor(private router: Router, private authService: AuthService, private sidebarService: SidebarService, private mapService: MapService) {
         this.user = jwt_decode(this.authService.getCurrentUser())
     }
 
@@ -92,6 +93,10 @@ export class SidebarComponent implements OnInit {
             if(menuItem.title !== "Administration") return menuItem;
              else/* if(this.user.groups.filter(g=> (g.name === "Admin")).length > 0)*/ return menuItem;
         });
+            this.mapService.getAll().subscribe(maps => {
+                console.log(maps)
+                this.maps = maps
+        })
 
         this.sidebarService.update.subscribe(res => {
             this.user.profile_picture = res;

@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { mapApiUri, meApiUri } from '../../global.vars';
 import { ConceptMap, Result, Version } from '../../_models/index.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class MapService {
-
-    constructor(private http: HttpClient){}
+     header = new HttpHeaders({
+    'Access-Control-Allow-Methods': 'POST',
+         'Content-Type': 'application/json',
+         'Authorization': 'Bearer ' + this.authService.getCurrentUser().slice(1, this.authService.getCurrentUser().length-1),
+    'Accept': '*/*', 
+    });
+    constructor(private http: HttpClient,
+        private authService: AuthService) { }
 
     updateUserMaps(): Observable<ConceptMap[]> {
         return this.http.get<ConceptMap[]>(meApiUri+'/maps')
@@ -19,7 +26,9 @@ export class MapService {
     }
 
     getAll(): Observable<ConceptMap[]> {
-        return this.http.get<ConceptMap[]>(mapApiUri);
+        console.log('Bearer ' + this.authService.getCurrentUser().replace('"', ''))
+        console.log(this.authService.getCurrentUser())
+        return this.http.get<ConceptMap[]>(mapApiUri, {headers: this.header});
     }
 
     create(map: ConceptMap){
@@ -40,10 +49,27 @@ export class MapService {
 
     createVersion(content:any) {
         let map:ConceptMap = JSON.parse(this.getCurrentMap());
-        return this.http.post<Result>(mapApiUri+'/'+map._id.toString()+'/versions', JSON.parse(content));
+        return this.http.post<Result>(mapApiUri+'/'+map._id.toString()+'/content', JSON.parse(content));
     }
 
-    getMapData(mapId:string){
-        return this.http.get<ConceptMap>(mapApiUri+'/'+mapId);
+    //getMapData(mapId:string){
+    //    return this.http.get<ConceptMap>(mapApiUri+'/'+mapId);
+    //}
+
+    updateMap(mapId: string, conteudo) {
+        return this.http.put<Result>(mapApiUri + '/' + mapId, JSON.parse(conteudo));
+    }
+
+
+    getAllVerisonMap(mapId: string) {
+        return this.http.get<Version[]>(mapApiUri + '/' + mapId + '/versions');
+    }
+
+    removeMap(mapId: string) {
+        return this.http.delete<any>(mapApiUri + '/' + mapId, { headers: this.header });
+    }
+
+    getVerisonMap(mapId: string, versionId: string) {
+        return this.http.get<Version>(mapApiUri + '/' + mapId + '/versions/' + versionId);
     }
 }

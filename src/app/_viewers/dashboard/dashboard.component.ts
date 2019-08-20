@@ -7,6 +7,7 @@ import { User, ConceptMap, Version } from '../../_models/index.model';
 import { Router } from '@angular/router';
 import { myDiagram, ConceptMapComponent, resetModel } from '../../edit/conceptmap/conceptmap.component';
 import swal from 'sweetalert2';
+import { SharedService } from 'app/_services/shared.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,19 +21,40 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   private images:SafeHtml[] = new Array<SafeHtml>();
   public user:User;
-  public maps: ConceptMap[];
+  public maps: ConceptMap[] = [];
 
   constructor( 
       private _sanitizer: DomSanitizer, 
       private authServicve: AuthService,
       private mapService: MapService,
       private meService: MeService,
-      private router:Router,
+      private router: Router,
+      private sharedService: SharedService,
       private modelService:ModelService
   ){
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
-  public ngOnInit() {
+    public ngOnInit() {
+        if (!this.meService.maps) {
+            this.mapService.getAll().subscribe(maps => {
+                this.maps = maps
+                let serializer = new XMLSerializer();
+                let svg;
+                this.maps.forEach((m, i) => {
+                    if (m.versions[0].content) {
+                        myDiagram.model = go.Model.fromJson(m.versions[0].content);
+                        svg = myDiagram.makeSvg({
+                            scale: 0.5,
+                            maxSize: new go.Size(NaN, 220)
+                        });
+                        this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
+                        console.log(this.images)
+                        resetModel();
+                    }
+                })
+
+            })
+        }
         //this.meService.getDashboardInfo()
         //    .subscribe(maps => {
         //        this.maps = maps;
@@ -73,5 +95,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 this.router.navigate(['edit','cmap']);
             }
         });
-   }
+    }
+
+    removeMap(posicao: number) {
+        console.log(posicao)
+        this.mapService.removeMap(this.maps[posicao]._id).subscribe(
+            success => {
+                console.log(success)
+                this.sharedService.nofiticacao(success.message, 'success')
+                this.maps.splice(posicao, 1)  
+            },
+            error => {
+                console.log(error)
+                this.sharedService.nofiticacao(error.error, 'danger')
+            })
+    }
 }

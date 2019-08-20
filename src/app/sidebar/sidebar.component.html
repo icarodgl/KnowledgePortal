@@ -24,7 +24,7 @@
                             <b class="caret"></b>
                         </span>
                     </a>
-                    <div class="collapse" id="collapseExample">
+                    <!--<div class="collapse" id="collapseExample">
                         <ul class="nav">
                             <li class="nav-item">
                                 <a routerLink="/pages/user" class="nav-link">
@@ -32,7 +32,7 @@
                                     <span class="sidebar-normal">Meu Perfil</span>
                                 </a>
                             </li>
-                            <!-- <li class="nav-item">
+                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link">
                                     <span class="sidebar-mini">EP</span>
                                     <span class="sidebar-normal">Edit Profile</span>
@@ -43,9 +43,9 @@
                                     <span class="sidebar-mini">S</span>
                                     <span class="sidebar-normal">Settings</span>
                                 </a>
-                            </li> -->
+                            </li> 
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div *ngIf="isMobileMenu()">
@@ -121,12 +121,37 @@
                         </ul>
                     </div>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="http://md-pro-angular.creative-tim.com/documentation/tutorial?ref=md-pro-archive" class="nav-link">
-                        <i class="material-icons">school</i>
-                        <p>Documentation</p>
+                <li routerLinkActive="active" class="nav-item">
+                    <!--If it have a submenu-->
+                    <a data-toggle="collapse" href="#edit" (click)="updatePS()" class="nav-link">
+                        <i class="material-icons">palette</i>
+                        <p>Editar<b class="caret"></b></p>
                     </a>
-                </li> -->
+
+                    <!--Display the submenu items-->
+                    <div id="edit" class="collapse">
+                        <ul class="nav">
+                            <li routerLinkActive="active" class="nav-item">
+                                <a [routerLink]="['/edit/cmap']" class="nav-link">
+                                    <span class="sidebar-mini"><i class="material-icons">add</i></span>
+                                    <span class="sidebar-normal">Novo mapa conceitual</span>
+                                </a>
+                            </li>
+                            <li routerLinkActive="active" class="nav-item" *ngFor="let map of maps">
+                                <a [routerLink]="['/edit/cmap', map._id]" class="nav-link">
+                                    <span class="sidebar-mini"><i class="material-icons">edit</i></span>
+                                    <span class="sidebar-normal">{{map.title}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- <li class="nav-item">
+        <a href="http://md-pro-angular.creative-tim.com/documentation/tutorial?ref=md-pro-archive" class="nav-link">
+            <i class="material-icons">school</i>
+            <p>Documentation</p>
+        </a>
+    </li> -->
             </ul>
 
         </div>

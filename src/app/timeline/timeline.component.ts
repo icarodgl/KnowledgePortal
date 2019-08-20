@@ -32,33 +32,33 @@ export class TimelineComponent implements AfterViewInit, OnInit {
         this.currentUser = JSON.parse(authService.getCurrentUser());
     }
     ngOnInit() {
-        this.currentUser.following.forEach((follow, i, arr) => {
-            this.userService.getUserData(follow._id)
-                .subscribe(u => {
-                    u.maps.forEach((map, i2, arr2) => {
-                        this.mapService.getMapData(map._id)
-                            .subscribe(m => {
-                                m.versions.forEach((version, i3, arr3) => {
-                                    this.versionService.getVersionData(version._id)
-                                        .subscribe(v => {
-                                            arr3[i3] = v;
-                                            let serializer = new XMLSerializer();
-                                            let svg;
-                                            myDiagram.model = go.Model.fromJson(v.content);
-                                            svg = myDiagram.makeSvg({
-                                                scale:0.8,
-                                                maxSize: new go.Size(NaN, 300)
-                                            });
-                                            this.images.push(this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg)));
-                                            this.idImages.push(v._id);
-                                        })
-                                })
-                                arr2[i2] = m;
-                            })
-                    })
-                    arr[i] = u;
-                });
-        });
+        //this.currentUser.following.forEach((follow, i, arr) => {
+        //    this.userService.getUserData(follow._id)
+        //        .subscribe(u => {
+        //            u.maps.forEach((map, i2, arr2) => {
+        //                this.mapService.getMapData(map._id)
+        //                    .subscribe(m => {
+        //                        m.versions.forEach((version, i3, arr3) => {
+        //                            this.versionService.getVersionData(version._id)
+        //                                .subscribe(v => {
+        //                                    arr3[i3] = v;
+        //                                    let serializer = new XMLSerializer();
+        //                                    let svg;
+        //                                    myDiagram.model = go.Model.fromJson(v.content);
+        //                                    svg = myDiagram.makeSvg({
+        //                                        scale:0.8,
+        //                                        maxSize: new go.Size(NaN, 300)
+        //                                    });
+        //                                    this.images.push(this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg)));
+        //                                    this.idImages.push(v._id);
+        //                                })
+        //                        })
+        //                        arr2[i2] = m;
+        //                    })
+        //            })
+        //            arr[i] = u;
+        //        });
+        //});
 
 
 

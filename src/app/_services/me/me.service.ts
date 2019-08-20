@@ -5,12 +5,16 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { AuthService } from '../auth/auth.service';
 import { Observable, of } from 'rxjs';
+import { MapService } from '../map/map.service';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable()
 export class MeService {
-    private updated:boolean = false;
+    private updated: boolean = false;
+    user: User
+    maps: ConceptMap[]
 
-    constructor(private http: HttpClient, private authService: AuthService){}
+    constructor(private http: HttpClient, private authService: AuthService, private mapService: MapService) { }
 
     getDashboardInfo(): Observable<ConceptMap[]> {
         let savedMapArr: ConceptMap[] = JSON.parse(this.authService.getCurrentUser()).last_maps as ConceptMap[];

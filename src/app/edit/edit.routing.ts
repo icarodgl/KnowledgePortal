@@ -12,9 +12,14 @@ export const EditRoutes: Routes = [
                 {
                     path: '',
                     component: ConceptMapComponent
-                },{
+                },
+                {
                     path: 'save',
                     component: SaveMapComponent
+                },
+                {
+                    path: ':id',
+                    component: ConceptMapComponent
                 }
             ]
         }

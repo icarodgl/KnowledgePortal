@@ -10,7 +10,7 @@ export class AuthService {
     user: User
 
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient) { }
 
     getCurrentUser(){
         return localStorage.getItem('currentUser');
@@ -27,6 +27,13 @@ export class AuthService {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 return user;
             });
+    }
+
+    logado() {
+        if (localStorage.getItem('currentUser')){
+            return(true)
+        }
+        return(false)
     }
 
     login(user:User){

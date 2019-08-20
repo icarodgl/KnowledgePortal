@@ -71,9 +71,9 @@
           </div>
         </div>-->
       </div>
-      <!--<h6>Seus mapas recentes...</h6>
+      <h6>Seus mapas recentes...</h6>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" *ngFor="let map of maps | slice:0:3 ; index as i">
           <div class="card card-product">
             <div class="card-header card-header-image" data-header-animation="true">
               <a href="#">
@@ -88,31 +88,31 @@
                 <button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="Visualizar" [matTooltipPosition]="'below'" (click)="click(0)">
                   <i class="material-icons">art_track</i>
                 </button>
-                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Editar" [matTooltipPosition]="'below'">
+                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Editar" [matTooltipPosition]="'below'" [routerLink]="['/edit/cmap', map._id]">
                   <i class="material-icons">edit</i>
                 </button>
-                <button mat-raised-button type="button" class="btn btn-danger btn-link" matTooltip="Remover" [matTooltipPosition]="'below'">
+                <button mat-raised-button type="button" class="btn btn-danger btn-link" matTooltip="Remover" [matTooltipPosition]="'below'" (click)="removeMap(i)">
                   <i class="material-icons">close</i>
                 </button>
               </div>
               <h4 class="card-title">
-                <a href="#">Titulo do Mapa 1</a>
+                 <a href="#">{{map.title}}</a>
               </h4>
               <div class="card-description">
-                Descrição do Mapa 1
+                  {{map.description}}
               </div>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <p class="card-category"><i class="material-icons">calendar_today</i> 04/08/2019(Ultima Atualização do Mapa)</p>
+                <p class="card-category"><i class="material-icons">calendar_today</i> {{map.last_update | date: 'dd/MM/yyyy'}}</p>
               </div>
               <div class="stats">
-                <p class="card-category"><i class="material-icons">favorite</i> 5</p>
+                <!--<p class="card-category"><i class="material-icons">favorite</i> 5</p>-->
               </div>
             </div>
           </div>
         </div>
-      </div>-->
+      </div>
     </div>
 </div>
-<conceptmap id="map" #map1></conceptmap>
+<!--<conceptmap id="map" #map1></conceptmap>-->
