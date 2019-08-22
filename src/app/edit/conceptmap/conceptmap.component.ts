@@ -29,6 +29,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
         socket = s;
         this.router.params.subscribe(params => {
             if (params['id']) {
+                this.mapService.mapaAtualId = params['id']
                 this.mapId = params['id']
                 this.versionId = params['id2']
                 this.mapService.getVerisonMap(this.mapId, this.versionId).subscribe(version => {
@@ -38,6 +39,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 })
             }
             else {
+                console.log('oiiiiii')
                 this.mapService.removeCurrentMap();
                 resetModel();
             }

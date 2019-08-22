@@ -8,12 +8,16 @@ import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class MapService {
+    mapaAtualId: string
+
      header = new HttpHeaders({
     'Access-Control-Allow-Methods': 'POST',
          'Content-Type': 'application/json',
          'Authorization': 'Bearer ' + this.authService.getCurrentUser().slice(1, this.authService.getCurrentUser().length-1),
     'Accept': '*/*', 
     });
+
+
     constructor(private http: HttpClient,
         private authService: AuthService) { }
 
@@ -35,7 +39,8 @@ export class MapService {
         return this.http.post<Result>(mapApiUri, map);
     }
 
-    setCurrentMap(map:ConceptMap) {
+    setCurrentMap(map: ConceptMap) {
+        console.log('aaaaa')
         localStorage.setItem('currentMap', JSON.stringify(map));
     }
 
@@ -47,9 +52,12 @@ export class MapService {
         localStorage.removeItem('currentMap');
     }
 
-    createVersion(content:any) {
-        let map:ConceptMap = JSON.parse(this.getCurrentMap());
-        return this.http.post<Result>(mapApiUri+'/'+map._id.toString()+'/content', JSON.parse(content));
+    createVersion(content: any) {
+        let send = {
+            "content": content
+        }
+        console.log(content)
+        return this.http.post<Result>(mapApiUri + '/' + this.mapaAtualId + '/content', send, { headers: this.header });
     }
 
     //getMapData(mapId:string){

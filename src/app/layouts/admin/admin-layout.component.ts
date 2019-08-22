@@ -123,8 +123,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
         }
     }
     public isEditor() {
-        if (this.location.prepareExternalUrl(this.location.path()) === '/edit/cmap' || 
-            this.location.prepareExternalUrl(this.location.path()).startsWith('/edit/cmap?')
+        if (this.location.prepareExternalUrl(this.location.path()).indexOf('/edit/cmap')>-1
         ) {
             return true;
         } else {

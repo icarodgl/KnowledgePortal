@@ -11,6 +11,7 @@ import { SocketService } from '../../_services/socketservice/socket.service';
 import { v4 as uuid } from 'uuid';
 import { ClipboardService } from 'ngx-clipboard';
 import { SocketMessage, SocketResponse } from '../../_models/socketMessage.model';
+import { SharedService } from 'app/_services/shared.service';
 
 declare const $: any;
 const $$ = go.GraphObject.make;  // for conciseness in defining templates
@@ -47,6 +48,7 @@ export class FixedpluginComponent implements OnInit {
       private clipboardService: ClipboardService,
       private activateRoute: ActivatedRoute,
       private modelService: ModelService,
+      private sharedService: SharedService
     ) { }
 
   initRealtime() {
@@ -269,10 +271,9 @@ export class FixedpluginComponent implements OnInit {
         });
         
       });
-      $('#bt-save').click((event) => {
-          event.preventDefault();
-          this.router.navigate(["edit","cmap","save"]);
-      });
+
+
+
 
       $('#bt-save-info').click((event) => {
         event.preventDefault();
@@ -299,29 +300,6 @@ export class FixedpluginComponent implements OnInit {
         
       });
 
-
-      $('#bt-version').click(event => {
-          event.preventDefault();
-          this.mapService.createVersion(myDiagram.model.toJson())
-            .subscribe(_ => {
-                this.authService.updateUser();
-
-                $.notify({
-                    icon: 'notifications',
-                    message: 'New version created successful!'
-                }, {
-                    type: 'success',
-                    timer: 250,
-                    placement: {
-                        from: 'top',
-                        align: 'right'
-                    }
-                });
-
-            }, error => {
-               console.log(error);
-            });
-      });
     //   $('#bt-realtime').click((event) => {
     //     event.preventDefault();
     //     this.sendMessage();
@@ -619,4 +597,16 @@ export class FixedpluginComponent implements OnInit {
         }
         fileReader.readAsText(this.file);
     }
+
+    novaVersao() {
+        this.mapService.createVersion(myDiagram.model.toJson())
+            .subscribe(_ => {
+                this.authService.updateUser();
+                this.sharedService.nofiticacao('Nova versão criada com sucesso', 'success')
+            }, error => {
+                this.sharedService.nofiticacao(error, 'error')
+                console.log(error);
+            });
+    }
+
 }
