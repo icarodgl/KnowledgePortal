@@ -3,6 +3,7 @@ import { authApiUri, meApiUri } from '../../global.vars';
 import { User } from '../../_models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { SharedService } from '../shared.service';
 
 
 @Injectable()
@@ -10,7 +11,10 @@ export class AuthService {
     user: User
 
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private sharedService: SharedService
+    ) { }
 
     getCurrentUser(){
         return localStorage.getItem('currentUser');
@@ -30,7 +34,7 @@ export class AuthService {
     }
 
     logado() {
-        if (localStorage.getItem('currentUser')){
+        if (this.sharedService.getCookie().token) {
             return(true)
         }
         return(false)
@@ -41,6 +45,7 @@ export class AuthService {
             .map(res => {
                 console.log(res)
                 if (res.access_token) {
+                    this.sharedService.salvaCookie(JSON.stringify(res.access_token))
                     localStorage.setItem('currentUser', JSON.stringify(res.access_token));
                 }
 
@@ -54,6 +59,7 @@ export class AuthService {
     }
 
     logout() {
+        this.sharedService.deletaCookie()
         localStorage.clear();
     }
 

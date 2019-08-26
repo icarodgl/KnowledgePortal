@@ -64,6 +64,7 @@ import { WebsocketService } from './_services/websocket/websocket.service';
 import { SocketService } from './_services/socketservice/socket.service';
 import { HomeComponent } from './_viewers/home/home.component';
 import { SharedService } from './_services/shared.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   exports: [
@@ -116,7 +117,8 @@ export class MaterialModule {}
         FooterModule,
         FixedpluginModule,
         HttpClientModule,
-        SpeechRecognitionModule
+        SpeechRecognitionModule,
+
     ],entryComponents: [
       SpeechRecognitionComponent
     ],
@@ -143,6 +145,7 @@ export class MaterialModule {}
       WebsocketService,
       SharedService,
       SocketService,
+      CookieService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: JwtInterceptor,

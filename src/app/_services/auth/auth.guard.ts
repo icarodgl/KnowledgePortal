@@ -9,8 +9,7 @@ export class AuthGuard implements CanActivate{
     constructor(private authService: AuthService, private router: Router){}
 
     canActivate(router: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        let user = JSON.parse(this.authService.getCurrentUser());
-        if(!user) {
+        if (!this.authService.logado()) {
             this.router.navigate(['pages/login'], { queryParams: {returnUrl: state.url} });
         }
 
