@@ -36,7 +36,7 @@ export class MapService {
     }
 
     create(map: ConceptMap){
-        return this.http.post<Result>(mapApiUri, map, { headers: this.header }));
+        return this.http.post<Result>(mapApiUri, map, { headers: this.header });
     }
 
     setCurrentMap(map: ConceptMap) {
