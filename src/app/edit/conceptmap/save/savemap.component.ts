@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { myDiagram } from '../conceptmap.component';
 import * as go from 'gojs';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { MapService, AuthService } from '../../../_services/index.service';
+import { MapService, AuthService, ModelService } from '../../../_services/index.service';
 import swal from 'sweetalert2';
 import { ConceptMap, Permission, Group, User } from '../../../_models/index.model';
 import { Router } from '@angular/router';
@@ -24,7 +24,8 @@ export class SaveMapComponent implements OnInit{
         private _sanitizer: DomSanitizer, 
         private mapService: MapService, 
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private modelService: ModelService,
     ){
         this.map = new ConceptMap();
         this.map.keywords = [];
@@ -50,27 +51,24 @@ export class SaveMapComponent implements OnInit{
 
     save() {
         let that = this;
+        this.map.content = this.modelService.getCurrentModel()
         this.map.keywords = this.map.keywords.map((el:any) => el.value);
         this.mapService.create(this.map)
             .subscribe(
-                data => {
-                    this.mapService.setCurrentMap(data.map);
-                    this.mapService.createVersion(myDiagram.model.toJson())
-                        .subscribe(_ => {
-                            swal({
-                                type: 'success',
-                                html: 'Greate! <strong>' +
-                                        'Your map was saved' +
-                                    '</strong>. <br /> You will be redirect to your dashboard!',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false
-                            }).then(() => {
-                                that.authService.updateUser()
-                                    .subscribe(_ => {
-                                        that.router.navigate(['dashboard']);
-                                    }, error=> console.log(error));
-                            });
-                        }, error=> console.log(error));
+             data => {
+                swal({
+                      type: 'success',
+                      html: 'Ótimo! <strong>' +
+                              'Seu mapa foi salvo' +
+                          '</strong>. <br /> Você será redirecionado para o seu dashboard!',
+                      confirmButtonClass: 'btn btn-success',
+                      buttonsStyling: false
+                  }).then(() => {
+                      that.authService.updateUser()
+                          .subscribe(_ => {
+                              that.router.navigate(['dashboard']);
+                          }, error=> console.log(error));
+                  });
                 }, 
                 error => console.log(error));
     }

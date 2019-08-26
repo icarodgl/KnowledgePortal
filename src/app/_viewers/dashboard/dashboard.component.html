@@ -76,7 +76,7 @@
         <div class="col-md-4" *ngFor="let map of maps | slice:0:3 ; index as i">
           <div class="card card-product">
             <div class="card-header card-header-image" data-header-animation="true">
-              <a href="#">
+              <a [href]="images[i]">
                 <div class="mapimg"> </div>
               </a>
             </div>
@@ -85,9 +85,9 @@
                 <button mat-raised-button type="button" class="btn btn-danger btn-link fix-broken-card">
                   <i class="material-icons">build</i> Fix Header!
                 </button>
-                <button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="Visualizar" [matTooltipPosition]="'below'" (click)="click(0)">
+                <!--<button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="Visualizar" [matTooltipPosition]="'below'" (click)="click(0)">
                   <i class="material-icons">art_track</i>
-                </button>
+                </button>-->
                 <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Editar" [matTooltipPosition]="'below'" [routerLink]="['/edit/cmap', map._id, map.last_version]">
                   <i class="material-icons">edit</i>
                 </button>

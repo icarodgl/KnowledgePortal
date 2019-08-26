@@ -14,4 +14,5 @@ export class ConceptMap {
         groups?: any[],
         users?: any[]
     };
+    content?: any
 }

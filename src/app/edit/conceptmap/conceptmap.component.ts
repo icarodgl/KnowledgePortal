@@ -683,7 +683,8 @@ export function loadModel(loadedModel) {
 }
 
 export function resetModel() {
-    let model = new go.GraphLinksModel([],[]);
+    let model = new go.GraphLinksModel([], []);
+    console.log(model)
     model.makeUniqueKeyFunction = function() { return uuid(); };
     model.makeUniqueLinkKeyFunction = function() { return uuid(); };
     model.linkKeyProperty = 'key';

@@ -48,7 +48,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                             maxSize: new go.Size(NaN, 220)
                         });
                         this.images[i] = this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg));
-                        console.log(this.images)
                         resetModel();
                     }
                 })
@@ -89,9 +88,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             confirmButtonText: 'Sim, criar um novo...',
             cancelButtonText: 'Cancelar',
             buttonsStyling: false
-        }).then((result) => {
+       }).then((result) => {
             if (result.value) {
-                resetModel();
                 this.router.navigate(['edit','cmap']);
             }
         });

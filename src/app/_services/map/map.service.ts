@@ -36,15 +36,14 @@ export class MapService {
     }
 
     create(map: ConceptMap){
-        return this.http.post<Result>(mapApiUri, map);
+        return this.http.post<Result>(mapApiUri, map, { headers: this.header }));
     }
 
     setCurrentMap(map: ConceptMap) {
-        console.log('aaaaa')
         localStorage.setItem('currentMap', JSON.stringify(map));
     }
 
-    getCurrentMap() {
+    getCurrentMap():any {
         return localStorage.getItem('currentMap');
     }
 
