@@ -52,11 +52,7 @@ export class MapService {
     }
 
     createVersion(content: any) {
-        let send = {
-            "content": content
-        }
-        console.log(content)
-        return this.http.post<Result>(mapApiUri + '/' + this.mapaAtualId + '/content', send, { headers: this.header });
+        return this.http.post<Result>(mapApiUri + '/' + this.mapaAtualId + '/content', content, { headers: this.header });
     }
 
     //getMapData(mapId:string){

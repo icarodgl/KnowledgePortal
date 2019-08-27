@@ -1,13 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import * as go from 'gojs';
-import { HttpClient } from '@angular/common/http';
 import { AuthService, MapService, MeService, ModelService } from '../../_services/index.service';
-import { User, ConceptMap, Version } from '../../_models/index.model';
+import { User, ConceptMap } from '../../_models/index.model';
 import { Router } from '@angular/router';
-import { myDiagram, ConceptMapComponent, resetModel } from '../../edit/conceptmap/conceptmap.component';
+import { ConceptMapComponent, resetModel } from '../../edit/conceptmap/conceptmap.component';
 import swal from 'sweetalert2';
 import { SharedService } from 'app/_services/shared.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private images:SafeHtml[] = new Array<SafeHtml>();
   public user:User;
   public maps: ConceptMap[] = [];
+  myDiagram: go.Diagram = new go.Diagram()
 
   constructor( 
       private _sanitizer: DomSanitizer, 
@@ -30,29 +31,27 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       private meService: MeService,
       private router: Router,
       private sharedService: SharedService,
-      private modelService:ModelService
   ){
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
     public ngOnInit() {
         if (!this.meService.maps) {
             this.mapService.getAll().subscribe(maps => {
-                console.log(maps)
                 this.maps = maps
-                console.log(this.maps)
                 let serializer = new XMLSerializer();
                 let svg;
                 for (let m of maps) {
                     console.log(m)
                     if (m['last_version']) {
-                        myDiagram.model = go.Model.fromJson(m['last_version']);
-                        svg = myDiagram.makeSvg({
+                        this.myDiagram.model = go.Model.fromJson(m['last_version']);
+
+                        svg = this.myDiagram.makeSvg({
                             scale: 0.5,
                             maxSize: new go.Size(NaN, 220)
                         });
+                        console.log(svg)
                         this.images.push(this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg)))
                         console.log(this.images)
-                        resetModel();
                     }
                 }
 
