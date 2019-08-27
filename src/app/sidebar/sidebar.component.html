@@ -138,7 +138,7 @@
                                 </a>
                             </li>
                             <li routerLinkActive="active" class="nav-item" *ngFor="let map of maps">
-                                <a [routerLink]="['/edit/cmap', map._id, map.last_version]" class="nav-link">
+                                <a [routerLink]="['/edit/cmap', map._id, map.versions[map.versions.length-1]]" class="nav-link">
                                     <span class="sidebar-mini"><i class="material-icons">edit</i></span>
                                     <span class="sidebar-normal">{{map.title}}</span>
                                 </a>

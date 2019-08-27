@@ -88,7 +88,7 @@
                 <!--<button mat-raised-button type="button" class="btn btn-default btn-link" matTooltip="Visualizar" [matTooltipPosition]="'below'" (click)="click(0)">
                   <i class="material-icons">art_track</i>
                 </button>-->
-                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Editar" [matTooltipPosition]="'below'" [routerLink]="['/edit/cmap', map._id, map.last_version]">
+                <button mat-raised-button type="button" class="btn btn-success btn-link" matTooltip="Editar" [matTooltipPosition]="'below'" [routerLink]="['/edit/cmap', map._id, map.versions[map.versions.length-1]]">
                   <i class="material-icons">edit</i>
                 </button>
                 <button mat-raised-button type="button" class="btn btn-danger btn-link" matTooltip="Remover" [matTooltipPosition]="'below'" (click)="removeMap(i)">
