@@ -5,10 +5,7 @@ import { User } from 'app/_models/user.model';
 import { AuthService, UserService } from 'app/_services/index.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SharedService } from 'app/_services/shared.service';
-
-declare var $: any;
-declare var FB: any;
-declare const gapi: any;
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector: 'app-newPassword-cmp',
@@ -20,6 +17,7 @@ export class NewPasswordComponent implements OnInit {
     senhaForm: FormGroup
     private toggleButton: any;
     token: string
+    @BlockUI() blockUI: NgBlockUI;
 
     constructor(
         private element: ElementRef,
@@ -56,16 +54,16 @@ export class NewPasswordComponent implements OnInit {
     }
 
     sendNewPass() {
-        console.log(this.senhaForm.value.senha1)
+        this.blockUI.start('Carregando');
         let password = { 'password': this.senhaForm.value.senha1 }
         this.authService.newPassword(password, this.token).subscribe(
             success => {
-                console.log(success)
+                this.blockUI.stop();
                 this.sharedService.nofiticacao(success.message, 'success')
                 this.router.navigate(['../../pages/login'])
             },
             error => {
-                console.log(error)
+                this.blockUI.stop();
                 this.sharedService.nofiticacao(error.error, 'danger')
             })
     }

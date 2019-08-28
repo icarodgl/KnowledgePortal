@@ -65,6 +65,7 @@ import { SocketService } from './_services/socketservice/socket.service';
 import { HomeComponent } from './_viewers/home/home.component';
 import { SharedService } from './_services/shared.service';
 import { CookieService } from 'ngx-cookie-service';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   exports: [
@@ -118,6 +119,7 @@ export class MaterialModule {}
         FixedpluginModule,
         HttpClientModule,
         SpeechRecognitionModule,
+        BlockUIModule.forRoot()
 
     ],entryComponents: [
       SpeechRecognitionComponent

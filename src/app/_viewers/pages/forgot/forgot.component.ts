@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/_services/index.service';
 import { SharedService } from 'app/_services/shared.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 declare var $: any;
 declare var FB: any;
@@ -15,6 +16,7 @@ declare const gapi: any;
 export class ForgotComponent implements OnInit {
     private email: string
     private toggleButton: any;
+    @BlockUI() blockUI: NgBlockUI;
 
     constructor(private element: ElementRef,
         private authService: AuthService,
@@ -38,10 +40,11 @@ export class ForgotComponent implements OnInit {
         }, 700);
     }
 
-    recuperarSenha(){
+    recuperarSenha() {
+        this.blockUI.start('Carregando');
         this.authService.forgotPassword(this.email).subscribe(
             success => {
-                console.log(success)
+                this.blockUI.stop();
                 this.sharedService.nofiticacao(success.message, 'success')
                 this.router.navigate(['../../pages/login'])
             },

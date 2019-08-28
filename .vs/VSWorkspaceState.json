@@ -4,13 +4,17 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\edit",
-    "\\src\\app\\shared\\fixedplugin",
-    "\\src\\app\\sidebar",
-    "\\src\\app\\_services\\model",
-    "\\src\\app\\_services\\user",
+    "\\src\\app\\edit\\conceptmap",
+    "\\src\\app\\edit\\conceptmap\\save",
+    "\\src\\app\\_services",
+    "\\src\\app\\_services\\auth",
+    "\\src\\app\\_services\\map",
     "\\src\\app\\_viewers",
-    "\\src\\app\\_viewers\\dashboard"
+    "\\src\\app\\_viewers\\pages",
+    "\\src\\app\\_viewers\\pages\\forgot",
+    "\\src\\app\\_viewers\\pages\\newPassword",
+    "\\src\\app\\_viewers\\pages\\register"
   ],
-  "SelectedNode": "\\src\\app\\_viewers\\dashboard\\dashboard.component.html",
+  "SelectedNode": "\\src\\app\\edit\\conceptmap\\conceptmap.component.ts",
   "PreviewInSolutionExplorer": false
 }

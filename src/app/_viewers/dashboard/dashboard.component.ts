@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                     console.log(m)
                     if (m['last_version']) {
                         this.myDiagram.model = go.Model.fromJson(m['last_version']);
-
                         svg = this.myDiagram.makeSvg({
                             scale: 0.5,
                             maxSize: new go.Size(NaN, 220)

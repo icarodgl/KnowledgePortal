@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserService, AuthService } from 'app/_services/index.service';
 import { User } from 'app/_models/user.model';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 declare const $: any;
 declare const FB: any;
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
     registerForm: FormGroup;
     test: Date = new Date();
     private userLocInformation: any;
+    @BlockUI() blockUI: NgBlockUI;
 
     constructor(
         private formBuilder: FormBuilder, 
@@ -66,12 +68,14 @@ export class RegisterComponent implements OnInit, OnDestroy{
       body.classList.remove('off-canvas-sidebar');
     }
 
-    register(e){
+    register(e) {
+        this.blockUI.start('Carregando');
         e.preventDefault();
         let user = this.registerForm.getRawValue();
         this.userService.create(user)
             .subscribe(
-                data => {
+            data => {
+                    this.blockUI.stop();
                     swal({
                         type: 'success',
                         html: 'Ótimo! <strong>' +
@@ -99,7 +103,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
                     });
                 },
                 error => {
-                    console.log(error)
+                    this.blockUI.stop();
                     swal({
                         type: 'error',
                         html: 'Oooopppss! <strong>' +

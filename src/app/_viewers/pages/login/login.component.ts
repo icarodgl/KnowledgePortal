@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { User } from 'app/_models/user.model';
 import { AuthService, UserService } from 'app/_services/index.service';
+import { NgBlockUI, BlockUI } from 'ng-block-ui';
 
 declare var $: any;
 declare var FB: any;
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private toggleButton: any;
     private sidebarVisible: boolean;
     private nativeElement: Node;
+    @BlockUI() blockUI: NgBlockUI;
 
     constructor(private element: ElementRef, private authService: AuthService, private userService:UserService, private router: Router, private route: ActivatedRoute) {
         if(this.authService.getCurrentUser()){
@@ -31,12 +33,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login() {
+        this.blockUI.start('Carregando');
         this.authService.login(this.user)
             .subscribe(_ => {
                 this.router.navigate(['dashboard']);
+                this.blockUI.stop();
             },
             error => {
-                console.log(error)
+                this.blockUI.stop();
                 $.notify({
                     icon: 'notifications',
                     message: error.error.userMessage
