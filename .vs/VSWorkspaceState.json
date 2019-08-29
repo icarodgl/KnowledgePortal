@@ -9,12 +9,8 @@
     "\\src\\app\\_services",
     "\\src\\app\\_services\\auth",
     "\\src\\app\\_services\\map",
-    "\\src\\app\\_viewers",
-    "\\src\\app\\_viewers\\pages",
-    "\\src\\app\\_viewers\\pages\\forgot",
-    "\\src\\app\\_viewers\\pages\\newPassword",
-    "\\src\\app\\_viewers\\pages\\register"
+    "\\src\\app\\_viewers"
   ],
-  "SelectedNode": "\\src\\app\\edit\\conceptmap\\conceptmap.component.ts",
+  "SelectedNode": "\\Dockerfile",
   "PreviewInSolutionExplorer": false
 }
