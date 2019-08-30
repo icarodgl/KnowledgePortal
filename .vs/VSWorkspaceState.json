@@ -1,13 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\app\\shared",
-    "\\src\\app\\_viewers",
-    "\\src\\app\\_viewers\\dashboard",
-    "\\src\\app\\_viewers\\home",
     "\\src\\environments"
   ],
-  "SelectedNode": "\\Dockerfile",
+  "SelectedNode": "\\nginx-custom.config",
   "PreviewInSolutionExplorer": false
 }
