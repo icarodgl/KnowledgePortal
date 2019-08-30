@@ -11,7 +11,6 @@ export class MapService {
     mapaAtualId: string
     private options
 
-
     constructor(private http: HttpClient,
         private authService: AuthService) {
         this.options = this.getHeaders() ;

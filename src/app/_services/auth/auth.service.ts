@@ -45,7 +45,7 @@ export class AuthService {
             .map(res => {
                 console.log(res)
                 if (res.access_token) {
-                    this.sharedService.salvaCookie(JSON.stringify(res.access_token))
+                    this.sharedService.salvaCookie(res.access_token)
                     localStorage.setItem('currentUser', JSON.stringify(res.access_token));
                 }
 
