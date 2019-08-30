@@ -2,14 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
-    "\\src\\app\\edit",
-    "\\src\\app\\edit\\conceptmap",
-    "\\src\\app\\edit\\conceptmap\\save",
-    "\\src\\app\\_services",
-    "\\src\\app\\_services\\auth",
-    "\\src\\app\\_services\\map",
-    "\\src\\app\\_viewers"
+    "\\src\\app\\shared",
+    "\\src\\app\\_viewers",
+    "\\src\\app\\_viewers\\dashboard",
+    "\\src\\app\\_viewers\\home",
+    "\\src\\environments"
   ],
   "SelectedNode": "\\Dockerfile",
   "PreviewInSolutionExplorer": false
