@@ -1,8 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src\\environments"
+    ""
   ],
-  "SelectedNode": "\\nginx-custom.config",
+  "SelectedNode": "\\nginx.conf",
   "PreviewInSolutionExplorer": false
 }

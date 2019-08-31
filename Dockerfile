@@ -1,5 +1,4 @@
-
-# Estagio 1 - Ser√° responsavel em construir nossa aplica√ß√£o
+# Estagio 1 - Ser· responsavel em construir nossa aplicaÁ„o
 FROM node:9.11.2-slim as node
 WORKDIR /app
 COPY package.json /app/
@@ -9,8 +8,7 @@ COPY ./ /app/
 ARG env=prod
 RUN npm run build
 
-# Estagio 2 - Ser√° responsavel por expor a aplica√ß√£o
-FROM nginx:alpine
-COPY dist/ /usr/share/nginx/html/
-COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80 443
+# Estagio 2 - Ser· responsavel por expor a aplicaÁ„o
+FROM nginx:1.13
+COPY --from=node /app/dist/ /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
