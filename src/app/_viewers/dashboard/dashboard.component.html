@@ -1,3 +1,4 @@
+<div id="map" #myDiagramDiv></div>
 <div class="main-content">
     <div class="container-fluid">
       <h4>Suas estatísticas</h4>
@@ -76,9 +77,10 @@
         <div class="col-md-4" *ngFor="let map of maps; index as i">
           <div class="card card-product">
             <div class="card-header card-header-image" data-header-animation="true">
-              <a [href]="images[i]">
-                <div class="mapimg"> </div>
-              </a>
+                <div class="mapimg">
+                    <div class="img" [innerHTML]="images[i]"> 
+                    </div>
+                </div>
             </div>
             <div class="card-body">
               <div class="card-actions text-center">

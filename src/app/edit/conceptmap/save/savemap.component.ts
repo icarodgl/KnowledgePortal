@@ -38,7 +38,8 @@ export class SaveMapComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        if(!!myDiagram) {
+        if (!!myDiagram) {
+            console.log(myDiagram)
             let serializer = new XMLSerializer();
             let svg = myDiagram.makeSvg({
                 scale:0.6,

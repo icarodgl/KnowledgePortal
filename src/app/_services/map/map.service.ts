@@ -34,8 +34,6 @@ export class MapService {
     }
 
     getAll(): Observable<ConceptMap[]> {
-        console.log('Bearer ' + this.authService.getCurrentUser().replace('"', ''))
-        console.log(this.authService.getCurrentUser())
         return this.http.get<ConceptMap[]>(mapApiUri, { headers: this.options });
     }
 
@@ -59,7 +57,6 @@ export class MapService {
           let send = {
             "content": JSON.parse(content)
         }
-        console.log(send)
         return this.http.post<Result>(mapApiUri + '/' + this.mapaAtualId + '/content', JSON.stringify(send), { headers: this.options });
     }
 
