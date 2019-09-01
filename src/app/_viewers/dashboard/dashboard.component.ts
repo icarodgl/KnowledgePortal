@@ -686,7 +686,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.mapService.removeMap(this.maps[posicao]._id).subscribe(
             success => {
                 console.log(success)
-                this.sharedService.nofiticacao(success.message, 'success')
+                this.sharedService.nofiticacao(JSON.parse(success).message, 'success')
                 this.maps.splice(posicao, 1)  
             },
             error => {

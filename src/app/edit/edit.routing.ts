@@ -18,6 +18,10 @@ export const EditRoutes: Routes = [
                     component: SaveMapComponent
                 },
                 {
+                    path: 'edit/:id',
+                    component: SaveMapComponent
+                },
+                {
                     path: ':id/:id2',
                     component: ConceptMapComponent
                 }

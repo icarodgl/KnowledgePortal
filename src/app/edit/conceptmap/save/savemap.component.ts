@@ -5,7 +5,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { MapService, AuthService, ModelService } from '../../../_services/index.service';
 import swal from 'sweetalert2';
 import { ConceptMap, Permission, Group, User } from '../../../_models/index.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 
@@ -19,11 +19,13 @@ export class SaveMapComponent implements OnInit{
     public map:ConceptMap;
     private search: string;
     private user:User;
+    link: string
 
     constructor(
         private _sanitizer: DomSanitizer, 
         private mapService: MapService, 
         private router: Router,
+        private routerActive: ActivatedRoute,
         private authService: AuthService,
         private modelService: ModelService,
     ){
@@ -38,6 +40,8 @@ export class SaveMapComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        this.link = this.routerActive.routeConfig.path
+        console.log(this.link)
         if (!!myDiagram) {
             console.log(myDiagram)
             let serializer = new XMLSerializer();

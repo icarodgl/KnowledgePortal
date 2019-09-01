@@ -1,7 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\edit",
+    "\\src\\app\\edit\\conceptmap",
+    "\\src\\app\\edit\\conceptmap\\save",
+    "\\src\\app\\_services",
+    "\\src\\app\\_services\\map",
+    "\\src\\app\\_viewers",
+    "\\src\\app\\_viewers\\dashboard"
   ],
-  "SelectedNode": "\\nginx.conf",
+  "SelectedNode": "\\src\\app\\_services\\map\\map.service.ts",
   "PreviewInSolutionExplorer": false
 }
