@@ -687,6 +687,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             success => {
                 console.log(success)
                 this.sharedService.nofiticacao(JSON.parse(success).message, 'success')
+                this.images.splice(posicao, 1)
                 this.maps.splice(posicao, 1)  
             },
             error => {
