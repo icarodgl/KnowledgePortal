@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comments-areas.component.scss']
 })
 export class CommentsAreasComponent implements OnInit {
-    private displayRespondeOf:Number = -1;
-    private responseTo:String = "";
+    displayRespondeOf:Number = -1;
+    responseTo:String = "";
 
-    private comments:any[] = [
+    comments:any[] = [
       {
         author: {
           name: "Wagner Perin",

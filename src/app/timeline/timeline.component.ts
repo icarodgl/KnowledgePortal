@@ -17,9 +17,9 @@ export class TimelineComponent implements AfterViewInit, OnInit {
     element: ElementRef;
     
     
-    private currentUser:User;
-    private images:SafeHtml[] = new Array<SafeHtml>();
-    private idImages:String[] = new Array<String>();
+    currentUser:User;
+    images:SafeHtml[] = new Array<SafeHtml>();
+    idImages:String[] = new Array<String>();
 
 
     constructor(

@@ -19,11 +19,11 @@ declare const $: any;
 })
 
 export class ManageGroupsComponent implements OnInit, AfterViewInit, AfterViewChecked {
-    private groupList: Group[];
-    public dataTable: DataTable;
-    public loaded: boolean = false;
-    public rendered: boolean = false; 
-    public isChecked: boolean = true;
+    groupList: Group[];
+    dataTable: DataTable;
+    loaded: boolean = false;
+    rendered: boolean = false; 
+    isChecked: boolean = true;
 
     constructor(private meService:MeService){}
 

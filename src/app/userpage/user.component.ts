@@ -21,9 +21,9 @@ interface FileReaderEvent extends Event {
 })
 
 export class UserComponent implements OnInit{
-    private user:User;
-    private editUser:User;
-    private editing:boolean = false;
+   user:User;
+   editUser:User;
+   editing:boolean = false;
 
     @ViewChild('wizardPicture') el:ElementRef;
 
@@ -51,13 +51,13 @@ export class UserComponent implements OnInit{
             
         //});
     }
-    edit(){
-        if(this.editing){
-            this.meService.updateInfo(this.editUser).subscribe(res => {
-                this.user = res;
-                this.editUser = res;
-            });
-        }
-        this.editing = !this.editing;
-    }
+    //edit(){
+    //    if(this.editing){
+    //        this.meService.updateInfo(this.editUser).subscribe(res => {
+    //            this.user = res;
+    //            this.editUser = res;
+    //        });
+    //    }
+    //    this.editing = !this.editing;
+    //}
 }

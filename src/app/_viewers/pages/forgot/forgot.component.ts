@@ -14,8 +14,8 @@ declare const gapi: any;
 })
 
 export class ForgotComponent implements OnInit {
-    private email: string
-    private toggleButton: any;
+    email: string
+    toggleButton: any;
     @BlockUI() blockUI: NgBlockUI;
 
     constructor(private element: ElementRef,

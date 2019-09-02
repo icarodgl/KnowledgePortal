@@ -16,9 +16,9 @@ declare const $: any;
     styleUrls: ['./addgroup.component.css']
 })
 export class AddGroupComponent implements OnInit, AfterViewInit{
-    public dataTable: DataTable;
-    private group:Group = new Group();
-    private search:string;
+    dataTable: DataTable;
+    group:Group = new Group();
+    search:string;
     
     constructor(private userService:UserService, private groupService:GroupService, private authService:AuthService){
         this.group.isPublic = false;

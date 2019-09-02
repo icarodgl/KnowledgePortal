@@ -15,11 +15,11 @@ declare const gapi: any;
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
-    private user: User = new User();
+    user: User = new User();
     test: Date = new Date();
-    private toggleButton: any;
-    private sidebarVisible: boolean;
-    private nativeElement: Node;
+    toggleButton: any;
+    sidebarVisible: boolean;
+    nativeElement: Node;
     @BlockUI() blockUI: NgBlockUI;
 
     constructor(private element: ElementRef, private authService: AuthService, private userService:UserService, private router: Router, private route: ActivatedRoute) {

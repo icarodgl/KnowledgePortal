@@ -19,11 +19,11 @@ export class ViewMapVersionsComponent implements OnInit {
     @ViewChild('myDiagramDiv')
     element: ElementRef;
 
-    private count:number = 0;
-    private currentMap: ConceptMap;
-    public versionList: Version[];
-    private images:SafeHtml[] = new Array<SafeHtml>();
-    private images2:SafeHtml[] = new Array<SafeHtml>();
+    count:number = 0;
+    currentMap: ConceptMap;
+    versionList: Version[];
+    images:SafeHtml[] = new Array<SafeHtml>();
+    images2:SafeHtml[] = new Array<SafeHtml>();
     constructor(
         private mapService:MapService, 
         private meService: MeService, 
