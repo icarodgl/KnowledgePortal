@@ -33,21 +33,20 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
                 this.mapId = params['id']
                 this.versionId = params['id2']
                 this.mapService.getVerisonMap(this.mapId, this.versionId).subscribe(version => {
-                    console.log(version)
                     this.mapService.setCurrentMap(version.content)
                     myDiagram.model = go.Model.fromJson(version.content)
                 })
             }
             else {
-                console.log('oiiiiii')
                 this.mapService.removeCurrentMap();
-                resetModel();
             }
         })
   }
 
-  ngAfterViewInit() {
-      
+    ngAfterViewInit() {
+        if (this.mapService.mapaAtualId) {
+            resetModel();
+        }
     let conceptNodeTemplate, relationNodeTemplate, normalLinkTemplate, orLinkTemplate, mapTemplate, selectionAdornmentTemplate;
     const $ = go.GraphObject.make;  // for conciseness in defining templates
 
@@ -684,7 +683,6 @@ export function loadModel(loadedModel) {
 
 export function resetModel() {
     let model = new go.GraphLinksModel([], []);
-    console.log(model)
     model.makeUniqueKeyFunction = function() { return uuid(); };
     model.makeUniqueLinkKeyFunction = function() { return uuid(); };
     model.linkKeyProperty = 'key';

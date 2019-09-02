@@ -36,18 +36,32 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-12 text-center" *ngIf="link=='save'">
                                     <button mat-raised-button class="btn btn-success" (click)="save()">
-                                            <span class="btn-label">
-                                                <i class="material-icons">check</i>
-                                            </span>
-                                            Salvar
+                                        <span class="btn-label">
+                                            <i class="material-icons">check</i>
+                                        </span>
+                                        Salvar
                                     </button>
                                     <button mat-raised-button class="btn btn-danger" (click)="back()">
                                         <span class="btn-label">
                                             <i class="material-icons">keyboard_arrow_left</i>
                                         </span>
                                         Voltar
+                                    </button>
+                                </div>
+                                <div class="col-md-12 text-center" *ngIf="link!='save'">
+                                    <button mat-raised-button class="btn btn-success" (click)="update()">
+                                        <span class="btn-label">
+                                            <i class="material-icons">update</i>
+                                        </span>
+                                        Atualizar
+                                    </button>
+                                    <button mat-raised-button class="btn btn-danger" (click)="delete()">
+                                        <span class="btn-label">
+                                            <i class="material-icons">delete</i>
+                                        </span>
+                                        Deletar
                                     </button>
                                 </div>
                             </div>

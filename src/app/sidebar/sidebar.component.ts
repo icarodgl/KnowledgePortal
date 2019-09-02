@@ -93,10 +93,17 @@ export class SidebarComponent implements OnInit {
             if(menuItem.title !== "Administration") return menuItem;
              else/* if(this.user.groups.filter(g=> (g.name === "Admin")).length > 0)*/ return menuItem;
         });
+        if (!this.mapService.requisizaoFeita) {
             this.mapService.getAll().subscribe(maps => {
-                console.log(maps)
-                this.maps = maps
-        })
+                this.mapService.mapas = maps
+                this.mapService.requisizaoFeita = true
+                this.maps = this.mapService.mapas
+            })
+        }
+        else {
+            console.log(this.mapService.mapas)
+            this.maps = this.mapService.mapas
+        }
 
         this.sidebarService.update.subscribe(res => {
             this.user.profile_picture = res;

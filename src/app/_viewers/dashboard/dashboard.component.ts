@@ -15,7 +15,7 @@ import { SharedService } from 'app/_services/shared.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
   @ViewChild('myDiagramDiv') element: ElementRef;
 
   private images:SafeHtml[] = new Array<SafeHtml>();
@@ -33,12 +33,31 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
     public ngOnInit() {
-        if (!this.meService.maps) {
+        this.initi()
+        if (!this.mapService.requisizaoFeita) {
             this.mapService.getAll().subscribe(maps => {
-                this.maps = maps
+                    this.mapService.requisizaoFeita = true
+                    this.mapService.mapas = maps
+                    let serializer = new XMLSerializer();
+                    let svg;
+                    for (let m of maps) {
+                        if (m['last_version']) {
+                            myDiagram.model = go.Model.fromJson(m['last_version']);
+                            svg = myDiagram.makeSvg({
+                                scale: 0.5,
+                                maxSize: new go.Size(NaN, 220)
+                            });
+                            this.images.push(this._sanitizer.bypassSecurityTrustHtml(serializer.serializeToString(svg)))
+                        }
+                    }
+                    this.maps = maps
+                })
+        }
+        else {
+                this.maps = this.mapService.mapas
                 let serializer = new XMLSerializer();
                 let svg;
-                for (let m of maps) {
+                for (let m of this.maps) {
                     if (m['last_version']) {
                         myDiagram.model = go.Model.fromJson(m['last_version']);
                         svg = myDiagram.makeSvg({
@@ -49,11 +68,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                     }
                 }
 
-            })
-        }
+            }
     }
 
-    ngAfterViewInit() {
+    initi() {
 
         let conceptNodeTemplate, relationNodeTemplate, normalLinkTemplate, orLinkTemplate, mapTemplate, selectionAdornmentTemplate;
         const $ = go.GraphObject.make;  // for conciseness in defining templates
@@ -658,9 +676,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     }
 
-   click(n){
+    click(n) {
         this.mapService.setCurrentMap(this.maps[n]);
-        this.router.navigate(['view','map']);
+        this.router.navigate(['/edit/cmap/edit/', this.maps[n]._id);
    }
    newMap(e){
        e.preventDefault();
@@ -682,16 +700,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     removeMap(posicao: number) {
-        console.log(posicao)
         this.mapService.removeMap(this.maps[posicao]._id).subscribe(
             success => {
-                console.log(success)
                 this.sharedService.nofiticacao(JSON.parse(success).message, 'success')
                 this.images.splice(posicao, 1)
                 this.maps.splice(posicao, 1)  
             },
             error => {
-                console.log(error)
                 this.sharedService.nofiticacao(error.error, 'danger')
             })
     }

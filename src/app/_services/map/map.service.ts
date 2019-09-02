@@ -5,15 +5,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import go = require('gojs');
+import swal from 'sweetalert2';
+export var myDiagram: go.Diagram;
 
 @Injectable()
 export class MapService {
     mapaAtualId: string
+    mapas: ConceptMap[]
+    requisizaoFeita: boolean = false
     private options
 
     constructor(private http: HttpClient,
         private authService: AuthService) {
-        this.options = this.getHeaders() ;
+        this.options = this.getHeaders();
     }
 
     private getHeaders(): HttpHeaders {
@@ -26,7 +31,7 @@ export class MapService {
         return headers;
     }
     updateUserMaps(): Observable<ConceptMap[]> {
-        return this.http.get<ConceptMap[]>(meApiUri+'/maps')
+        return this.http.get<ConceptMap[]>(meApiUri + '/maps')
             .map(maps => {
                 localStorage.setItem('currentUserMaps', JSON.stringify(maps));
                 return maps;
@@ -37,7 +42,7 @@ export class MapService {
         return this.http.get<ConceptMap[]>(mapApiUri, { headers: this.options });
     }
 
-    create(map: ConceptMap){
+    create(map: ConceptMap) {
         return this.http.post<Result>(mapApiUri, map, { headers: this.options });
     }
 
@@ -45,7 +50,7 @@ export class MapService {
         localStorage.setItem('currentMap', JSON.stringify(map));
     }
 
-    getCurrentMap():any {
+    getCurrentMap(): any {
         return localStorage.getItem('currentMap');
     }
 
@@ -54,7 +59,7 @@ export class MapService {
     }
 
     createVersion(content: string) {
-          let send = {
+        let send = {
             "content": JSON.parse(content)
         }
         return this.http.post<Result>(mapApiUri + '/' + this.mapaAtualId + '/content', JSON.stringify(send), { headers: this.options });
@@ -65,7 +70,9 @@ export class MapService {
     //}
 
     updateMap(mapId: string, conteudo) {
-        return this.http.put<Result>(mapApiUri + '/' + mapId, JSON.parse(conteudo));
+        console.log(mapId)
+        console.log(conteudo)
+        return this.http.put<Result>(mapApiUri + '/' + mapId, conteudo, { headers: this.options });
     }
 
 
@@ -74,10 +81,12 @@ export class MapService {
     }
 
     removeMap(mapId: string) {
+        console.log('teste')
         return this.http.delete<any>(mapApiUri + '/' + mapId, { headers: this.options });
     }
 
     getVerisonMap(mapId: string, versionId: string) {
         return this.http.get<Version>(mapApiUri + '/' + mapId + '/versions/' + versionId, { headers: this.options });
     }
+
 }

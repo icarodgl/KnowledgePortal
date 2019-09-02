@@ -41,9 +41,10 @@ export class SaveMapComponent implements OnInit{
 
     ngOnInit(): void {
         this.link = this.routerActive.routeConfig.path
-        console.log(this.link)
+        if (this.link != 'save') {
+            this.map = JSON.parse(this.mapService.getCurrentMap())
+        }
         if (!!myDiagram) {
-            console.log(myDiagram)
             let serializer = new XMLSerializer();
             let svg = myDiagram.makeSvg({
                 scale:0.6,
@@ -68,13 +69,55 @@ export class SaveMapComponent implements OnInit{
                           '</strong>. <br /> Você será redirecionado para o seu dashboard!',
                       confirmButtonClass: 'btn btn-success',
                       buttonsStyling: false
-                  }).then(() => {
-                      that.authService.updateUser()
-                          .subscribe(_ => {
-                              that.router.navigate(['dashboard']);
-                          }, error=> console.log(error));
+                }).then(() => {
+                    this.mapService.getAll().subscribe(maps => {
+                        this.mapService.mapas = maps
+                        this.router.navigate(['dashboard']);
+                    })
                   });
                 }, 
+                error => console.log(error));
+    }
+
+
+    update() {
+        let that = this;
+        this.map.keywords = this.map.keywords.map((el: any) => el.value);
+        this.mapService.updateMap(this.map._id, this.map)
+            .subscribe(
+                data => {
+                    swal({
+                        type: 'success',
+                        html: 'Ótimo! <strong>' +
+                            'Seu mapa foi atualizado' +
+                            '</strong>. <br /> Você será redirecionado para o seu dashboard!',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false
+                    }).then(() => {
+                        that.authService.updateUser()
+                        this.router.navigate(['dashboard']);
+                    });
+                },
+                error => console.log(error));
+    }
+
+    delete() {
+        let that = this;
+        this.map.keywords = this.map.keywords.map((el: any) => el.value);
+        this.mapService.removeMap(this.map._id)
+            .subscribe(
+                data => {
+                    swal({
+                        type: 'success',
+                        html: 'Ótimo! <strong>' +
+                            'Seu mapa foi deletado' +
+                            '</strong>. <br /> Você será redirecionado para o seu dashboard!',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false
+                    }).then(() => {
+                        this.router.navigate(['dashboard']);
+                    });
+                },
                 error => console.log(error));
     }
 
