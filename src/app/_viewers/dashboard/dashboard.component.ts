@@ -678,7 +678,7 @@ export class DashboardComponent implements OnInit {
 
     click(n) {
         this.mapService.setCurrentMap(this.maps[n]);
-        this.router.navigate(['/edit/cmap/edit/', this.maps[n]._id);
+        this.router.navigate(['/edit/cmap/edit/', this.maps[n]._id]);
    }
    newMap(e){
        e.preventDefault();

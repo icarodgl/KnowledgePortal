@@ -5,9 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import go = require('gojs');
-import swal from 'sweetalert2';
-export var myDiagram: go.Diagram;
+
 
 @Injectable()
 export class MapService {
