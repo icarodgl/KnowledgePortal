@@ -647,10 +647,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
 
     myDiagram.toolManager.linkingTool.linkValidation = validateLink;
     myDiagram.toolManager.relinkingTool.linkValidation = validateLink;
-    
-    let currentModel = this.modelService.getCurrentModel();
-    if(!currentModel)  loadModel(currentModel);
-    else resetModel();
+   
  }
   
   ngOnDestroy() {
