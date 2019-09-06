@@ -15,7 +15,7 @@ export var socket:SocketService;
   templateUrl: 'conceptmap.component.html'
 })
 
-export class ConceptMapComponent implements OnDestroy {
+export class ConceptMapComponent implements AfterViewInit, OnDestroy {
     @ViewChild('myDiagramDiv') element: ElementRef;
     mapId: string
     versionId: string
@@ -27,7 +27,12 @@ export class ConceptMapComponent implements OnDestroy {
         private mapService: MapService,
     ) {
         socket = s;
-        this.init()
+  }
+
+    ngAfterViewInit() {
+        if (this.mapService.mapaAtualId) {
+            resetModel();
+        }
         this.router.params.subscribe(params => {
             if (params['id']) {
                 this.mapService.mapaAtualId = params['id']
@@ -42,12 +47,6 @@ export class ConceptMapComponent implements OnDestroy {
                 this.mapService.removeCurrentMap();
             }
         })
-  }
-
-    init() {
-        if (this.mapService.mapaAtualId) {
-            resetModel();
-        }
     let conceptNodeTemplate, relationNodeTemplate, normalLinkTemplate, orLinkTemplate, mapTemplate, selectionAdornmentTemplate;
     const $ = go.GraphObject.make;  // for conciseness in defining templates
 
