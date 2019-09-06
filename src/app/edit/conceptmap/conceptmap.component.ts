@@ -15,7 +15,7 @@ export var socket:SocketService;
   templateUrl: 'conceptmap.component.html'
 })
 
-export class ConceptMapComponent implements AfterViewInit, OnDestroy {
+export class ConceptMapComponent implements OnDestroy {
     @ViewChild('myDiagramDiv') element: ElementRef;
     mapId: string
     versionId: string
@@ -27,6 +27,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
         private mapService: MapService,
     ) {
         socket = s;
+        this.init()
         this.router.params.subscribe(params => {
             if (params['id']) {
                 this.mapService.mapaAtualId = params['id']
@@ -43,7 +44,7 @@ export class ConceptMapComponent implements AfterViewInit, OnDestroy {
         })
   }
 
-    ngAfterViewInit() {
+    init() {
         if (this.mapService.mapaAtualId) {
             resetModel();
         }

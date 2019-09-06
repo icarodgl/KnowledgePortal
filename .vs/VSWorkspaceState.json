@@ -3,14 +3,15 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\edit",
-    "\\src\\app\\edit\\conceptmap",
-    "\\src\\app\\edit\\conceptmap\\save",
-    "\\src\\app\\_services",
-    "\\src\\app\\_services\\map",
-    "\\src\\app\\_viewers",
-    "\\src\\app\\_viewers\\dashboard"
+    "\\src\\app\\forms\\extendedforms",
+    "\\src\\app\\manage\\groups",
+    "\\src\\app\\manage\\groups\\add",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\fixedplugin",
+    "\\src\\app\\tools\\mapdebate",
+    "\\src\\app\\_viewers\\pages",
+    "\\src\\app\\_viewers\\pages\\forgot"
   ],
-  "SelectedNode": "\\src\\app\\_services\\map\\map.service.ts",
+  "SelectedNode": "\\src\\app\\shared\\fixedplugin\\fixedplugin.component.ts",
   "PreviewInSolutionExplorer": false
 }
