@@ -59,7 +59,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       ],
       // We can use more than one validator per field. If we want to use more than one validator we have to wrap our array of validators with a Validators.compose function. Here we are using a required, minimum length and maximum length validator.
       password: ["", Validators.required],
-      repassword: ["", [FormValidations.equalsTo("password")]]
+      repassword: [
+        "",
+        [Validators.required, FormValidations.equalsTo("password")]
+      ]
     });
 
     FB.init({
