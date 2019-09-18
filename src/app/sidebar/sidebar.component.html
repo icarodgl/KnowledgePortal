@@ -1,30 +1,28 @@
-        <div class="logo">
-          <a class="simple-text logo-mini">
-            <div class="logo-img">
-                <img src="/assets/img/conceptmap.png"/>
-            </div>
-          </a>
-            <a href="#" class="simple-text logo-normal">
-              CMPaaS Project
-            </a>
-            <p>Knowledge Portal</p> 
-        </div>
+<div class="logo">
+  <a class="simple-text logo-mini">
+    <div class="logo-img">
+      <img src="/assets/img/conceptmap.png" />
+    </div>
+  </a>
+  <a href="#" class="simple-text logo-normal">
+    CMPaaS Project
+  </a>
+  <p>Knowledge Portal</p>
+</div>
 
-
-        <div class="sidebar-wrapper">
-
-            <div class="user">
-                <div class="photo">
-                    <img src="/assets/img/conceptmap.png" />
-                </div>
-                <div class="user-info">
-                    <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                        <span style="text-transform: capitalize;">
-                            {{user.username}}
-                            <b class="caret"></b>
-                        </span>
-                    </a>
-                    <!--<div class="collapse" id="collapseExample">
+<div class="sidebar-wrapper">
+  <div class="user">
+    <div class="photo">
+      <img src="/assets/img/conceptmap.png" />
+    </div>
+    <div class="user-info">
+      <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+        <span style="text-transform: capitalize;">
+          {{ user.username }}
+          <b class="caret"></b>
+        </span>
+      </a>
+      <!--<div class="collapse" id="collapseExample">
                         <ul class="nav">
                             <li class="nav-item">
                                 <a routerLink="/pages/user" class="nav-link">
@@ -46,10 +44,10 @@
                             </li> 
                         </ul>
                     </div>-->
-                </div>
-            </div>
-            <div *ngIf="isMobileMenu()">
-              <!--<form class="navbar-form">
+    </div>
+  </div>
+  <div *ngIf="isMobileMenu()">
+    <!--<form class="navbar-form">
                 <span class="bmd-form-group"><div class="input-group no-border">
                   <input type="text" value="" class="form-control" placeholder="Pesquisar...">
                   <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -58,8 +56,8 @@
                   </button>
                 </div></span>
               </form>-->
-              <ul class="nav navbar-nav nav-mobile-menu">
-                <!--<li class="nav-item">
+    <ul class="nav navbar-nav nav-mobile-menu">
+      <!--<li class="nav-item">
                   <a class="nav-link" href="#pablo">
                     <i class="material-icons">dashboard</i>
                     <p>
@@ -67,7 +65,7 @@
                     </p>
                   </a>
                 </li>-->
-                <!--<li class="nav-item dropdown">
+      <!--<li class="nav-item dropdown">
                   <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">notifications</i>
                     <span class="notification">5</span>
@@ -83,75 +81,128 @@
                     <a class="dropdown-item" href="#">Another One</a>
                   </div>
                 </li>-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="material-icons">person</i>
-                      <p>
-                        <span class="d-lg-none d-md-block">Sua conta</span>
-                      </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                      <a class="dropdown-item" href="" (click)="logout($event)">Logout</a>
-                    </div>
-                  </li>
-              </ul>
-            </div>
-            <ul class="nav">
-                <li routerLinkActive="active" *ngFor="let menuitem of menuItems" class="nav-item">
-                    <!--If is a single link-->
-                    <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'" class="nav-link">
-                        <i class="material-icons">{{menuitem.icontype}}</i>
-                        <p>{{menuitem.title}}</p>
-                    </a>
-                    <!--If it have a submenu-->
-                    <a data-toggle="collapse" href="#{{menuitem.collapse}}" *ngIf="menuitem.type === 'sub'" (click)="updatePS()" class="nav-link">
-                        <i class="material-icons">{{menuitem.icontype}}</i>
-                        <p>{{menuitem.title}}<b class="caret"></b></p>
-                    </a>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link"
+          href=""
+          id="navbarDropdownMenuLink2"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="material-icons">person</i>
+          <p>
+            <span class="d-lg-none d-md-block">Sua conta</span>
+          </p>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="navbarDropdownMenuLink2"
+        >
+          <a class="dropdown-item" href="" (click)="logout($event)">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <ul class="nav">
+    <li
+      routerLinkActive="active"
+      *ngFor="let menuitem of menuItems"
+      class="nav-item"
+    >
+      <!--If is a single link-->
+      <a
+        (click)="goTo($event, [menuitem.path])"
+        *ngIf="menuitem.type === 'link'"
+        class="nav-link"
+      >
+        <i class="material-icons">{{ menuitem.icontype }}</i>
+        <p>{{ menuitem.title }}</p>
+      </a>
+      <!--If it have a submenu-->
+      <a
+        data-toggle="collapse"
+        href="#{{ menuitem.collapse }}"
+        *ngIf="menuitem.type === 'sub'"
+        (click)="updatePS()"
+        class="nav-link"
+      >
+        <i class="material-icons">{{ menuitem.icontype }}</i>
+        <p>{{ menuitem.title }}<b class="caret"></b></p>
+      </a>
 
-                    <!--Display the submenu items-->
-                    <div id="{{menuitem.collapse}}" class="collapse" *ngIf="menuitem.type === 'sub'">
-                        <ul class="nav">
-                            <li routerLinkActive="active" *ngFor="let childitem of menuitem.children" class="nav-item">
-                                <a [routerLink]="[menuitem.path, childitem.path]" class="nav-link">
-                                    <span class="sidebar-mini">{{childitem.ab}}</span>
-                                    <span class="sidebar-normal">{{childitem.title}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li routerLinkActive="active" class="nav-item">
-                    <!--If it have a submenu-->
-                    <a data-toggle="collapse" href="#edit" (click)="updatePS()" class="nav-link">
-                        <i class="material-icons">palette</i>
-                        <p>Editar<b class="caret"></b></p>
-                    </a>
+      <!--Display the submenu items-->
+      <div
+        id="{{ menuitem.collapse }}"
+        class="collapse"
+        *ngIf="menuitem.type === 'sub'"
+      >
+        <ul class="nav">
+          <li
+            routerLinkActive="active"
+            *ngFor="let childitem of menuitem.children"
+            class="nav-item"
+          >
+            <a [routerLink]="[menuitem.path, childitem.path]" class="nav-link">
+              <span class="sidebar-mini">{{ childitem.ab }}</span>
+              <span class="sidebar-normal">{{ childitem.title }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <!--If it have a submenu-->
+      <a
+        data-toggle="collapse"
+        href="#edit"
+        (click)="updatePS()"
+        class="nav-link"
+      >
+        <i class="material-icons">palette</i>
+        <p>Editar<b class="caret"></b></p>
+      </a>
 
-                    <!--Display the submenu items-->
-                    <div id="edit" class="collapse">
-                        <ul class="nav">
-                            <li routerLinkActive="active" class="nav-item">
-                                <a [routerLink]="['/edit/cmap']" class="nav-link">
-                                    <span class="sidebar-mini"><i class="material-icons">add</i></span>
-                                    <span class="sidebar-normal">Novo mapa conceitual</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="nav-item" *ngFor="let map of maps">
-                                <a [routerLink]="['/edit/cmap', map._id, map.versions[map.versions.length-1]]" class="nav-link">
-                                    <span class="sidebar-mini"><i class="material-icons">edit</i></span>
-                                    <span class="sidebar-normal">{{map.title}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <!-- <li class="nav-item">
+      <!--Display the submenu items-->
+      <div id="edit" class="collapse">
+        <ul class="nav">
+          <li routerLinkActive="active" class="nav-item">
+            <a (click)="goTo($event, ['/edit/cmap'])" class="nav-link">
+              <span class="sidebar-mini"
+                ><i class="material-icons">add</i></span
+              >
+              <span class="sidebar-normal">Novo mapa conceitual</span>
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            class="nav-item"
+            *ngFor="let map of maps"
+          >
+            <a
+              (click)="
+                goTo($event, [
+                  '/edit/cmap',
+                  map._id,
+                  map.versions[map.versions.length - 1]
+                ])
+              "
+              class="nav-link"
+            >
+              <span class="sidebar-mini"
+                ><i class="material-icons">edit</i></span
+              >
+              <span class="sidebar-normal">{{ map.title }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- <li class="nav-item">
         <a href="http://md-pro-angular.creative-tim.com/documentation/tutorial?ref=md-pro-archive" class="nav-link">
             <i class="material-icons">school</i>
             <p>Documentation</p>
         </a>
     </li> -->
-            </ul>
-
-        </div>
+  </ul>
+</div>
