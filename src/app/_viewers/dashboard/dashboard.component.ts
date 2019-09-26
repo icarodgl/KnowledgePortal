@@ -4,7 +4,7 @@ import * as go from 'gojs';
 export var myDiagram: go.Diagram;
 import { AuthService, MapService, MeService, ModelService } from '../../_services/index.service';
 import { User, ConceptMap } from '../../_models/index.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { SharedService } from 'app/_services/shared.service';
 
@@ -29,7 +29,17 @@ export class DashboardComponent implements OnInit {
       private meService: MeService,
       private router: Router,
       private sharedService: SharedService,
+      private route : ActivatedRoute,
   ){
+    if (route.snapshot.queryParamMap.get('reload')){
+        this.router.navigate(
+            [], 
+            {
+              relativeTo: route,
+              queryParams: {}
+            }).then(() => window.location.reload())
+        
+    }
       this.user = JSON.parse(this.authServicve.getCurrentUser());
   }
     public ngOnInit() {

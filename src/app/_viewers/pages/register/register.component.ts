@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ChangeDetectorRef
+} from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -9,7 +15,6 @@ import swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { UserService, AuthService } from "app/_services/index.service";
-import { User } from "app/_models/user.model";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { FormValidations } from "../shared/form.validator";
 
@@ -24,6 +29,8 @@ declare const gapi: any;
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   test: Date = new Date();
+  emailIsValid = true;
+  usernameIsValid = true;
   private userLocInformation: any;
   @BlockUI() blockUI: NgBlockUI;
 
@@ -58,7 +65,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         ]
       ],
       // We can use more than one validator per field. If we want to use more than one validator we have to wrap our array of validators with a Validators.compose function. Here we are using a required, minimum length and maximum length validator.
-      password: ["", Validators.required],
+      password: ["", [Validators.required, Validators.pattern("[^]{6,}")]],
       repassword: [
         "",
         [Validators.required, FormValidations.equalsTo("password")]
@@ -79,6 +86,27 @@ export class RegisterComponent implements OnInit, OnDestroy {
       error => console.log(error)
     );
   }
+  async consultaEmail() {
+    let email = this.registerForm.get("email").value;
+
+    try {
+      await this.userService.validateEmail(email).toPromise();
+      this.emailIsValid = false;
+    } catch (error) {
+      this.emailIsValid = true;
+    }
+  }
+  async consultaUsername() {
+    let username = this.registerForm.get("username").value;
+
+    try {
+      await this.userService.validateUsername(username).toPromise();
+      this.usernameIsValid = false;
+    } catch (error) {
+      this.usernameIsValid = true;
+    }
+  }
+
   matchPassword(AC: AbstractControl) {
     const password = AC.root.get("password").value; // to get value in input tag
     const confirmPassword = AC.root.get("rePassword").value; // to get value in input tag
@@ -119,9 +147,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 {
                   icon: "notifications",
                   message:
-                    "Oooopppss! <strong>" +
-                    error.json().userMessage +
-                    "</strong>. Tente novamente!"
+                    "Oooopppss!<br> <strong> Usuário ou e-mail em uso! </strong><br> Tente novamente!"
                 },
                 {
                   type: "danger",
@@ -141,9 +167,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         swal({
           type: "error",
           html:
-            "Oooopppss! <strong>" +
-            error.error +
-            "</strong>. <br /> Tente novamente",
+            "Oooopppss!<br> <strong> Usuário ou e-mail em uso! </strong><br> Tente novamente!",
           confirmButtonClass: "btn btn-danger",
           buttonsStyling: false
         });

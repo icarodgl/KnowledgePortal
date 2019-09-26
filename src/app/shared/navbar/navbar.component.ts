@@ -279,7 +279,7 @@ export class NavbarComponent implements OnInit {
       buttonsStyling: false
     }).then(result => {
       if (result.value) {
-        this.router.navigate(["/dashboard"]);
+        this.router.navigate(["/dashboard"], { queryParams: { reload: true } });
       }
     });
   }
