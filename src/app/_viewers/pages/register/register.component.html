@@ -183,6 +183,12 @@
                     }"
                   />
                 </div>
+                <div
+                  style="text-align: right"
+                  [hidden]="registerForm.get('password').valid"
+                >
+                  <span style="color: #f44336"> Minimo 6 digitos</span>
+                </div>
               </div>
               <div class="form-group has-default">
                 <div class="input-group">
