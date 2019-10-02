@@ -715,6 +715,7 @@ export class DashboardComponent implements OnInit {
                 this.sharedService.nofiticacao(JSON.parse(success).message, 'success')
                 this.images.splice(posicao, 1)
                 this.maps.splice(posicao, 1)  
+                window.location.reload();
             },
             error => {
                 this.sharedService.nofiticacao(error.error, 'danger')

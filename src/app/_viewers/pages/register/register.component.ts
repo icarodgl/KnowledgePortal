@@ -140,7 +140,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }).then(() => {
           this.authService.login(user).subscribe(
             res => {
-              this.router.navigate(["dashboard"]);
+              this.router.navigate(["dashboard"], {
+                queryParams: { reload: true }
+              });
             },
             error => {
               $.notify(
