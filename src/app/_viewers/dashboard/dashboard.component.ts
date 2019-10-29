@@ -718,7 +718,7 @@ export class DashboardComponent implements OnInit {
                 window.location.reload();
             },
             error => {
-                this.sharedService.nofiticacao(error.error, 'danger')
+                this.sharedService.nofiticacao("Não conseguimos fazer isso. :(", 'danger')
             })
     }
 }
